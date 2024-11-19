@@ -1,32 +1,36 @@
 <script setup>
+import { useBaseStore } from "@/app/stores/base";
 import InputText from "@/app/components/inputs/InputText.vue";
 import InputPassword from "@/app/components/inputs/InputPassword.vue";
 import { reactive } from "vue";
+import router from "@/app/router/index.js";
 
+const { setToken } = useBaseStore();
 
 const formData = reactive({
-  name: '',
-  surname: '',
-  patronymic: '',
-  phone: '',
-  email: '',
-  password: '',
-})
+  name: "",
+  surname: "",
+  patronymic: "",
+  phone: "",
+  email: "",
+  password: "",
+});
 
 async function onSubmit() {
-  const promise = await fetch(``, {
-    method: 'GET',
+  const promise = await fetch(`http://pgfrmrb-m1.wsr.ru/api/registration`, {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      "Content-Type": "application/json",
+      "Accept": "application/json",
     },
-    // body: JSON.stringify(formData),
-  })
+    body: JSON.stringify(formData),
+  });
 
   const response = await promise.json();
 
-  if (response.status === 200) {
-    console.log(response)
+  if (response.success) {
+    setToken(response.token);
+    await router.push({name: "Auth"});
   }
 }
 </script>
@@ -80,6 +84,16 @@ async function onSubmit() {
             label="Пароль"
             placeholder="Пароль"
             v-model="formData.password"
+            required
+          />
+        </div>
+      </div>
+      <div class="form__item form__item--full">
+        <div class="default-input">
+          <InputPassword
+            label="Пароль"
+            placeholder="Пароль"
+            v-model="formData.passwordRepeat"
             required
           />
         </div>
