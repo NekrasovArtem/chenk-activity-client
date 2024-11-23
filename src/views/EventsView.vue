@@ -17,7 +17,7 @@ onMounted(async () => {
 </script>
 
 <template>
-	<MainLayout :title="'Главная'">
+	<MainLayout :title="'Мероприятия'">
 		<BaseSection></BaseSection>
 	</MainLayout>
 </template>

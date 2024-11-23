@@ -4,8 +4,8 @@ import {useBaseStore} from "@/app/stores/base.js";
 const {getToken} = useBaseStore()
 
 const api = axios.create({
-	// baseURL: 'http://pgfrmrb-m1.wsr.ru/api',
-	baseURL: 'https://chenk-accounting/api',
+	baseURL: 'http://pgfrmrb-m1.wsr.ru/api',
+	// baseURL: 'https://chenk-accounting/api',
 	headers: {
 		'Content-Type': 'application/json',
 		'Accept': 'application/json',
@@ -28,6 +28,11 @@ async function getGroups() {
 	return await response.data;
 }
 
+async function getGroupDetail(id) {
+	const promise = await api.get(`/groups/${id}`);
+	return await promise.data;
+}
+
 async function getStudents() {
 	const promise = await api.get("/students");
 	const response = await promise.data;
@@ -38,5 +43,6 @@ export {
 	registration,
 	authorization,
 	getGroups,
+	getGroupDetail,
 	getStudents,
 };

@@ -1,3 +1,11 @@
 @mixin hover
-  &:hover
-    @content
+	&:hover
+		@content
+
+@mixin media($type, $pixels)
+	@if $type == 'max'
+		@media (max-width: $pixels)
+			@content
+	@else
+		@media (min-width: $pixels)
+			@content

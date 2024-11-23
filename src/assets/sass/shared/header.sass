@@ -1,10 +1,11 @@
+@use "../base/mixins" as mix
+
 .header
-	position: absolute
+	position: fixed
 	top: 0
 	left: 0
-	width: calc(100% - 40px)
-	height: 45px
-	padding: 20px
+	width: 100%
+	height: 85px
 	background-color: var(--color-neutral-100)
 
 
@@ -14,6 +15,10 @@
 		display: flex
 		justify-content: space-between
 		align-items: center
+		padding: 20px
+
+		@include mix.media('max', '756px')
+			padding: 10px
 
 	&__logo
 		height: 100%
@@ -26,6 +31,9 @@
 		display: flex
 		justify-content: flex-end
 		gap: 16px
+
+		@include mix.media('max', '756px')
+			display: none
 
 		&-item
 			font-size: var(--font-size-text-xl)

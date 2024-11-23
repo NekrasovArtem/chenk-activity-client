@@ -3,8 +3,8 @@ import AuthHeader from "@/app/components/shared/AuthHeader.vue";
 </script>
 
 <template>
-	<div class="page__main page__main--auth">
-		<AuthHeader/>
+	<AuthHeader/>
+	<main class="main main--auth">
 		<slot></slot>
-	</div>
+	</main>
 </template>

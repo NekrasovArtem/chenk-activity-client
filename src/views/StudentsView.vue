@@ -3,7 +3,6 @@ import router from '@/app/router';
 import {useBaseStore} from "@/app/stores/base.js";
 import {onMounted} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
-import BaseSection from "@/app/components/shared/BaseSection.vue";
 
 const {getToken} = useBaseStore();
 const token = getToken();
@@ -17,7 +16,9 @@ onMounted(async () => {
 </script>
 
 <template>
-	<MainLayout :title="'Главная'">
-		<BaseSection></BaseSection>
+	<MainLayout>
+		<section class="section">
+			<h2>Студенты</h2>
+		</section>
 	</MainLayout>
 </template>

@@ -4,7 +4,6 @@ import InputPassword from "@/app/components/inputs/InputPassword.vue";
 import {reactive} from "vue";
 import router from "@/app/router/index.js";
 import {useBaseStore} from "@/app/stores/base.js";
-import {authorization} from "@/app/api/index.js";
 import {useToastStore} from "@/app/stores/toast.js";
 
 const {setToken} = useBaseStore()
@@ -16,12 +15,22 @@ const formData = reactive({
 })
 
 async function onSubmit() {
-	const response = authorization(formData);
+	const promise = await fetch('http://pgfrmrb-m1.wsr.ru/api/authorization', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+		},
+		body: JSON.stringify(formData),
+	});
 
-	if (response) {
+
+	if (promise.ok) {
+		const response = await promise.json();
+
 		successMessage('Авторизация успешна')
 
-		setToken(response.data.token);
+		setToken(response.token);
 
 		await router.push({name: 'Home'});
 	}
