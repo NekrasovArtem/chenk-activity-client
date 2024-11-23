@@ -1,22 +1,32 @@
 .header
-  position: absolute
-  top: 0
-  left: 0
-  width: calc(100% - 40px)
-  height: 80px
-  padding: 20px
+	position: absolute
+	top: 0
+	left: 0
+	width: calc(100% - 40px)
+	height: 45px
+	padding: 20px
+	background-color: var(--color-neutral-100)
 
 
-  &__wrapper
-    width: 100%
-    height: 100%
-    display: flex
-    justify-content: space-between
-    align-items: center
+	&__wrapper
+		width: 100%
+		height: 100%
+		display: flex
+		justify-content: space-between
+		align-items: center
 
-  &__logo
-    height: 100%
+	&__logo
+		height: 100%
 
-    &-image
-      height: 100%
-      object-fit: contain
+		&-image
+			height: 100%
+			object-fit: contain
+
+	&__nav
+		display: flex
+		justify-content: flex-end
+		gap: 16px
+
+		&-item
+			font-size: var(--font-size-text-xl)
+			font-weight: 500

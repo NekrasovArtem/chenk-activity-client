@@ -4,55 +4,57 @@ import InputPassword from "@/app/components/inputs/InputPassword.vue";
 import {reactive} from "vue";
 import router from "@/app/router/index.js";
 import {useBaseStore} from "@/app/stores/base.js";
-import axios from "axios";
+import {authorization} from "@/app/api/index.js";
+import {useToastStore} from "@/app/stores/toast.js";
 
-const { setToken } = useBaseStore()
+const {setToken} = useBaseStore()
+const { successMessage } = useToastStore()
 
 const formData = reactive({
-  email: '',
-  password: '',
+	email: '',
+	password: '',
 })
 
 async function onSubmit() {
-  const promise = await axios.post('/authorization', {
-    body: formData
-  })
+	const response = authorization(formData);
 
-  const response = await promise.json();
+	if (response) {
+		successMessage('Авторизация успешна')
 
-  if (response.success) {
-    setToken(response.token);
-    await router.push({name: "Auth"});
-  }
+		setToken(response.data.token);
+
+		await router.push({name: 'Home'});
+	}
+
 }
 </script>
 
 <template>
-  <div class="form" @submit.prevent="onSubmit">
-    <h1 class="form__title">Авторизация</h1>
-    <div class="form__items">
-      <div class="form__item form__item--full">
-        <InputText
-          label="email"
-          placeholder="email"
-          v-model="formData.email"
-        />
-      </div>
-      <div class="form__item form__item--full">
-        <div class="default-input">
-          <InputPassword
-            label="password"
-            placeholder="password"
-            v-model="formData.password"
-          />
-        </div>
-      </div>
-    </div>
-    <div class="form__bottom">
-      <button type="submit" class="btn" @click="onSubmit">
-        <span class="btn__text">Войти</span>
-      </button>
-      <router-link :to="{ name: 'Register' }" class="link">Зарегистрироваться</router-link>
-    </div>
-  </div>
+	<form class="form" @submit.prevent="onSubmit">
+		<h1 class="form__title">Авторизация</h1>
+		<div class="form__items">
+			<div class="form__item form__item--full">
+				<InputText
+					label="Почта"
+					placeholder="Введите почту"
+					v-model="formData.email"
+				/>
+			</div>
+			<div class="form__item form__item--full">
+				<div class="default-input">
+					<InputPassword
+						label="Пароль"
+						placeholder="Введите пароль"
+						v-model="formData.password"
+					/>
+				</div>
+			</div>
+		</div>
+		<div class="form__bottom">
+			<button type="submit" class="btn">
+				<span class="btn__text">Войти</span>
+			</button>
+			<router-link :to="{ name: 'Register' }" class="link">Зарегистрироваться</router-link>
+		</div>
+	</form>
 </template>
