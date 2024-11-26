@@ -10,7 +10,7 @@ const token = getToken();
 
 onMounted(async () => {
 	if (!token) {
-		await router.push({name: 'Auth'})
+		await router.replace({name: 'Auth'})
 		return false;
 	}
 })
@@ -18,6 +18,7 @@ onMounted(async () => {
 
 <template>
 	<MainLayout :title="'Главная'">
-		<BaseSection></BaseSection>
+		<BaseSection :title="'Предстоящие мероприяти'"></BaseSection>
+		<BaseSection :title="'Последние мероприятия'"></BaseSection>
 	</MainLayout>
 </template>

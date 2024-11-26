@@ -1,6 +1,16 @@
 <script setup>
+
+import {useBaseStore} from "@/app/stores/base.js";
+import router from "@/app/router/index.js";
+import {useToastStore} from "@/app/stores/toast.js";
+
+const {deleteToken5173} = useBaseStore()
+const {successMessage} = useToastStore()
+
 function logout() {
-	console.log("Logout success");
+	deleteToken()
+	successMessage('Выход из аккаунта')
+	router.replace({name: 'Auth'})
 }
 </script>
 
@@ -14,7 +24,7 @@ function logout() {
 				<router-link :to="{ name: 'Events' }" class="link header__nav-item">Мероприятия</router-link>
 				<router-link :to="{ name: 'Groups' }" class="link header__nav-item">Группы</router-link>
 				<router-link :to="{ name: 'About' }" class="link header__nav-item">О системе</router-link>
-				<a class="link header__nav-item" href="#" @click="logout">Выйти</a>
+				<a class="link header__nav-item" @click="logout">Выйти</a>
 			</nav>
 		</div>
 	</header>

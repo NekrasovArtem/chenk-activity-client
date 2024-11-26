@@ -1,9 +1,9 @@
 <script setup>
-import router from '@/app/router';
+import router from '@/app/router/index.js';
 import {useBaseStore} from "@/app/stores/base.js";
 import {onMounted, ref} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
-import {getGroupDetail} from "@/app/api/index.js";
+import {getEventDetail} from "@/app/api/index.js";
 import {useRoute} from "vue-router";
 import BaseSection from "@/app/components/shared/BaseSection.vue";
 
@@ -12,10 +12,9 @@ const {getToken} = useBaseStore();
 const token = getToken();
 
 const route = useRoute()
+const eventId = route.params.id
 
-const groupId = route.params.id
-
-let group = ref(null)
+let event = ref(null)
 
 onMounted(async () => {
 	if (!token) {
@@ -23,17 +22,16 @@ onMounted(async () => {
 		return false;
 	}
 
-	group.value = await getGroupDetail(groupId);
+	event.value = await getEventDetail(eventId);
 })
 </script>
 
 <template>
-	<MainLayout :title="group?.name">
+	<MainLayout :title="event?.name">
 		<BaseSection>
-			студенты
-			<ul>
-				<li v-for="student in group?.students" :key="student.id">{{ student.initials }}</li>
-			</ul>
+			<div class="event">
+				{{ event }}
+			</div>
 		</BaseSection>
 	</MainLayout>
 </template>

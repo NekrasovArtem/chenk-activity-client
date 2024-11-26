@@ -18,5 +18,10 @@ export const useBaseStore = defineStore("base", () => {
 		state.token = value;
 	}
 
-	return {getToken, setToken};
+	function deleteToken() {
+		localStorage.removeItem("token");
+		state.token = null;
+	}
+
+	return {getToken, setToken, deleteToken};
 });

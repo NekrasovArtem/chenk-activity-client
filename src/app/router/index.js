@@ -6,12 +6,12 @@ const router = createRouter({
 		{
 			path: '/auth',
 			name: 'Auth',
-			component: () => import('@/views/AuthView.vue'),
+			component: () => import('@/views/Auth/AuthView.vue'),
 		},
 		{
 			path: '/registration',
 			name: 'Register',
-			component: () => import('@/views/RegisterView.vue'),
+			component: () => import('@/views/Auth/RegisterView.vue'),
 		},
 		{
 			path: '/',
@@ -26,22 +26,22 @@ const router = createRouter({
 		{
 			path: '/events',
 			name: 'Events',
-			component: () => import('@/views/EventsView.vue'),
+			component: () => import('@/views/Events/EventsView.vue'),
+		},
+		{
+			path: '/events/:id',
+			name: 'EventDetail',
+			component: () => import('@/views/Events/EventDetailView.vue'),
 		},
 		{
 			path: '/groups',
 			name: 'Groups',
-			component: () => import('@/views/GroupsView.vue'),
+			component: () => import('@/views/Groups/GroupsView.vue'),
 		},
 		{
 			path: '/groups/:id',
 			name: 'GroupDetail',
-			component: () => import('@/views/GroupDetailView.vue'),
-		},
-		{
-			path: '/students',
-			name: 'Students',
-			component: () => import('@/views/StudentsView.vue'),
+			component: () => import('@/views/Groups/GroupDetailView.vue'),
 		},
 	],
 })

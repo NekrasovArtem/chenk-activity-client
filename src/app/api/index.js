@@ -22,6 +22,17 @@ async function authorization(formData) {
 	return await api.post('/authorization', formData);
 }
 
+async function getEvents() {
+	const promise = await api.get("/events");
+	const response = await promise.data;
+	return await response.data;
+}
+
+async function getEventDetail(id) {
+	const promise = await api.get(`/events/${id}`);
+	return await promise.data;
+}
+
 async function getGroups() {
 	const promise = await api.get("/groups");
 	const response = await promise.data;
@@ -42,6 +53,8 @@ async function getStudents() {
 export {
 	registration,
 	authorization,
+	getEvents,
+	getEventDetail,
 	getGroups,
 	getGroupDetail,
 	getStudents,

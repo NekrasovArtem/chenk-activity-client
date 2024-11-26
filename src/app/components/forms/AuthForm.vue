@@ -5,6 +5,7 @@ import {reactive} from "vue";
 import router from "@/app/router/index.js";
 import {useBaseStore} from "@/app/stores/base.js";
 import {useToastStore} from "@/app/stores/toast.js";
+import {authorization} from "@/app/api/index.js";
 
 const {setToken} = useBaseStore()
 const { successMessage } = useToastStore()
@@ -15,24 +16,13 @@ const formData = reactive({
 })
 
 async function onSubmit() {
-	const promise = await fetch('http://pgfrmrb-m1.wsr.ru/api/authorization', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-		},
-		body: JSON.stringify(formData),
-	});
+	const promise = await authorization(formData)
 
-
-	if (promise.ok) {
-		const response = await promise.json();
-
+	if (promise.status === 200) {
+		const response = await promise.data;
 		successMessage('Авторизация успешна')
-
 		setToken(response.token);
-
-		await router.push({name: 'Home'});
+		await router.replace({name: 'Home'});
 	}
 
 }
@@ -47,16 +37,15 @@ async function onSubmit() {
 					label="Почта"
 					placeholder="Введите почту"
 					v-model="formData.email"
+					autocomplete="email"
 				/>
 			</div>
 			<div class="form__item form__item--full">
-				<div class="default-input">
-					<InputPassword
-						label="Пароль"
-						placeholder="Введите пароль"
-						v-model="formData.password"
-					/>
-				</div>
+				<InputPassword
+					label="Пароль"
+					placeholder="Введите пароль"
+					v-model="formData.password"
+				/>
 			</div>
 		</div>
 		<div class="form__bottom">

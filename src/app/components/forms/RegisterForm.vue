@@ -4,6 +4,7 @@ import InputPassword from "@/app/components/inputs/InputPassword.vue";
 import {reactive} from "vue";
 import {registration} from "@/app/api/index.js";
 import {useToastStore} from "@/app/stores/toast.js";
+import router from "@/app/router/index.js";
 
 const {successMessage, errorMessage} = useToastStore()
 
@@ -21,6 +22,7 @@ async function onSubmit() {
 
 	if (response) {
 		successMessage('Вы успешно зарегистрировались')
+		await router.replace({name: 'Auth'})
 	} else {
 		errorMessage('Ошибка!')
 	}
