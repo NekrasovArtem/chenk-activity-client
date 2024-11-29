@@ -5,13 +5,12 @@ const {getToken} = useBaseStore()
 
 const api = axios.create({
 	baseURL: 'http://pgfrmrb-m1.wsr.ru/api',
-	// baseURL: 'https://chenk-accounting/api',
 	headers: {
 		'Content-Type': 'application/json',
 		'Accept': 'application/json',
 		'Authorization': `Bearer ${getToken()}`
 	},
-
+	responseType: 'json',
 })
 
 async function registration(formData) {
@@ -30,6 +29,13 @@ async function getEvents() {
 
 async function getEventDetail(id) {
 	const promise = await api.get(`/events/${id}`);
+	return await promise.data;
+}
+
+async function exportEvents() {
+	api.defaults.responseType = "blob"
+	const promise = await api.post("/events/export");
+	api.defaults.responseType = "json"
 	return await promise.data;
 }
 
@@ -55,6 +61,7 @@ export {
 	authorization,
 	getEvents,
 	getEventDetail,
+	exportEvents,
 	getGroups,
 	getGroupDetail,
 	getStudents,

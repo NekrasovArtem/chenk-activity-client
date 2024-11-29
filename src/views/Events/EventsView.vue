@@ -4,7 +4,7 @@ import {useBaseStore} from "@/app/stores/base.js";
 import {onMounted, ref} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
 import BaseSection from "@/app/components/shared/BaseSection.vue";
-import {getEvents} from "@/app/api/index.js";
+import {exportEvents, getEvents} from "@/app/api/index.js";
 
 const {getToken} = useBaseStore();
 const token = getToken();
@@ -19,6 +19,17 @@ onMounted(async () => {
 
 	events.value = await getEvents();
 })
+
+async function getEventsExcel() {
+	const response = await exportEvents();
+
+	const href = URL.createObjectURL(response)
+	const link = document.createElement('a');
+	link.href = href;
+	link.setAttribute('download', 'events.xlsx'); //or any other extension
+	document.body.appendChild(link);
+	link.click();
+}
 </script>
 
 <template>
@@ -26,6 +37,7 @@ onMounted(async () => {
 		<BaseSection>
 			<div class="events__settings">
 				<button class="btn">Создать новое</button>
+				<button class="btn" @click="getEventsExcel">Экспорт</button>
 			</div>
 			<div class="events__items">
 				<div class="events-item" v-for="event in events" :key="event.id">
