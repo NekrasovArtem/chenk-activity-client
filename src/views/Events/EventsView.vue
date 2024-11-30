@@ -1,22 +1,12 @@
 <script setup>
-import router from '@/app/router/index.js';
-import {useBaseStore} from "@/app/stores/base.js";
 import {onMounted, ref} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
 import BaseSection from "@/app/components/shared/BaseSection.vue";
 import {exportEvents, getEvents} from "@/app/api/index.js";
 
-const {getToken} = useBaseStore();
-const token = getToken();
-
 let events = ref(null)
 
 onMounted(async () => {
-	if (!token) {
-		await router.push({name: 'Auth'})
-		return false;
-	}
-
 	events.value = await getEvents();
 })
 

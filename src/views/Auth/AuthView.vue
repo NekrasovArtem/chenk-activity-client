@@ -4,7 +4,7 @@ import AuthForm from "@/app/components/forms/AuthForm.vue";
 </script>
 
 <template>
-  <AuthLayout>
-    <AuthForm />
-  </AuthLayout>
+	<AuthLayout>
+		<AuthForm/>
+	</AuthLayout>
 </template>

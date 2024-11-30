@@ -5,7 +5,7 @@ import RegisterForm from "@/app/components/forms/RegisterForm.vue";
 </script>
 
 <template>
-  <AuthLayout>
-    <RegisterForm />
-  </AuthLayout>
+	<AuthLayout>
+		<RegisterForm/>
+	</AuthLayout>
 </template>

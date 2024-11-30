@@ -4,7 +4,7 @@ import {useBaseStore} from "@/app/stores/base.js";
 import router from "@/app/router/index.js";
 import {useToastStore} from "@/app/stores/toast.js";
 
-const {deleteToken5173} = useBaseStore()
+const {deleteToken} = useBaseStore()
 const {successMessage} = useToastStore()
 
 function logout() {

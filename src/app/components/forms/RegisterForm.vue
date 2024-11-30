@@ -18,9 +18,9 @@ const formData = reactive({
 });
 
 async function onSubmit() {
-	const response = await registration(formData)
+	const promise = registration(formData)
 
-	if (response) {
+	if (promise.status === 200) {
 		successMessage('Вы успешно зарегистрировались')
 		await router.replace({name: 'Auth'})
 	} else {
@@ -30,7 +30,7 @@ async function onSubmit() {
 </script>
 
 <template>
-	<form action="/" class="form" @submit.prevent="onSubmit">
+	<form class="form" @submit.prevent="onSubmit">
 		<h1 class="form__title">Регистрация</h1>
 		<div class="form__items">
 			<div class="form__item">
@@ -73,24 +73,20 @@ async function onSubmit() {
 				/>
 			</div>
 			<div class="form__item form__item--full">
-				<div class="default-input">
-					<InputPassword
-						label="Пароль"
-						placeholder="Пароль"
-						v-model="formData.password"
-						required
-					/>
-				</div>
+				<InputPassword
+					label="Пароль"
+					placeholder="Пароль"
+					v-model="formData.password"
+					required
+				/>
 			</div>
 			<div class="form__item form__item--full">
-				<div class="default-input">
-					<InputPassword
-						label="Пароль"
-						placeholder="Пароль"
-						v-model="formData.passwordRepeat"
-						required
-					/>
-				</div>
+				<InputPassword
+					label="Пароль"
+					placeholder="Пароль"
+					v-model="formData.passwordRepeat"
+					required
+				/>
 			</div>
 		</div>
 		<div class="form__bottom">

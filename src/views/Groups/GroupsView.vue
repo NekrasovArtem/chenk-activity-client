@@ -1,22 +1,12 @@
 <script setup>
-import router from '@/app/router/index.js';
-import {useBaseStore} from "@/app/stores/base.js";
 import {onMounted, ref} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
 import {getGroups} from "@/app/api/index.js";
 import BaseSection from "@/app/components/shared/BaseSection.vue";
 
-const {getToken} = useBaseStore();
-const token = getToken();
-
 let groups = ref(null)
 
 onMounted(async () => {
-	if (!token) {
-		await router.push({name: 'Auth'})
-		return false;
-	}
-
 	groups.value = await getGroups();
 })
 </script>

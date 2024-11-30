@@ -8,7 +8,7 @@ import {useToastStore} from "@/app/stores/toast.js";
 import {authorization} from "@/app/api/index.js";
 
 const {setToken} = useBaseStore()
-const { successMessage } = useToastStore()
+const { successMessage, errorMessage } = useToastStore()
 
 const formData = reactive({
 	email: '',
@@ -23,6 +23,8 @@ async function onSubmit() {
 		successMessage('Авторизация успешна')
 		setToken(response.token);
 		await router.replace({name: 'Home'});
+	} else {
+		errorMessage('Ошибка');
 	}
 
 }

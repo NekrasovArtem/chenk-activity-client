@@ -1,8 +1,20 @@
 <script setup>
 import MainHeader from "@/app/components/shared/MainHeader.vue";
+import {useBaseStore} from "@/app/stores/base.js";
+import {onMounted} from "vue";
+import router from "@/app/router/index.js";
 
 defineProps({
 	title: String
+})
+
+const {getToken} = useBaseStore();
+const token = getToken();
+
+onMounted(async () => {
+	if (!token) {
+		await router.replace({name: 'Auth'})
+	}
 })
 </script>
 
