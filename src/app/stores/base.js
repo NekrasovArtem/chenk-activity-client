@@ -7,8 +7,6 @@ export const useBaseStore = defineStore("base", () => {
 
 	state.token = localStorage.getItem("token");
 
-	console.log(state.token);
-
 	function getToken() {
 		return state.token;
 	}
