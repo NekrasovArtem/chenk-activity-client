@@ -8,7 +8,6 @@ const api = axios.create({
 	headers: {
 		'Content-Type': 'application/json',
 		'Accept': 'application/json',
-		'Authorization': `Bearer ${getToken()}`
 	},
 	responseType: 'json',
 })
@@ -22,36 +21,59 @@ async function authorization(formData) {
 }
 
 async function getEvents() {
-	const promise = await api.get("/events");
+	const promise = await api.get("/events", {
+		headers: {
+			Authorization: `Bearer ${getToken()}`
+		}
+	});
 	const response = await promise.data;
 	return await response.data;
 }
 
 async function getEventDetail(id) {
-	const promise = await api.get(`/events/${id}`);
+	const promise = await api.get(`/events/${id}`, {
+		headers: {
+			Authorization: `Bearer ${getToken()}`
+		}
+	});
 	return await promise.data;
 }
 
 async function exportEvents() {
-	api.defaults.responseType = "blob"
-	const promise = await api.post("/events/export");
-	api.defaults.responseType = "json"
+	const promise = await api.post("/events/export", {
+		headers: {
+			Authorization: `Bearer ${getToken()}`
+		},
+		responseType: "blob"
+	});
 	return await promise.data;
 }
 
 async function getGroups() {
-	const promise = await api.get("/groups");
+	const promise = await api.get("/groups", {
+		headers: {
+			Authorization: `Bearer ${getToken()}`
+		}
+	});
 	const response = await promise.data;
 	return await response.data;
 }
 
 async function getGroupDetail(id) {
-	const promise = await api.get(`/groups/${id}`);
+	const promise = await api.get(`/groups/${id}`, {
+		headers: {
+			Authorization: `Bearer ${getToken()}`
+		}
+	});
 	return await promise.data;
 }
 
 async function getStudents() {
-	const promise = await api.get("/students");
+	const promise = await api.get("/students", {
+		headers: {
+			Authorization: `Bearer ${getToken()}`
+		}
+	});
 	const response = await promise.data;
 	return await response.data;
 }

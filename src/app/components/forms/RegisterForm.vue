@@ -90,7 +90,7 @@ async function onSubmit() {
 			</div>
 		</div>
 		<div class="form__bottom">
-			<button class="btn">
+			<button type="submit" class="btn">
 				<span class="btn__text">Зарегистрироваться</span>
 			</button>
 			<router-link :to="{ name: 'Auth' }" class="link">Войти</router-link>
