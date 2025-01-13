@@ -1,4 +1,4 @@
-import '@/assets/sass/index.sass'
+import '@/styles/index.sass'
 import "vue-toastification/dist/index.css";
 
 import { createApp } from 'vue'
