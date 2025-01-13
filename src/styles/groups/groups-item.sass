@@ -1,4 +1,4 @@
-@use "../base/mixins" as mix
+@use "../base/mixins" as *
 
 .groups-item
 	width: 100%
@@ -10,7 +10,7 @@
 	transition: color .3s, background-color .3s, padding .3s
 	position: relative
 
-	@include mix.hover()
+	@include hover()
 		padding: 12px 8px
 		color: var(--color-neutral-100)
 		background-color: var(--color-primary-600)

@@ -1,4 +1,4 @@
-@use "../base/mixins" as mix
+@use "../base/mixins" as *
 
 .link
 	font-size: var(--font-size-text-l)
@@ -9,7 +9,7 @@
 
 	cursor: pointer
 
-	@include mix.hover
+	@include hover
 		color: var(--color-primary-400)
 
 	&:focus

@@ -4,7 +4,7 @@ import {useBaseStore} from "@/app/stores/base.js";
 const {getToken} = useBaseStore()
 
 const api = axios.create({
-	baseURL: 'http://pgfrmrb-m1.wsr.ru/api',
+	baseURL: 'https://chenk-activity.ru/api',
 	headers: {
 		'Content-Type': 'application/json',
 		'Accept': 'application/json',

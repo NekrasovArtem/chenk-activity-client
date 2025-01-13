@@ -1,11 +1,11 @@
-@use "../base/mixins" as mix
+@use "../base/mixins" as *
 
 .main
 	min-height: calc(100svh - 85px)
 	padding: 85px 20px 0
 	overflow: hidden
 
-	@include mix.media('max', '756px')
+	@include media('max', '756px')
 		padding: 85px 10px 0
 
 	&--auth

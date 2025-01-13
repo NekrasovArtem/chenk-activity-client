@@ -1,4 +1,4 @@
-@use "../base/mixins" as mix
+@use "../base/mixins" as *
 
 .header
 	position: fixed
@@ -17,7 +17,7 @@
 		align-items: center
 		padding: 20px
 
-		@include mix.media('max', '756px')
+		@include media('max', '756px')
 			padding: 10px
 
 	&__logo
@@ -32,7 +32,7 @@
 		justify-content: flex-end
 		gap: 16px
 
-		@include mix.media('max', '756px')
+		@include media('max', '756px')
 			display: none
 
 		&-item

@@ -1,4 +1,4 @@
-@use "../base/mixins" as mix
+@use "../base/mixins" as *
 
 .btn
 	--btn-px: 16px
@@ -30,7 +30,7 @@
 
 	transition: background-color .3s
 
-	@include mix.hover
+	@include hover
 		background-color: var(--btn-bg-color-hover)
 
 	&:focus
