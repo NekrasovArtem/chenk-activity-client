@@ -10,7 +10,7 @@ const {successMessage} = useToastStore()
 function logout() {
 	deleteToken()
 	successMessage('Выход из аккаунта')
-	router.replace({name: 'Auth'})
+	router.push({name: 'Auth'})
 }
 </script>
 

@@ -16,7 +16,7 @@ async function getEventsExcel() {
 	const href = URL.createObjectURL(response)
 	const link = document.createElement('a');
 	link.href = href;
-	link.setAttribute('download', 'events.xlsx'); //or any other extension
+	link.setAttribute('download', 'events.xlsx');
 	document.body.appendChild(link);
 	link.click();
 }
