@@ -21,8 +21,8 @@ async function onSubmit() {
 	if (promise.status === 200) {
 		const response = await promise.data;
 		successMessage('Авторизация успешна')
-		setToken(response.token);
-		await router.replace({name: 'Home'});
+		setToken(response.data.token);
+		await router.push({name: 'Home'});
 	} else {
 		errorMessage('Ошибка');
 	}

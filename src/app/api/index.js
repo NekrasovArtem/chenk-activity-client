@@ -50,13 +50,20 @@ async function exportEvents() {
 }
 
 async function getGroups() {
-	const promise = await api.get("/groups", {
-		headers: {
-			Authorization: `Bearer ${getToken()}`
-		}
-	});
-	const response = await promise.data;
-	return await response.data;
+	try {
+		const promise = await api.get("/groups", {
+			headers: {
+				Authorization: `Bearer ${getToken()}`
+			}
+		});
+		const response = await promise.data;
+		return await response.data;
+	} catch (error) {
+		return {
+			message: error.response.data.message,
+			status: error.status,
+		};
+	}
 }
 
 async function getGroupDetail(id) {
