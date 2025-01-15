@@ -7,7 +7,7 @@ import {useBaseStore} from "@/app/stores/base.js";
 import {useToastStore} from "@/app/stores/toast.js";
 import {authorization} from "@/app/api/index.js";
 
-const {setToken} = useBaseStore()
+const {setToken, setUser} = useBaseStore()
 const { successMessage, errorMessage } = useToastStore()
 
 const formData = reactive({
@@ -22,6 +22,7 @@ async function onSubmit() {
 		const response = await promise.data;
 		successMessage('Авторизация успешна')
 		setToken(response.data.token);
+		setUser(response.data.user);
 		await router.push({name: 'Home'});
 	} else {
 		errorMessage('Ошибка');
@@ -54,7 +55,6 @@ async function onSubmit() {
 			<button type="submit" class="btn">
 				<span class="btn__text">Войти</span>
 			</button>
-			<router-link :to="{ name: 'Register' }" class="link">Зарегистрироваться</router-link>
 		</div>
 	</form>
 </template>

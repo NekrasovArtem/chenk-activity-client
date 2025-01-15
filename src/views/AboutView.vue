@@ -17,7 +17,7 @@ import BaseSection from "@/app/components/shared/BaseSection.vue";
 				<li>Добавление студентов в базу из Excel файла</li>
 			</ul>
 			<h3>Разработчик:</h3>
-			<p>Студент группы ИСП-8-21 Лосев Артем</p>
+			<p>Студент группы ИСП-8-21 Некрасов Артем</p>
 		</BaseSection>
 	</MainLayout>
 </template>

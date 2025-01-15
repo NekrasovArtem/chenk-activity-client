@@ -1,17 +1,9 @@
 <script setup>
-
 import {useBaseStore} from "@/app/stores/base.js";
-import router from "@/app/router/index.js";
-import {useToastStore} from "@/app/stores/toast.js";
 
-const {deleteToken} = useBaseStore()
-const {successMessage} = useToastStore()
+const { getUser } = useBaseStore();
 
-function logout() {
-	deleteToken()
-	successMessage('Выход из аккаунта')
-	router.push({name: 'Auth'})
-}
+const user = getUser();
 </script>
 
 <template>
@@ -24,8 +16,8 @@ function logout() {
 				<router-link :to="{ name: 'Events' }" class="link header__nav-item">Мероприятия</router-link>
 				<router-link :to="{ name: 'Groups' }" class="link header__nav-item">Группы</router-link>
 				<router-link :to="{ name: 'About' }" class="link header__nav-item">О системе</router-link>
-				<a class="link header__nav-item" @click="logout">Выйти</a>
 			</nav>
+			<router-link :to="{ name: 'Profile' }" class="link header__user">{{ `${user.surname} ${user.name.substring(0, 1)}.` }}</router-link>
 		</div>
 	</header>
 </template>

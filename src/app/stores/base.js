@@ -3,9 +3,11 @@ import {defineStore} from "pinia";
 export const useBaseStore = defineStore("base", () => {
 	const state = () => ({
 		token: null,
+		user: null
 	});
 
 	state.token = localStorage.getItem("token");
+	state.user = JSON.parse(localStorage.getItem("user"));
 
 	console.log(state.token)
 
@@ -23,5 +25,14 @@ export const useBaseStore = defineStore("base", () => {
 		state.token = null;
 	}
 
-	return {getToken, setToken, deleteToken};
+	function getUser() {
+		return state.user;
+	}
+
+	function setUser(user) {
+		localStorage.setItem("user", JSON.stringify(user));
+		state.token = user;
+	}
+
+	return {getToken, setToken, deleteToken, getUser, setUser};
 });

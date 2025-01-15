@@ -13,7 +13,7 @@ const token = getToken();
 
 onMounted(async () => {
 	if (!token) {
-		await router.replace({name: 'Auth'})
+		await router.push({name: 'Auth'})
 	}
 })
 </script>
