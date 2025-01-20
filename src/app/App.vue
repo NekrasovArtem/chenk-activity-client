@@ -3,4 +3,5 @@
 
 <template>
 	<RouterView />
+	<div id="modals-container"></div>
 </template>

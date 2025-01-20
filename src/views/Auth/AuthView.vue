@@ -5,6 +5,6 @@ import AuthForm from "@/app/components/forms/AuthForm.vue";
 
 <template>
 	<AuthLayout>
-		<AuthForm/>
+		<AuthForm />
 	</AuthLayout>
 </template>

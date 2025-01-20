@@ -35,21 +35,19 @@ async function onSubmit() {
 	<form class="form" @submit.prevent="onSubmit">
 		<h1 class="form__title">Авторизация</h1>
 		<div class="form__items">
-			<div class="form__item form__item--full">
-				<InputText
-					label="Почта"
-					placeholder="Введите почту"
-					v-model="formData.email"
-					autocomplete="email"
-				/>
-			</div>
-			<div class="form__item form__item--full">
-				<InputPassword
-					label="Пароль"
-					placeholder="Введите пароль"
-					v-model="formData.password"
-				/>
-			</div>
+			<InputText
+				label="Почта"
+				placeholder="Введите почту"
+				v-model="formData.email"
+				autocomplete="email"
+				:class="'form__item form__item--full'"
+			/>
+			<InputPassword
+				label="Пароль"
+				placeholder="Введите пароль"
+				v-model="formData.password"
+				:class="'form__item form__item--full'"
+			/>
 		</div>
 		<div class="form__bottom">
 			<button type="submit" class="btn">

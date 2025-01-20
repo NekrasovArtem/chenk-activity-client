@@ -3,6 +3,10 @@ import {onMounted, ref} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
 import BaseSection from "@/app/components/shared/BaseSection.vue";
 import {exportEvents, getEvents} from "@/app/api/index.js";
+import NewEventModal from "@/app/components/modals/NewEventModal.vue";
+import {useModalsStore} from "@/app/stores/modals.js";
+
+const { openModal } = useModalsStore();
 
 let events = ref(null)
 
@@ -26,7 +30,7 @@ async function getEventsExcel() {
 	<MainLayout :title="'Мероприятия'">
 		<BaseSection>
 			<div class="events__settings">
-				<button class="btn">Создать новое</button>
+				<button class="btn" @click="openModal('new-event-modal')">Создать новое</button>
 				<button class="btn" @click="getEventsExcel">Экспорт</button>
 			</div>
 			<div class="events__items">
@@ -42,4 +46,5 @@ async function getEventsExcel() {
 			</div>
 		</BaseSection>
 	</MainLayout>
+	<NewEventModal />
 </template>

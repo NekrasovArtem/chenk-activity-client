@@ -15,7 +15,7 @@ const modelValue = defineModel()
 </script>
 
 <template>
-	<div class="default-input">
+	<div class="default-input" :class>
 		<label class="default-input__label">
 			{{ label }}
 			<span v-if="required" class="default-input__label-required"> *</span>

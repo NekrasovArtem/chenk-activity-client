@@ -33,61 +33,33 @@ async function onSubmit() {
 	<form class="form" @submit.prevent="onSubmit">
 		<h1 class="form__title">Регистрация</h1>
 		<div class="form__items">
-			<div class="form__item">
-				<InputText
-					label="Имя"
-					placeholder="Имя"
-					v-model="formData.name"
-					required
-				/>
-			</div>
-			<div class="form__item">
-				<InputText
-					label="Фамилия"
-					placeholder="Фамилия"
-					v-model="formData.surname"
-					required
-				/>
-			</div>
-			<div class="form__item form__item--full">
-				<InputText
-					label="Отчество"
-					placeholder="Отчество"
-					v-model="formData.patronymic"
-				/>
-			</div>
-			<div class="form__item">
-				<InputText
-					label="Телефон"
-					placeholder="+7"
-					v-model="formData.phone"
-					required
-				/>
-			</div>
-			<div class="form__item">
-				<InputText
-					label="E-mail"
-					placeholder="E-mail"
-					v-model="formData.email"
-					required
-				/>
-			</div>
-			<div class="form__item form__item--full">
-				<InputPassword
-					label="Пароль"
-					placeholder="Пароль"
-					v-model="formData.password"
-					required
-				/>
-			</div>
-			<div class="form__item form__item--full">
-				<InputPassword
-					label="Пароль"
-					placeholder="Пароль"
-					v-model="formData.passwordRepeat"
-					required
-				/>
-			</div>
+			<InputText
+				label="Имя"
+				placeholder="Имя"
+				v-model="formData.name"
+				required
+				:class="'form__item'"
+			/>
+			<InputText
+				label="Фамилия"
+				placeholder="Фамилия"
+				v-model="formData.surname"
+				required
+				:class="'form__item'"
+			/>
+			<InputText
+				label="Отчество"
+				placeholder="Отчество"
+				v-model="formData.patronymic"
+				:class="'form__item form__item--full'"
+			/>
+			<InputText
+				label="E-mail"
+				placeholder="E-mail"
+				v-model="formData.email"
+				required
+				:class="'form__item'"
+			/>
 		</div>
 		<div class="form__bottom">
 			<button type="submit" class="btn">

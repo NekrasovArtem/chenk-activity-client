@@ -21,7 +21,7 @@ const modelValue = defineModel()
 			{{ label }}
 			<span v-if="required" class="default-input__label-required"> *</span>
 		</label>
-		<input
+		<textarea
 			class="default-input__input"
 			type="text"
 			v-model="modelValue"

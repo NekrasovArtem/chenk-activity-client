@@ -1,7 +1,7 @@
 import '@/styles/_index.sass'
 import "vue-toastification/dist/index.css";
 
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import { createPinia } from 'pinia'
 import Toast, {POSITION} from "vue-toastification";
 

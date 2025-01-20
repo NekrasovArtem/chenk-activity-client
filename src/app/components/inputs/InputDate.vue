@@ -23,7 +23,7 @@ const modelValue = defineModel()
 		</label>
 		<input
 			class="default-input__input"
-			type="text"
+			type="date"
 			v-model="modelValue"
 			:id
 			:placeholder

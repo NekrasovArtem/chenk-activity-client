@@ -7,10 +7,10 @@ import {useToastStore} from "@/app/stores/toast.js";
 const {deleteToken} = useBaseStore()
 const {successMessage} = useToastStore()
 
-function logout() {
+async function logout() {
 	deleteToken()
 	successMessage('Выход из аккаунта')
-	router.push({name: 'Auth'})
+	await router.push({name: 'Home'})
 }
 
 const { getUser } = useBaseStore();
