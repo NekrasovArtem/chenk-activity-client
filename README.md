@@ -1,35 +1,27 @@
-# chenk-accounting-client
+# Клиентская часть системы ChenkActivity
+Текущие возможности:
+- [x] Авторизация
+- [x] Просмотр профиля
+- [x] Выход из аккаунта
 
-This template should help get you started developing with Vue 3 in Vite.
+Будущие возможности:
+- [ ] Регистрация пользователей
+- [ ] Импорт студентов
+- [ ] Создание мероприятий
+- [ ] Просмотр мероприятий, групп студентов
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+## Установка
+### Установка зависимостей
+```shell
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
+### Запуск локальной разработки с горячей перезагрузкой
+```shell
 npm run dev
 ```
 
-### Compile and Minify for Production
-
-```sh
+### Запуск компляции проекта для продакшена
+```shell
 npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
