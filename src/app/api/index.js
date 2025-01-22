@@ -4,7 +4,7 @@ import {useBaseStore} from "@/app/stores/base.js";
 const {getToken} = useBaseStore()
 
 const api = axios.create({
-	baseURL: 'https://chenk-activity.ru/api',
+	baseURL: import.meta.env.VITE_API_URL,
 	headers: {
 		'Content-Type': 'application/json',
 		'Accept': 'application/json',
