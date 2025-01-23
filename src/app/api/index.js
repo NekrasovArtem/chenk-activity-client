@@ -85,6 +85,16 @@ async function getStudents() {
 	return await response.data;
 }
 
+async function importStudents(formData) {
+	const promise = await api.post('/students/import', formData,{
+		headers: {
+			'Content-Type': 'multipart/form-data',
+			Authorization: `Bearer ${getToken()}`
+		},
+	})
+	return promise;
+}
+
 export {
 	registration,
 	authorization,
@@ -94,4 +104,5 @@ export {
 	getGroups,
 	getGroupDetail,
 	getStudents,
+	importStudents
 };
