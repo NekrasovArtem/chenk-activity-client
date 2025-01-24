@@ -4,6 +4,7 @@ import InputFile from "@/app/components/inputs/InputFile.vue";
 import {importStudents} from "@/app/api/index.js";
 import {useModalsStore} from "@/app/stores/modals.js";
 import {useToastStore} from "@/app/stores/toast.js";
+import DragAndDrop from "@/app/components/inputs/DragAndDrop.vue";
 
 const { closeModal } = useModalsStore();
 const { successMessage } = useToastStore();
@@ -36,13 +37,15 @@ async function onSubmit() {
 					<div class="modal__body">
 						<div class="form">
 							<div class="form__items">
-								<InputFile
-									id="file-input"
+								<DragAndDrop
+									id="drag-n-drop"
+									class="form__item form__item--full"
+									label="Выберете файл или перетащите его сюда"
 									@file-upload="fileUpload"
 								/>
 							</div>
 							<div class="form__buttons">
-								<button @click="onSubmit">Отправить</button>
+								<button class="btn" @click="onSubmit">Отправить</button>
 							</div>
 						</div>
 					</div>

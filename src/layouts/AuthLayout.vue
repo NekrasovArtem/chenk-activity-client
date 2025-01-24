@@ -4,11 +4,11 @@ import {useBaseStore} from "@/app/stores/base.js";
 import {onMounted} from "vue";
 import router from "@/app/router/index.js";
 
-const {getToken} = useBaseStore();
-const token = getToken();
+const {getUser} = useBaseStore();
+const user = getUser();
 
 onMounted(async () => {
-	if (token) {
+	if (user) {
 		await router.push({name: 'Home'})
 	}
 })

@@ -8,12 +8,12 @@ defineProps({
 	title: String
 })
 
-const {getToken} = useBaseStore();
-const token = getToken();
+const {getUser} = useBaseStore();
+const user = getUser();
 
 onMounted(async () => {
-	if (!token) {
-		await router.push({name: 'Auth'})
+	if (!user) {
+		await router.push({ name: "Auth" });
 	}
 })
 </script>
