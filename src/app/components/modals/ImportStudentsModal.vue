@@ -1,18 +1,26 @@
 <script setup>
 import BaseModal from "@/app/components/modals/BaseModal.vue";
-import InputFile from "@/app/components/inputs/InputFile.vue";
 import {importStudents} from "@/app/api/index.js";
 import {useModalsStore} from "@/app/stores/modals.js";
 import {useToastStore} from "@/app/stores/toast.js";
 import DragAndDrop from "@/app/components/inputs/DragAndDrop.vue";
+import {ref} from "vue";
 
 const { closeModal } = useModalsStore();
 const { successMessage } = useToastStore();
 
 const formData = new FormData();
+const file = ref(null)
+const errorMessage = ref(null)
 
-function fileUpload(file) {
-	formData.append("file", file);
+function fileUpload(uploadedFile) {
+	if (uploadedFile.type !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+		errorMessage.value = 'Загружаемый файл должен быть формата *.xlsx';
+		return;
+	}
+	errorMessage.value = null;
+	formData.set("files", uploadedFile);
+	file.value = uploadedFile
 }
 
 async function onSubmit() {
@@ -43,6 +51,12 @@ async function onSubmit() {
 									label="Выберете файл или перетащите его сюда"
 									@file-upload="fileUpload"
 								/>
+								<div v-if="file" class="form__item form__item--full">
+									<span>Загружаемый файл: {{ file.name }}</span>
+								</div>
+								<div v-if="errorMessage" class="form__item form__item form__item--error">
+									{{ errorMessage }}
+								</div>
 							</div>
 							<div class="form__buttons">
 								<button class="btn" @click="onSubmit">Отправить</button>

@@ -17,7 +17,15 @@ defineProps({
 const emits = defineEmits(['file-upload'])
 
 const fileInput = useTemplateRef('file-input');
-const haveFile = ref(false);
+const isActive = ref(false);
+
+function transferFile(e) {
+	isActive.value = false;
+
+	const file = e.dataTransfer.files[0];
+
+	emits('file-upload', file)
+}
 
 function fileHandler(e) {
 	const file = e.target.files[0];
@@ -41,8 +49,16 @@ function fileHandler(e) {
 			@change="fileHandler"
 			ref="file-input"
 		/>
-		<div class="drag-n-drop__container" :class="{active: haveFile}" @click="fileInput.click" @drop.prevent="fileHandler">
-			<img class="drag-n-drop__img" src="/img/upload.png" alt="alt" />
+		<div
+			class="drag-n-drop__container"
+			:class="{active: isActive}"
+			@click="fileInput.click"
+			@dragenter.prevent="isActive = true"
+			@dragover.prevent="isActive = true"
+			@dragleave.prevent="isActive = false"
+			@drop.prevent="transferFile"
+		>
+			<img class="drag-n-drop__img" src="/img/upload.png" alt="alt"/>
 			<label :for="id" class="drag-n-drop__label">
 				{{ label }}
 			</label>
@@ -72,5 +88,8 @@ function fileHandler(e) {
 		transition: background-color .3s
 
 		@include hover()
+			background-color: var(--color-primary-100-trans-30)
+
+		&.active
 			background-color: var(--color-primary-100-trans-30)
 </style>
