@@ -1,7 +1,7 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
-import {getEventDetail} from "@/app/api/index.js";
+import {api} from "@/app/api/index.js";
 import {useRoute} from "vue-router";
 import BaseSection from "@/app/components/shared/BaseSection.vue";
 
@@ -11,7 +11,7 @@ const eventId = route.params.id
 let event = ref(null)
 
 onMounted(async () => {
-	event.value = await getEventDetail(eventId);
+	event.value = await api.getEventDetail(eventId);
 })
 </script>
 

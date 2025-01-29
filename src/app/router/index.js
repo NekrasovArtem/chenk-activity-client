@@ -24,16 +24,6 @@ const router = createRouter({
 			component: () => import('@/views/ProfileView.vue'),
 		},
 		{
-			path: '/events',
-			name: 'Events',
-			component: () => import('@/views/Events/EventsView.vue'),
-		},
-		{
-			path: '/events/:id',
-			name: 'EventDetail',
-			component: () => import('@/views/Events/EventDetailView.vue'),
-		},
-		{
 			path: '/groups',
 			name: 'Groups',
 			component: () => import('@/views/Groups/GroupsView.vue'),
@@ -42,6 +32,16 @@ const router = createRouter({
 			path: '/groups/:id',
 			name: 'GroupDetail',
 			component: () => import('@/views/Groups/GroupDetailView.vue'),
+		},
+		{
+			path: '/events',
+			name: 'Events',
+			component: () => import('@/views/Events/EventsView.vue'),
+		},
+		{
+			path: '/events/:id',
+			name: 'EventDetail',
+			component: () => import('@/views/Events/EventDetailView.vue'),
 		},
 	],
 })

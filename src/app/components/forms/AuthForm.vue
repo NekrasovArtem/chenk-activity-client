@@ -5,7 +5,7 @@ import {reactive} from "vue";
 import router from "@/app/router/index.js";
 import {useBaseStore} from "@/app/stores/base.js";
 import {useToastStore} from "@/app/stores/toast.js";
-import {authorization} from "@/app/api/index.js";
+import {api} from "@/app/api/index.js";
 
 const {setToken, setUser} = useBaseStore()
 const { successMessage, errorMessage } = useToastStore()
@@ -16,14 +16,19 @@ const formData = reactive({
 })
 
 async function onSubmit() {
-	const promise = await authorization(formData)
+	const promise = await api.authorization(formData)
 
 	if (promise.status === 200) {
 		const response = await promise.data;
-		successMessage('Авторизация успешна')
+
 		setToken(response.data.token);
 		setUser(response.data.user);
-		await router.push({name: 'Home'});
+
+		successMessage('Авторизация успешна');
+
+		setTimeout(() => {
+			router.push({name: 'Home'});
+		}, 2000)
 	} else {
 		errorMessage('Ошибка');
 	}

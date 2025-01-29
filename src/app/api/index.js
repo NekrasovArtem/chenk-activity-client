@@ -3,105 +3,116 @@ import {useBaseStore} from "@/app/stores/base.js";
 
 const {getToken} = useBaseStore()
 
-const api = axios.create({
-	baseURL: import.meta.env.VITE_API_URL,
-	headers: {
-		'Content-Type': 'application/json',
-		'Accept': 'application/json',
-	},
-	responseType: 'json',
-})
+// const api = axios.create({
+// 	baseURL: import.meta.env.VITE_API_URL,
+// 	headers: {
+// 		'Content-Type': 'application/json',
+// 		'Accept': 'application/json',
+// 	},
+// 	responseType: 'json',
+// })
 
-async function registration(formData) {
-	return await api.post('/registration', formData);
-}
-
-async function authorization(formData) {
-	return await api.post('/authorization', formData);
-}
-
-async function getEvents() {
-	const promise = await api.get("/events", {
+class BaseApi {
+	 _api = axios.create({
+		baseURL: import.meta.env.VITE_API_URL,
 		headers: {
-			Authorization: `Bearer ${getToken()}`
-		}
-	});
-	const response = await promise.data;
-	return await response.data;
-}
-
-async function getEventDetail(id) {
-	const promise = await api.get(`/events/${id}`, {
-		headers: {
-			Authorization: `Bearer ${getToken()}`
-		}
-	});
-	return await promise.data;
-}
-
-async function exportEvents() {
-	const promise = await api.post("/events/export", {
-		headers: {
-			Authorization: `Bearer ${getToken()}`
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
 		},
-		responseType: "blob"
-	});
-	return await promise.data;
-}
+		responseType: 'json',
+	})
 
-async function getGroups() {
-	try {
-		const promise = await api.get("/groups", {
+	async registration(formData) {
+		return await this._api.post('/registration', formData);
+	}
+
+	async authorization(formData) {
+		return await this._api.post('/authorization', formData);
+	}
+
+	async getEvents() {
+		const promise = await this._api.get("/events", {
 			headers: {
 				Authorization: `Bearer ${getToken()}`
 			}
 		});
 		const response = await promise.data;
 		return await response.data;
-	} catch (error) {
-		return {
-			message: error.response.data.message,
-			status: error.status,
-		};
+	}
+
+	async getEventDetail(id) {
+		const promise = await this._api.get(`/events/${id}`, {
+			headers: {
+				Authorization: `Bearer ${getToken()}`
+			}
+		});
+		return await promise.data;
+	}
+
+	async exportEvents() {
+		const promise = await this._api.post("/events/export", {
+			headers: {
+				Authorization: `Bearer ${getToken()}`
+			},
+			responseType: "blob"
+		});
+		return await promise.data;
+	}
+
+	async getSpecializations() {
+		const promise = await this._api.get("/specialties", {
+			headers: {
+				Authorization: `Bearer ${getToken()}`
+			}
+		});
+		return await promise.data.data;
+	}
+
+	async getGroups() {
+		const promise = await this._api.get("/groups", {
+			headers: {
+				Authorization: `Bearer ${getToken()}`
+			}
+		});
+		return await promise.data;
+	}
+
+	async getGroupDetail(id) {
+		const promise = await this._api.get(`/groups/${id}`, {
+			headers: {
+				Authorization: `Bearer ${getToken()}`
+			}
+		});
+		return await promise.data;
+	}
+
+	async createGroups(data) {
+		const promise = await this._api.post("/groups", data,{
+			headers: {
+				Authorization: `Bearer ${getToken()}`
+			},
+		});
+		return await promise.data;
+	}
+
+	async getStudents() {
+		const promise = await this._api.get("/students", {
+			headers: {
+				Authorization: `Bearer ${getToken()}`
+			}
+		});
+		const response = await promise.data;
+		return await response.data;
+	}
+
+	async importStudents(formData) {
+		return await this._api.post('/students/import', formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				Authorization: `Bearer ${getToken()}`
+			},
+		});
 	}
 }
 
-async function getGroupDetail(id) {
-	const promise = await api.get(`/groups/${id}`, {
-		headers: {
-			Authorization: `Bearer ${getToken()}`
-		}
-	});
-	return await promise.data;
-}
-
-async function getStudents() {
-	const promise = await api.get("/students", {
-		headers: {
-			Authorization: `Bearer ${getToken()}`
-		}
-	});
-	const response = await promise.data;
-	return await response.data;
-}
-
-async function importStudents(formData) {
-	return await api.post('/students/import', formData, {
-		headers: {
-			'Content-Type': 'multipart/form-data',
-			Authorization: `Bearer ${getToken()}`
-		},
-	});
-}
-
-export {
-	registration,
-	authorization,
-	getEvents,
-	getEventDetail,
-	exportEvents,
-	getGroups,
-	getGroupDetail,
-	getStudents,
-	importStudents
-};
+export const api = new BaseApi();

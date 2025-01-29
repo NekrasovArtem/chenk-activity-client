@@ -1,17 +1,19 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
-import {getGroups} from "@/app/api/index.js";
+import {api} from "@/app/api/index.js";
 import BaseSection from "@/app/components/shared/BaseSection.vue";
 import {useModalsStore} from "@/app/stores/modals.js";
 import ImportStudentsModal from "@/app/components/modals/ImportStudentsModal.vue";
+import CreateGroupModal from "@/app/components/modals/CreateGroupModal.vue";
 
 const { openModal } = useModalsStore();
 
 let groups = ref(null)
 
 onMounted(async () => {
-	groups.value = await getGroups();
+	groups.value = await api.getGroups();
+	console.log(groups.value);
 })
 </script>
 
@@ -20,9 +22,10 @@ onMounted(async () => {
 		<BaseSection>
 			<div class="groups__actions">
 				<button class="btn" @click="openModal('import-students-modal')">Импорт</button>
+				<button class="btn" @click="openModal('create-group-modal')">Создать группу</button>
 			</div>
 
-			<template v-if="groups?.value?.status === 200">
+			<template v-if="groups?.value?.success">
 				<div v-for="group in groups"  :key="group.id" class="groups-item">
 					<div class="groups-item__id">{{ group.id }}</div>
 					<div class="groups-item__name">{{ group.name }}</div>
@@ -31,8 +34,10 @@ onMounted(async () => {
 				</div>
 			</template>
 
-			<span>Группы не найдены</span>
+			<span v-else>Группы не найдены</span>
 		</BaseSection>
 	</MainLayout>
+
+	<CreateGroupModal />
 	<ImportStudentsModal />
 </template>

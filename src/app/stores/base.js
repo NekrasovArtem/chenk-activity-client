@@ -9,8 +9,6 @@ export const useBaseStore = defineStore("base", () => {
 	state.token = localStorage.getItem("token");
 	state.user = JSON.parse(localStorage.getItem("user"));
 
-	console.log(state.token)
-
 	function getToken() {
 		return state.token;
 	}
@@ -20,9 +18,11 @@ export const useBaseStore = defineStore("base", () => {
 		state.token = value;
 	}
 
-	function deleteToken() {
+	function deleteData() {
 		localStorage.removeItem("token");
+		localStorage.removeItem("user");
 		state.token = null;
+		state.user = null;
 	}
 
 	function getUser() {
@@ -34,5 +34,5 @@ export const useBaseStore = defineStore("base", () => {
 		state.token = user;
 	}
 
-	return {getToken, setToken, deleteToken, getUser, setUser};
+	return {getToken, setToken, deleteData, getUser, setUser};
 });

@@ -2,7 +2,7 @@
 import {onMounted, ref} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
 import BaseSection from "@/app/components/shared/BaseSection.vue";
-import {exportEvents, getEvents} from "@/app/api/index.js";
+import {api} from "@/app/api/index.js";
 import NewEventModal from "@/app/components/modals/NewEventModal.vue";
 import {useModalsStore} from "@/app/stores/modals.js";
 
@@ -11,11 +11,11 @@ const { openModal } = useModalsStore();
 let events = ref(null)
 
 onMounted(async () => {
-	events.value = await getEvents();
+	events.value = await api.getEvents();
 })
 
 async function getEventsExcel() {
-	const response = await exportEvents();
+	const response = await api.exportEvents();
 
 	const href = URL.createObjectURL(response)
 	const link = document.createElement('a');

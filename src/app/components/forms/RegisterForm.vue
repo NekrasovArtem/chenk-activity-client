@@ -1,8 +1,7 @@
 <script setup>
 import InputText from "@/app/components/inputs/InputText.vue";
-import InputPassword from "@/app/components/inputs/InputPassword.vue";
 import {reactive} from "vue";
-import {registration} from "@/app/api/index.js";
+import {api} from "@/app/api/index.js";
 import {useToastStore} from "@/app/stores/toast.js";
 import router from "@/app/router/index.js";
 
@@ -18,7 +17,7 @@ const formData = reactive({
 });
 
 async function onSubmit() {
-	const promise = registration(formData)
+	const promise = api.registration(formData)
 
 	if (promise.status === 200) {
 		successMessage('Вы успешно зарегистрировались')

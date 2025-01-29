@@ -1,7 +1,7 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
-import {getGroupDetail} from "@/app/api/index.js";
+import {api} from "@/app/api/index.js";
 import {useRoute} from "vue-router";
 import BaseSection from "@/app/components/shared/BaseSection.vue";
 
@@ -11,7 +11,7 @@ const groupId = route.params.id
 let group = ref(null)
 
 onMounted(async () => {
-	group.value = await getGroupDetail(groupId);
+	group.value = await api.getGroupDetail(groupId);
 })
 </script>
 

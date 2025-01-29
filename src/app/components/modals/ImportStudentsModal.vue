@@ -1,6 +1,6 @@
 <script setup>
 import BaseModal from "@/app/components/modals/BaseModal.vue";
-import {importStudents} from "@/app/api/index.js";
+import {api} from "@/app/api/index.js";
 import {useModalsStore} from "@/app/stores/modals.js";
 import {useToastStore} from "@/app/stores/toast.js";
 import DragAndDrop from "@/app/components/inputs/DragAndDrop.vue";
@@ -24,7 +24,7 @@ function fileUpload(uploadedFile) {
 }
 
 async function onSubmit() {
-	const response = await importStudents(formData);
+	const response = await api.importStudents(formData);
 
 	if (response.status === 200) {
 		closeModal('import-students-modal');
