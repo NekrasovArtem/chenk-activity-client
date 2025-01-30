@@ -13,7 +13,6 @@ let groups = ref(null)
 
 onMounted(async () => {
 	groups.value = await api.getGroups();
-	console.log(groups.value);
 })
 </script>
 

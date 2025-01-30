@@ -1,5 +1,6 @@
 import '@/styles/_index.sass'
-import "vue-toastification/dist/index.css";
+import 'vue-toastification/dist/index.css';
+import '@vueform/multiselect/themes/default.css'
 
 import {createApp} from 'vue'
 import { createPinia } from 'pinia'

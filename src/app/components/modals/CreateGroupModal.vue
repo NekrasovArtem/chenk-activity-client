@@ -4,6 +4,8 @@ import InputText from "@/app/components/inputs/InputText.vue";
 import {onMounted, reactive, ref} from "vue";
 import {api} from "@/app/api/index.js";
 import router from "@/app/router/index.js";
+import Multiselect from "@vueform/multiselect";
+import InputSelect from "@/app/components/inputs/InputSelect.vue";
 
 const formData = reactive({
 	name: '',
@@ -42,9 +44,11 @@ onMounted(async () => {
 									class="form__item form__item--full"
 									v-model="formData.name"
 								/>
-								<select class="form__item form__item--full" v-model="formData.specialization_id">
-									<option v-for="spec in specialties" :value="spec.id">{{ spec.name }}</option>
-								</select>
+								<InputSelect
+									v-model="formData.specialization_id"
+									class="form__item form__item--full"
+									:options="specialties"
+								/>
 							</div>
 							<div class="form__bottom">
 								<button class="btn" @click="onSubmit">Создать</button>
