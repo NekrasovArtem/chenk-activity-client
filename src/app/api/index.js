@@ -74,7 +74,7 @@ class BaseApi {
 				Authorization: `Bearer ${getToken()}`
 			}
 		});
-		return await promise.data;
+		return await promise.data.data;
 	}
 
 	async getGroupDetail(id) {

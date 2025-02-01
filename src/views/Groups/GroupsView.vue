@@ -13,6 +13,8 @@ let groups = ref(null)
 
 onMounted(async () => {
 	groups.value = await api.getGroups();
+
+	// console.log(groups.value);
 })
 </script>
 
@@ -24,16 +26,13 @@ onMounted(async () => {
 				<button class="btn" @click="openModal('create-group-modal')">Создать группу</button>
 			</div>
 
-			<template v-if="groups?.value?.success">
-				<div v-for="group in groups"  :key="group.id" class="groups-item">
-					<div class="groups-item__id">{{ group.id }}</div>
-					<div class="groups-item__name">{{ group.name }}</div>
-					<div class="groups-item__specialty">{{ group.specialty.name }}</div>
-					<router-link class="groups-item__link" :to="{ name: 'GroupDetail', params: { id: group.id } }"/>
-				</div>
-			</template>
+			<div v-for="group in groups"  :key="group.id" class="groups-item">
+				<div class="groups-item__id">{{ group.id }}</div>
+				<div class="groups-item__name">{{ group.name }}</div>
+				<div class="groups-item__specialty">{{ group.specialty }}</div>
+				<router-link class="groups-item__link" :to="{ name: 'GroupDetail', params: { id: group.id } }"/>
+			</div>
 
-			<span v-else>Группы не найдены</span>
 		</BaseSection>
 	</MainLayout>
 

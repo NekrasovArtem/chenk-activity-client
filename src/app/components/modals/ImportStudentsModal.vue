@@ -4,33 +4,56 @@ import {api} from "@/app/api/index.js";
 import {useModalsStore} from "@/app/stores/modals.js";
 import {useToastStore} from "@/app/stores/toast.js";
 import DragAndDrop from "@/app/components/inputs/DragAndDrop.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import InputSelect from "@/app/components/inputs/InputSelect.vue";
 
 const { closeModal } = useModalsStore();
-const { successMessage } = useToastStore();
+const { successMessage, errorMessage } = useToastStore();
 
 const formData = new FormData();
 const file = ref(null)
-const errorMessage = ref(null)
+const error = ref(null)
+const groups = ref(null)
+const groupId = ref(0)
 
 function fileUpload(uploadedFile) {
 	if (uploadedFile.type !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
-		errorMessage.value = 'Загружаемый файл должен быть формата *.xlsx';
+		error.value = 'Загружаемый файл должен быть формата *.xlsx';
 		return;
 	}
-	errorMessage.value = null;
-	formData.set("files", uploadedFile);
+
+	error.value = null;
+	formData.set("file", uploadedFile);
 	file.value = uploadedFile
 }
 
 async function onSubmit() {
+	formData.set("group", groupId.value);
+	console.log(formData.get("group"));
 	const response = await api.importStudents(formData);
 
-	if (response.status === 200) {
+	console.log(response)
+
+	if (response.data.success) {
 		closeModal('import-students-modal');
 		successMessage('Студенты загружены')
+		return;
 	}
+
+	errorMessage('Ошибка');
 }
+
+onMounted(async () => {
+	const response = await api.getGroups();
+
+	groups.value = response.map((item) => {
+		return {
+			...item,
+			label: item.name,
+			value: item.id,
+		}
+	})
+})
 </script>
 
 <template>
@@ -45,6 +68,19 @@ async function onSubmit() {
 					<div class="modal__body">
 						<div class="form">
 							<div class="form__items">
+								<InputSelect
+									id="group-name"
+									class="form__item form__item--full"
+									label="Группа:"
+									placeholder="Выберите группы"
+									:searchable="true"
+									:options="groups"
+									v-model="groupId"
+								>
+									<template #option="{ option }">
+										<div class="option">{{ option.label }}</div>
+									</template>
+								</InputSelect>
 								<DragAndDrop
 									id="drag-n-drop"
 									class="form__item form__item--full"
@@ -54,8 +90,8 @@ async function onSubmit() {
 								<div v-if="file" class="form__item form__item--full">
 									<span>Загружаемый файл: {{ file.name }}</span>
 								</div>
-								<div v-if="errorMessage" class="form__item form__item form__item--error">
-									{{ errorMessage }}
+								<div v-if="error" class="form__item form__item form__item--error">
+									{{ error }}
 								</div>
 							</div>
 							<div class="form__buttons">

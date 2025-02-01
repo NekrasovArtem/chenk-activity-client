@@ -12,6 +12,8 @@ let group = ref(null)
 
 onMounted(async () => {
 	group.value = await api.getGroupDetail(groupId);
+
+	console.log(group.value)
 })
 </script>
 

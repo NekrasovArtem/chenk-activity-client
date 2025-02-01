@@ -4,8 +4,7 @@ import InputText from "@/app/components/inputs/InputText.vue";
 import {onMounted, reactive, ref} from "vue";
 import {api} from "@/app/api/index.js";
 import router from "@/app/router/index.js";
-import Multiselect from "@vueform/multiselect";
-import InputSelect from "@/app/components/inputs/InputSelect.vue";
+import SpecializationSelect from "@/app/components/shared/SpecializationSelect.vue";
 
 const formData = reactive({
 	name: '',
@@ -17,13 +16,23 @@ const specialties = ref(null);
 async function onSubmit() {
 	const response = await api.createGroups(formData);
 
+	console.log(response);
+
 	if (response.success) {
 		await router.push({name: 'Groups'})
 	}
 }
 
 onMounted(async () => {
-	specialties.value =  await api.getSpecializations();
+	const response =  await api.getSpecializations();
+
+	specialties.value = response.map((item) => {
+		return {
+			...item,
+			label: item.name,
+			value: item.id,
+		}
+	})
 })
 </script>
 
@@ -42,11 +51,16 @@ onMounted(async () => {
 								<InputText
 									id="group-name"
 									class="form__item form__item--full"
+									label="Название:"
+									placeholder="Введите название группы"
 									v-model="formData.name"
 								/>
-								<InputSelect
-									v-model="formData.specialization_id"
+								<SpecializationSelect
+									id="group-specialization"
 									class="form__item form__item--full"
+									label="Специальность:"
+									placeholder="Выберите специальность группы"
+									v-model="formData.specialization_id"
 									:options="specialties"
 								/>
 							</div>
@@ -60,3 +74,7 @@ onMounted(async () => {
 		</BaseModal>
 	</teleport>
 </template>
+
+<style lang="sass">
+
+</style>
