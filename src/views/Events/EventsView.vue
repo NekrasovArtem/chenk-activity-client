@@ -28,23 +28,27 @@ async function getEventsExcel() {
 
 <template>
 	<MainLayout :title="'Мероприятия'">
-		<BaseSection>
-			<div class="events__settings">
+		<BaseSection :title="'Список мероприятий'" class="events">
+			<template #actions>
 				<button class="btn" @click="openModal('new-event-modal')">Создать новое</button>
 				<button class="btn" @click="getEventsExcel">Экспорт</button>
-			</div>
-			<div class="events__items">
-				<div class="events-item" v-for="event in events" :key="event.id">
-					<div class="events-item__id">{{ event.id }}</div>
-					<div class="events-item__title">{{ event.shortname }}</div>
-					<div class="events-item__date">{{ event.date_start }}</div>
-					<div class="events-item__type">{{ event.direction }}</div>
-					<div class="events-item__place">{{ event.place }}</div>
-					<div class="events-item__profession">{{ event.profession }}</div>
-					<router-link :to="{name: 'EventDetail', params: {id: event.id}}" class="events-item__link"></router-link>
+			</template>
+
+			<template #default>
+				<div class="events__items">
+					<div class="events-item" v-for="event in events" :key="event.id">
+						<div class="events-item__id">{{ event.id }}</div>
+						<div class="events-item__title">{{ event.shortname }}</div>
+						<div class="events-item__date">{{ event.date_start }}</div>
+						<div class="events-item__type">{{ event.direction }}</div>
+						<div class="events-item__place">{{ event.place }}</div>
+						<div class="events-item__profession">{{ event.profession }}</div>
+						<router-link :to="{name: 'EventDetail', params: {id: event.id}}" class="events-item__link"></router-link>
+					</div>
 				</div>
-			</div>
+			</template>
 		</BaseSection>
 	</MainLayout>
+
 	<NewEventModal />
 </template>

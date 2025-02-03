@@ -95,14 +95,13 @@ class BaseApi {
 		return await promise.data;
 	}
 
-	async getStudents() {
-		const promise = await this._api.get("/students", {
+	async getStudentsByGroup(groupId) {
+		const promise = await this._api.get(`/students/group/${groupId}`, {
 			headers: {
 				Authorization: `Bearer ${getToken()}`
 			}
 		});
-		const response = await promise.data;
-		return await response.data;
+		return await promise.data;
 	}
 
 	async importStudents(formData) {

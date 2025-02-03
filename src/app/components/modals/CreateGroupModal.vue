@@ -3,8 +3,14 @@ import BaseModal from "@/app/components/modals/BaseModal.vue";
 import InputText from "@/app/components/inputs/InputText.vue";
 import {onMounted, reactive, ref} from "vue";
 import {api} from "@/app/api/index.js";
-import router from "@/app/router/index.js";
 import SpecializationSelect from "@/app/components/shared/SpecializationSelect.vue";
+import {useToastStore} from "@/app/stores/toast.js";
+import {useModalsStore} from "@/app/stores/modals.js";
+
+const { closeModal } = useModalsStore();
+const { successMessage } = useToastStore();
+
+const emits = defineEmits(['updateGroups']);
 
 const formData = reactive({
 	name: '',
@@ -16,10 +22,10 @@ const specialties = ref(null);
 async function onSubmit() {
 	const response = await api.createGroups(formData);
 
-	console.log(response);
-
 	if (response.success) {
-		await router.push({name: 'Groups'})
+		emits('updateGroups');
+		successMessage('Группа создаан');
+		closeModal('create-group-modal');
 	}
 }
 
@@ -60,6 +66,7 @@ onMounted(async () => {
 									class="form__item form__item--full"
 									label="Специальность:"
 									placeholder="Выберите специальность группы"
+									searchable
 									v-model="formData.specialization_id"
 									:options="specialties"
 								/>

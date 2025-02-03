@@ -16,7 +16,7 @@ const toastConfig = {
 }
 
 app.use(createPinia())
-app.use(router)
 app.use(Toast, toastConfig)
+app.use(router)
 
 app.mount('#app')

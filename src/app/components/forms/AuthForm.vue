@@ -26,9 +26,7 @@ async function onSubmit() {
 
 		successMessage('Авторизация успешна');
 
-		setTimeout(() => {
-			router.push({name: 'Home'});
-		}, 2000)
+		await router.replace({name: 'Home'});
 	} else {
 		errorMessage('Ошибка');
 	}
