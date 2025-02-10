@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 import MainLayout from "@/layouts/MainLayout.vue";
-import BaseSection from "@/app/components/shared/BaseSection.vue";
+import BaseSection from "@/components/shared/BaseSection.vue";
 </script>
 
 <template>

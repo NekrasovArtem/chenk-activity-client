@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 import AuthLayout from '@/layouts/AuthLayout.vue';
-import AuthForm from "@/app/components/forms/AuthForm.vue";
+import AuthForm from "@/components/forms/AuthForm.vue";
 </script>
 
 <template>

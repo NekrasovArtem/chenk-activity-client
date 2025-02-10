@@ -1,14 +1,14 @@
-<script setup>
-import AuthHeader from "@/app/components/shared/AuthHeader.vue";
-import {useBaseStore} from "@/app/stores/base.js";
+<script setup lang="ts">
+import AuthHeader from "@/components/shared/AuthHeader.vue";
+import {useBaseStore} from "@/stores/base.js";
 import {onMounted} from "vue";
-import router from "@/app/router/index.js";
+import router from "@/router/index.ts";
+import {storeToRefs} from "pinia";
 
-const {getUser} = useBaseStore();
-const user = getUser();
+const {userData} = storeToRefs(useBaseStore());
 
 onMounted(async () => {
-	if (user) {
+	if (userData.value) {
 		await router.push({name: 'Home'})
 	}
 })

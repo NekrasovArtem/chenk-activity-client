@@ -1,8 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import MainLayout from "@/layouts/MainLayout.vue";
-import router from "@/app/router/index.js";
-import {useBaseStore} from "@/app/stores/base.js";
-import {useToastStore} from "@/app/stores/toast.js";
+import router from "@/router/index.js";
+import {useBaseStore} from "@/stores/base.js";
+import {useToastStore} from "@/stores/toast.ts";
+import {storeToRefs} from "pinia";
 
 const {deleteData} = useBaseStore()
 const {successMessage} = useToastStore()
@@ -13,9 +14,7 @@ async function logout() {
 	await router.push({name: 'Home'});
 }
 
-const { getUser } = useBaseStore();
-
-const user = getUser();
+const { userData } = storeToRefs(useBaseStore());
 </script>
 
 <template>
@@ -23,8 +22,8 @@ const user = getUser();
 		<section class="section profile">
 			<div class="profile__wrapper">
 				<div class="profile__info">
-					<h2 class="profile__title">{{ `${user?.surname} ${user?.name} ${user?.patronymic}` }}</h2>
-					<span class="profile__email">Почта: {{ user?.email }}</span>
+					<h2 class="profile__title">{{ `${userData?.surname} ${userData?.name} ${userData?.patronymic}` }}</h2>
+					<span class="profile__email">Почта: {{ userData?.email }}</span>
 				</div>
 				<div class="profile__actions">
 					<button class="btn btn--secondary" @click="logout">Выйти</button>

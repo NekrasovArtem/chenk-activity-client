@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import {onMounted, ref} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
-import BaseSection from "@/app/components/shared/BaseSection.vue";
-import {useModalsStore} from "@/app/stores/modals.js";
-import ImportStudentsModal from "@/app/components/modals/ImportStudentsModal.vue";
-import CreateGroupModal from "@/app/components/modals/CreateGroupModal.vue";
-import {useGroupsStore} from "@/app/stores/groups.js";
+import BaseSection from "@/components/shared/BaseSection.vue";
+import {useModalsStore} from "@/stores/modals.js";
+import ImportStudentsModal from "@/components/modals/ImportStudentsModal.vue";
+import CreateGroupModal from "@/components/modals/CreateGroupModal.vue";
+import {useGroupsStore} from "@/stores/groups.js";
 
 const { getGroups, setGroups } = useGroupsStore();
 const { openModal } = useModalsStore();

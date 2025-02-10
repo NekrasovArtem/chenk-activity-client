@@ -1,14 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import {onMounted, ref} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
-import {api} from "@/app/api/index.js";
+import {api} from "@/api/index.ts";
 import {useRoute} from "vue-router";
-import BaseSection from "@/app/components/shared/BaseSection.vue";
+import BaseSection from "@/components/shared/BaseSection.vue";
 
 const route = useRoute()
 const eventId = route.params.id
 
-let event = ref(null)
+const event = ref(null)
 
 onMounted(async () => {
 	event.value = await api.getEventDetail(eventId);

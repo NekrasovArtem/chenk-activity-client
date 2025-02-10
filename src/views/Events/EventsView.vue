@@ -1,14 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import {onMounted, ref} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
-import BaseSection from "@/app/components/shared/BaseSection.vue";
-import {api} from "@/app/api/index.js";
-import NewEventModal from "@/app/components/modals/NewEventModal.vue";
-import {useModalsStore} from "@/app/stores/modals.js";
+import BaseSection from "@/components/shared/BaseSection.vue";
+import {api} from "@/api/index.ts";
+import NewEventModal from "@/components/modals/NewEventModal.vue";
+import {useModalsStore} from "@/stores/modals.js";
 
 const { openModal } = useModalsStore();
 
-let events = ref(null)
+const events = ref(null)
 
 onMounted(async () => {
 	events.value = await api.getEvents();

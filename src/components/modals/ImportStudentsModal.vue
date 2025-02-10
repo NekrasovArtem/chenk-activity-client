@@ -1,0 +1,106 @@
+<script setup lang="ts">
+import BaseModal from "@/components/modals/BaseModal.vue";
+import {api} from "@/api/index.ts";
+import {useModalsStore} from "@/stores/modals.js";
+import {useToastStore} from "@/stores/toast.ts";
+import DragAndDrop from "@/components/inputs/DragAndDrop.vue";
+import {onMounted, ref} from "vue";
+import InputSelect from "@/components/inputs/InputSelect.vue";
+
+const { closeModal } = useModalsStore();
+const { successMessage, errorMessage } = useToastStore();
+
+const formData = new FormData();
+const file = ref(null)
+const error = ref(null)
+const groups = ref(null)
+const groupId = ref(0)
+
+function fileUpload(uploadedFile) {
+	if (uploadedFile.type !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+		error.value = 'Загружаемый файл должен быть формата *.xlsx';
+		return;
+	}
+
+	error.value = null;
+	formData.set("file", uploadedFile);
+	file.value = uploadedFile
+}
+
+async function onSubmit() {
+	formData.set("group", groupId.value);
+	console.log(formData.get("group"));
+	const response = await api.importStudents(formData);
+
+	console.log(response)
+
+	if (response.data.success) {
+		closeModal('import-students-modal');
+		successMessage('Студенты загружены')
+		return;
+	}
+
+	errorMessage('Ошибка');
+}
+
+onMounted(async () => {
+	const response = await api.getGroups();
+
+	groups.value = response.map((item) => {
+		return {
+			...item,
+			label: item.name,
+			value: item.id,
+		}
+	})
+})
+</script>
+
+<template>
+	<teleport to="#modals-container">
+		<BaseModal id="import-students-modal">
+			<template #default="{ close }">
+				<div class="modal">
+					<div class="modal__head">
+						<h2 class="modal__title">Импорт студентов</h2>
+						<img class="modal__close" src="/img/close.svg" alt="close" @click="close" />
+					</div>
+					<div class="modal__body">
+						<div class="form">
+							<div class="form__items">
+								<InputSelect
+									id="group-name"
+									class="form__item form__item--full"
+									label="Группа:"
+									placeholder="Выберите группы"
+									:searchable="true"
+									:options="groups"
+									v-model="groupId"
+								>
+									<template #option="{ option }">
+										<div class="option">{{ option.label }}</div>
+									</template>
+								</InputSelect>
+								<DragAndDrop
+									id="drag-n-drop"
+									class="form__item form__item--full"
+									label="Выберете файл или перетащите его сюда"
+									@file-upload="fileUpload"
+								/>
+								<div v-if="file" class="form__item form__item--full">
+									<span>Загружаемый файл: {{ file.name }}</span>
+								</div>
+								<div v-if="error" class="form__item form__item form__item--error">
+									{{ error }}
+								</div>
+							</div>
+							<div class="form__buttons">
+								<button class="btn" @click="onSubmit">Отправить</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</template>
+		</BaseModal>
+	</teleport>
+</template>
