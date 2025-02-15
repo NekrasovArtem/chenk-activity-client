@@ -17,7 +17,7 @@ const formData = reactive({
 });
 
 async function onSubmit() {
-	const promise = api.registration(formData)
+	const promise = await api.registration(formData)
 
 	if (promise.status === 200) {
 		successMessage('Вы успешно зарегистрировались')

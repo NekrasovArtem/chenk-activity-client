@@ -19,7 +19,7 @@ const emits = defineEmits(['file-upload'])
 const fileInput = useTemplateRef('file-input');
 const isActive = ref(false);
 
-function transferFile(e) {
+function transferFile(e: Event) {
 	isActive.value = false;
 
 	const file = e.dataTransfer.files[0];
@@ -27,8 +27,9 @@ function transferFile(e) {
 	emits('file-upload', file)
 }
 
-function fileHandler(e) {
-	const file = e.target.files[0];
+function fileHandler(e: Event) {
+	const target = e.target as HTMLInputElement
+	const file = target.files;
 
 	emits('file-upload', file)
 }
@@ -52,7 +53,7 @@ function fileHandler(e) {
 		<div
 			class="drag-n-drop__container"
 			:class="{active: isActive}"
-			@click="fileInput.click"
+			@click="fileInput?.click"
 			@dragenter.prevent="isActive = true"
 			@dragover.prevent="isActive = true"
 			@dragleave.prevent="isActive = false"

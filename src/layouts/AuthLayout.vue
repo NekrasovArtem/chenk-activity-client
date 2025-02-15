@@ -5,10 +5,10 @@ import {onMounted} from "vue";
 import router from "@/router/index.ts";
 import {storeToRefs} from "pinia";
 
-const {userData} = storeToRefs(useBaseStore());
+const { token } = storeToRefs(useBaseStore());
 
 onMounted(async () => {
-	if (userData.value) {
+	if (token.value) {
 		await router.push({name: 'Home'})
 	}
 })

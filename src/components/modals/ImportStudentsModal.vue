@@ -11,12 +11,12 @@ const { closeModal } = useModalsStore();
 const { successMessage, errorMessage } = useToastStore();
 
 const formData = new FormData();
-const file = ref(null)
-const error = ref(null)
-const groups = ref(null)
-const groupId = ref(0)
+const file = ref<File | null>(null)
+const error = ref<null | string>(null)
+const groups = ref()
+const groupId = ref<string>('0')
 
-function fileUpload(uploadedFile) {
+function fileUpload(uploadedFile: File) {
 	if (uploadedFile.type !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
 		error.value = 'Загружаемый файл должен быть формата *.xlsx';
 		return;
@@ -46,7 +46,7 @@ async function onSubmit() {
 onMounted(async () => {
 	const response = await api.getGroups();
 
-	groups.value = response.map((item) => {
+	groups.value = response.map((item: { id: number; name: string; }) => {
 		return {
 			...item,
 			label: item.name,
@@ -88,7 +88,7 @@ onMounted(async () => {
 									@file-upload="fileUpload"
 								/>
 								<div v-if="file" class="form__item form__item--full">
-									<span>Загружаемый файл: {{ file.name }}</span>
+									<span>Загружаемый файл: {{ file?.name }}</span>
 								</div>
 								<div v-if="error" class="form__item form__item form__item--error">
 									{{ error }}

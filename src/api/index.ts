@@ -14,11 +14,11 @@ class BaseApi {
 		responseType: 'json',
 	})
 
-	async registration(formData) {
+	async registration(formData: object) {
 		return await this._api.post('/registration', formData);
 	}
 
-	async authorization(formData) {
+	async authorization(formData: object) {
 		return await this._api.post('/authorization', formData);
 	}
 
@@ -32,7 +32,7 @@ class BaseApi {
 		return await response.data;
 	}
 
-	async getEventDetail(id) {
+	async getEventDetail(id: number) {
 		const promise = await this._api.get(`/events/${id}`, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
@@ -69,7 +69,7 @@ class BaseApi {
 		return await promise.data.data;
 	}
 
-	async getGroupDetail(id) {
+	async getGroupDetail(id: number) {
 		const promise = await this._api.get(`/groups/${id}`, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
@@ -78,7 +78,7 @@ class BaseApi {
 		return await promise.data;
 	}
 
-	async createGroups(data) {
+	async createGroups(data: object) {
 		const promise = await this._api.post("/groups", data,{
 			headers: {
 				Authorization: `Bearer ${token.value}`
@@ -87,7 +87,7 @@ class BaseApi {
 		return await promise.data;
 	}
 
-	async getStudentsByGroup(groupId) {
+	async getStudentsByGroup(groupId: number) {
 		const promise = await this._api.get(`/students/group/${groupId}`, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
@@ -96,7 +96,7 @@ class BaseApi {
 		return await promise.data;
 	}
 
-	async importStudents(formData) {
+	async importStudents(formData: object) {
 		return await this._api.post('/students/import', formData, {
 			headers: {
 				'Content-Type': 'multipart/form-data',

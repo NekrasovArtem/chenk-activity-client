@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 defineProps({
 	id: String,
 	title: String,
@@ -14,8 +15,10 @@ defineProps({
 
 const emits = defineEmits(['file-upload'])
 
-function fileHandler(e) {
-	const file = e.target.files[0];
+function fileHandler(e: Event) {
+	// TODO
+	const target = e.target as HTMLInputElement
+	const file = target.files;
 
 	emits('file-upload', file)
 }

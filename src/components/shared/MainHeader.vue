@@ -17,7 +17,7 @@ const { userData } = storeToRefs(useBaseStore());
 				<router-link :to="{ name: 'Groups' }" class="link header__nav-item">Группы</router-link>
 				<router-link :to="{ name: 'About' }" class="link header__nav-item">О системе</router-link>
 			</nav>
-			<router-link :to="{ name: 'Profile' }" class="link header__user">{{ userData.surname }} {{ userData.name }}</router-link>
+			<router-link :to="{ name: 'Profile' }" class="link header__user">{{ userData?.surname }} {{ userData?.name }}</router-link>
 		</div>
 	</header>
 </template>

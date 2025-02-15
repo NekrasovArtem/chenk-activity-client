@@ -10,8 +10,13 @@ import {useGroupsStore} from "@/stores/groups.js";
 const { getGroups, setGroups } = useGroupsStore();
 const { openModal } = useModalsStore();
 
+interface Group {
+	id: number;
+	name: string;
+	specialty: string;
+}
 
-const groups = ref(null)
+const groups = ref<Group[] | null>(null)
 
 async function updateGroups() {
 	await setGroups();

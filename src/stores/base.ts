@@ -10,14 +10,14 @@ interface UserData {
 }
 
 interface BaseStore {
-	token: string;
+	token: string | null;
 	userData: UserData | null;
 }
 
 export const useBaseStore = defineStore("base", {
 	state: (): BaseStore => ({
 		token: localStorage.getItem("token"),
-		userData: JSON.parse(localStorage.getItem("userData")),
+		userData: null,
 	}),
 	actions: {
 		setToken(value: string) {

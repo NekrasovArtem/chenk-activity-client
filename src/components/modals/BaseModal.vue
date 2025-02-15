@@ -4,9 +4,11 @@ import {useModalsStore} from "@/stores/modals.js";
 
 const { isModalOpened, closeModal } = useModalsStore();
 
-const props = defineProps({
-	id: String,
-})
+interface Props {
+	id: string;
+}
+
+const props = defineProps<Props>()
 
 const showModal = computed(() => isModalOpened(props.id));
 

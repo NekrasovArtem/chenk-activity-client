@@ -17,7 +17,7 @@ const formData = reactive({
 	specialization_id: null,
 });
 
-const specialties = ref(null);
+const specialties = ref();
 
 async function onSubmit() {
 	const response = await api.createGroups(formData);
@@ -32,7 +32,7 @@ async function onSubmit() {
 onMounted(async () => {
 	const response =  await api.getSpecializations();
 
-	specialties.value = response.map((item) => {
+	specialties.value = response.map((item: { id: number; name: string; code: string; qualification: string; }) => {
 		return {
 			...item,
 			label: item.name,

@@ -5,10 +5,21 @@ import {api} from "@/api/index.ts";
 import {useRoute} from "vue-router";
 import BaseSection from "@/components/shared/BaseSection.vue";
 
-const route = useRoute()
-const groupId = route.params.id
+interface Group {
+	name: string;
+	students: {
+		id: number;
+		name: string;
+		surname: string;
+		patronymic: string;
+		initials: string;
+	}[];
+}
 
-const group = ref(null)
+const route = useRoute()
+const groupId: number = +route.params.id
+
+const group = ref<Group | null>(null)
 
 onMounted(async () => {
 	group.value = await api.getStudentsByGroup(groupId);

@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import Multiselect from "@vueform/multiselect";
 
-defineProps({
-	id: String,
-	title: String,
-	label: String,
-	placeholder: String,
-	name: String,
-	class: String,
-	required: Boolean,
-	readonly: Boolean,
-	disabled: Boolean,
-	autocomplete: String,
-	searchable: Boolean,
-	options: Array,
-});
+interface Props {
+	id?: string;
+	title?: string;
+	label?: string;
+	placeholder?: string;
+	name?: string;
+	class?: string;
+	required?: boolean;
+	readonly?: boolean;
+	disabled?: boolean;
+	autocomplete?: string;
+	searchable?: boolean;
+	options?: {
+		code: string;
+		name: string;
+		qualification: string;
+	}[];
+}
+
+defineProps<Props>();
 
 const modelValue = defineModel()
 </script>

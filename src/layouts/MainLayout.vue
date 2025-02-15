@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MainHeader from "@/components/shared/MainHeader.vue";
 import {useBaseStore} from "@/stores/base.js";
-import {onMounted, ref} from "vue";
+import {onMounted} from "vue";
 import router from "@/router/index.ts";
 import {storeToRefs} from "pinia";
 
@@ -9,14 +9,10 @@ defineProps({
 	title: String
 })
 
-const { token, userData } = storeToRefs(useBaseStore());
+const { token } = storeToRefs(useBaseStore());
 
 onMounted(async () => {
 	if (!token.value) {
-		await router.push({ name: "Auth" });
-	}
-
-	if (!userData.value) {
 		await router.push({ name: "Auth" });
 	}
 })

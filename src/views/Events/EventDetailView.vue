@@ -4,11 +4,12 @@ import MainLayout from "@/layouts/MainLayout.vue";
 import {api} from "@/api/index.ts";
 import {useRoute} from "vue-router";
 import BaseSection from "@/components/shared/BaseSection.vue";
+import type { Event } from "@/views/Events/EventsView.vue"
 
 const route = useRoute()
-const eventId = route.params.id
+const eventId: number = +route.params.id
 
-const event = ref(null)
+const event = ref<Event | null>(null)
 
 onMounted(async () => {
 	event.value = await api.getEventDetail(eventId);

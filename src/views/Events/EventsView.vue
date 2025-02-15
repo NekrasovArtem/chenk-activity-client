@@ -6,9 +6,20 @@ import {api} from "@/api/index.ts";
 import NewEventModal from "@/components/modals/NewEventModal.vue";
 import {useModalsStore} from "@/stores/modals.js";
 
+export interface Event {
+	id: number;
+	name: string;
+	date_start: string;
+	date_end: string;
+	description: string;
+	direction: string;
+	place: string;
+	profession: string;
+}
+
 const { openModal } = useModalsStore();
 
-const events = ref(null)
+const events = ref<Event[] | null>(null)
 
 onMounted(async () => {
 	events.value = await api.getEvents();
@@ -38,7 +49,7 @@ async function getEventsExcel() {
 				<div class="events__items">
 					<div class="events-item" v-for="event in events" :key="event.id">
 						<div class="events-item__id">{{ event.id }}</div>
-						<div class="events-item__title">{{ event.shortname }}</div>
+						<div class="events-item__title">{{ event.name }}</div>
 						<div class="events-item__date">{{ event.date_start }}</div>
 						<div class="events-item__type">{{ event.direction }}</div>
 						<div class="events-item__place">{{ event.place }}</div>

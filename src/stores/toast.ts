@@ -7,16 +7,16 @@ export const useToastStore = defineStore("toast", {
 		toast: useToast()
 	}),
 	actions: {
-		successMessage(message) {
+		successMessage(message: string) {
 			this.toast.success(message);
 		},
-		errorMessage(message) {
+		errorMessage(message: string) {
 			this.toast.error(message);
 		},
-		infoMessage(message) {
+		infoMessage(message: string) {
 			this.toast.info(message);
 		},
-		warningMessage(message) {
+		warningMessage(message: string) {
 			this.toast.warning(message);
 		}
 	},
