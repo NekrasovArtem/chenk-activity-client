@@ -7,7 +7,7 @@ defineProps({
 	label: String,
 	placeholder: String,
 	name: String,
-	class: String,
+	classes: String,
 	required: Boolean,
 	readonly: Boolean,
 	disabled: Boolean,
@@ -19,24 +19,30 @@ const emits = defineEmits(['file-upload'])
 const fileInput = useTemplateRef('file-input');
 const isActive = ref(false);
 
-function transferFile(e: Event) {
+function transferFile(e: DragEvent) {
 	isActive.value = false;
 
-	const file = e.dataTransfer.files[0];
+	const dataTransfer = e.dataTransfer;
+
+	if (!dataTransfer) {
+		return;
+	}
+
+	const file = dataTransfer.files[0];
 
 	emits('file-upload', file)
 }
 
 function fileHandler(e: Event) {
 	const target = e.target as HTMLInputElement
-	const file = target.files;
+	const file = target.files?.[0];
 
 	emits('file-upload', file)
 }
 </script>
 
 <template>
-	<div class="drag-n-drop" :class>
+	<div class="drag-n-drop" :class="classes">
 		<input
 			class="drag-n-drop__input"
 			type="file"

@@ -12,9 +12,31 @@ export interface Event {
 	date_start: string;
 	date_end: string;
 	description: string;
-	direction: string;
-	place: string;
-	profession: string;
+	level: {
+		id: number;
+		name: string;
+	};
+	corpus: {
+		id: number;
+		name: string;
+	};
+	directions: {
+		id: number;
+		name: string;
+	}[];
+	modules: {
+		id: number;
+		name: string;
+	}[];
+	place: {
+		id: number;
+		name: string;
+	};
+	responsible: string;
+	responsibles: {
+		id: number;
+		name: string;
+	}[];
 }
 
 const { openModal } = useModalsStore();
@@ -50,10 +72,9 @@ async function getEventsExcel() {
 					<div class="events-item" v-for="event in events" :key="event.id">
 						<div class="events-item__id">{{ event.id }}</div>
 						<div class="events-item__title">{{ event.name }}</div>
-						<div class="events-item__date">{{ event.date_start }}</div>
-						<div class="events-item__type">{{ event.direction }}</div>
-						<div class="events-item__place">{{ event.place }}</div>
-						<div class="events-item__profession">{{ event.profession }}</div>
+						<div class="events-item__date">{{ event.date_start }} - {{ event.date_end ?? '' }}</div>
+						<div class="events-item__level">{{ event.level.name }}</div>
+						<div class="events-item__place">{{ event.place.name }}</div>
 						<router-link :to="{name: 'EventDetail', params: {id: event.id}}" class="events-item__link"></router-link>
 					</div>
 				</div>

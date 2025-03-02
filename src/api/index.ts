@@ -12,6 +12,9 @@ class BaseApi {
 			'Accept': 'application/json',
 		},
 		responseType: 'json',
+		validateStatus: function () {
+			return true;
+		}
 	})
 
 	async registration(formData: object) {
@@ -20,6 +23,14 @@ class BaseApi {
 
 	async authorization(formData: object) {
 		return await this._api.post('/authorization', formData);
+	}
+
+	async getUserData(id: string) {
+		 return await this._api.get(`/user/${id}`, {
+			 headers: {
+				 Authorization: `Bearer ${token.value}`
+			 }
+		 });
 	}
 
 	async getEvents() {

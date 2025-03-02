@@ -7,7 +7,7 @@ interface Props {
 	label?: string;
 	placeholder?: string;
 	name?: string;
-	class?: string;
+	classes?: string;
 	required?: boolean;
 	readonly?: boolean;
 	disabled?: boolean;
@@ -26,7 +26,7 @@ const modelValue = defineModel()
 </script>
 
 <template>
-	<div class="specialization-select" :class>
+	<div class="specialization-select" :class="classes">
 		<label :for="id">{{ label }}</label>
 
 		<Multiselect

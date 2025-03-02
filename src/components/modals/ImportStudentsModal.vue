@@ -29,10 +29,8 @@ function fileUpload(uploadedFile: File) {
 
 async function onSubmit() {
 	formData.set("group", groupId.value);
-	console.log(formData.get("group"));
-	const response = await api.importStudents(formData);
 
-	console.log(response)
+	const response = await api.importStudents(formData);
 
 	if (response.data.success) {
 		closeModal('import-students-modal');

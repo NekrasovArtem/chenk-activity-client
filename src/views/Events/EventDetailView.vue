@@ -11,8 +11,10 @@ const eventId: number = +route.params.id
 
 const event = ref<Event | null>(null)
 
-onMounted(async () => {
-	event.value = await api.getEventDetail(eventId);
+onMounted( async () => {
+	const response = await api.getEventDetail(eventId);
+
+	event.value = response.event;
 })
 </script>
 
@@ -20,7 +22,7 @@ onMounted(async () => {
 	<MainLayout :title="event?.name">
 		<BaseSection>
 			<div class="event">
-				{{ event }}
+				<div v-if="event">{{ event.name }}</div>
 			</div>
 		</BaseSection>
 	</MainLayout>

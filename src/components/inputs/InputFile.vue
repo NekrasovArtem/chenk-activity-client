@@ -6,7 +6,7 @@ defineProps({
 	label: String,
 	placeholder: String,
 	name: String,
-	class: String,
+	classes: String,
 	required: Boolean,
 	readonly: Boolean,
 	disabled: Boolean,
@@ -16,7 +16,6 @@ defineProps({
 const emits = defineEmits(['file-upload'])
 
 function fileHandler(e: Event) {
-	// TODO
 	const target = e.target as HTMLInputElement
 	const file = target.files;
 
@@ -25,7 +24,7 @@ function fileHandler(e: Event) {
 </script>
 
 <template>
-	<div class="default-input" :class>
+	<div class="default-input" :class="classes">
 		<label class="default-input__label">
 			{{ label }}
 			<span v-if="required" class="default-input__label-required"> *</span>

@@ -37,27 +37,27 @@ async function onSubmit() {
 				placeholder="Имя"
 				v-model="formData.name"
 				required
-				:class="'form__item'"
+				:classes="'form__item'"
 			/>
 			<InputText
 				label="Фамилия"
 				placeholder="Фамилия"
 				v-model="formData.surname"
 				required
-				:class="'form__item'"
+				:classes="'form__item'"
 			/>
 			<InputText
 				label="Отчество"
 				placeholder="Отчество"
 				v-model="formData.patronymic"
-				:class="'form__item form__item--full'"
+				:classes="'form__item form__item--full'"
 			/>
 			<InputText
 				label="E-mail"
 				placeholder="E-mail"
 				v-model="formData.email"
 				required
-				:class="'form__item'"
+				:classes="'form__item'"
 			/>
 		</div>
 		<div class="form__bottom">

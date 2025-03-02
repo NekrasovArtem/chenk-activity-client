@@ -43,13 +43,13 @@ async function onSubmit() {
 				placeholder="Введите почту"
 				v-model="formData.email"
 				autocomplete="email"
-				:class="'form__item form__item--full'"
+				:classes="'form__item form__item--full'"
 			/>
 			<InputPassword
 				label="Пароль"
 				placeholder="Введите пароль"
 				v-model="formData.password"
-				:class="'form__item form__item--full'"
+				:classes="'form__item form__item--full'"
 			/>
 		</div>
 		<div class="form__bottom">

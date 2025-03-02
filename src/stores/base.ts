@@ -5,8 +5,8 @@ interface UserData {
 	name: string;
 	surname: string;
 	patronymic: string;
-	initials: string;
 	email: string;
+	role: string;
 }
 
 interface BaseStore {
@@ -25,7 +25,7 @@ export const useBaseStore = defineStore("base", {
 			this.token = value;
 		},
 		setUser(user: UserData) {
-			localStorage.setItem("userData", JSON.stringify(user));
+			localStorage.setItem("userId", String(user.id));
 			this.userData = user;
 		},
 		deleteData() {

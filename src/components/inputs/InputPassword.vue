@@ -5,7 +5,7 @@ defineProps({
 	label: String,
 	placeholder: String,
 	name: String,
-	class: String,
+	classes: String,
 	required: Boolean,
 	readonly: Boolean,
 	disabled: Boolean,
@@ -15,7 +15,7 @@ const modelValue = defineModel()
 </script>
 
 <template>
-	<div class="default-input" :class>
+	<div class="default-input" :class="classes">
 		<label class="default-input__label">
 			{{ label }}
 			<span v-if="required" class="default-input__label-required"> *</span>

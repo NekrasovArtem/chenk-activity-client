@@ -7,7 +7,7 @@ defineProps({
 	label: String,
 	placeholder: String,
 	name: String,
-	class: String,
+	classes: String,
 	required: Boolean,
 	readonly: Boolean,
 	disabled: Boolean,
@@ -20,7 +20,7 @@ const modelValue = defineModel()
 </script>
 
 <template>
-	<div class="input-select" :class>
+	<div class="input-select" :class="classes">
 		<label :for="id">{{ label }}</label>
 
 		<Multiselect

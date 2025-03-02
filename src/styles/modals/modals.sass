@@ -1,6 +1,7 @@
 .modal
-	width: 500px
-	min-height: 500px
+	width: 100%
+	max-width: 500px
+	height: auto
 	display: flex
 	flex-direction: column
 	gap: 20px
@@ -13,6 +14,9 @@
 		display: flex
 		align-items: flex-start
 
+	&__body
+		height: 100%
+
 	&__title
 		font-size: var(--font-size-h5)
 
@@ -23,3 +27,6 @@
 		width: 24px
 		height: 24px
 		cursor: pointer
+
+	&--wide
+		max-width: 920px

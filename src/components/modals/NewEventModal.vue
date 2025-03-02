@@ -17,7 +17,7 @@ const formData = reactive({
 	<teleport to="#modals-container">
 		<BaseModal id="new-event-modal">
 			<template #default="{ close }">
-				<div class="modal">
+				<div class="modal modal--wide">
 					<div class="modal__head">
 						<h2 class="modal__title">Создать мероприятие</h2>
 						<img class="modal__close" src="/img/close.svg" alt="close" @click="close" />
@@ -30,7 +30,7 @@ const formData = reactive({
 									placeholder="Введите название"
 									v-model="formData.title"
 									required
-									:class="'form__item form__item--full'"
+									:classes="'form__item form__item--full'"
 								/>
 							</div>
 							<div class="form__items">
@@ -38,20 +38,20 @@ const formData = reactive({
 									label="Дата начала"
 									v-model="formData.dateStart"
 									required
-									:class="'form__item'"
+									:classes="'form__item'"
 								/>
 								<InputDate
 									label="Дата конца"
 									v-model="formData.dateEnd"
 									required
-									:class="'form__item'"
+									:classes="'form__item'"
 								/>
 							</div>
 							<div class="form__items">
 								<InputArea
 									label="Описание"
 									v-model="formData.description"
-									:class="'form__item form__item--full'"
+									:classes="'form__item form__item--full'"
 								/>
 							</div>
 						</div>
