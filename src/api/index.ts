@@ -43,6 +43,26 @@ class BaseApi {
 		return await response.data;
 	}
 
+	async getEventsUpcoming(date: string) {
+		const promise = await this._api.get(`/events?start=${date}`, {
+			headers: {
+				Authorization: `Bearer ${token.value}`
+			},
+		});
+		const response = await promise.data;
+		return await response.data;
+	}
+
+	async getEventsPast(date: string) {
+		const promise = await this._api.get(`/events?end=${date}`, {
+			headers: {
+				Authorization: `Bearer ${token.value}`
+			}
+		});
+		const response = await promise.data;
+		return await response.data;
+	}
+
 	async getEventDetail(id: number) {
 		const promise = await this._api.get(`/events/${id}`, {
 			headers: {
