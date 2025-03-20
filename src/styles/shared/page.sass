@@ -1,12 +1,12 @@
 @use "../base/mixins" as *
 
 .main
-	min-height: calc(100svh - 85px)
-	padding: 85px 20px 0
+	min-height: calc(100svh - 85px - 85px)
+	padding: 85px 20px 85px 20px
 	overflow: hidden
 
 	@include media('max', '756px')
-		padding: 85px 10px 0
+		padding: 85px 10px 55px 10px
 
 	&--auth
 		display: flex

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import InputText from "@/components/inputs/InputText.vue";
 import InputPassword from "@/components/inputs/InputPassword.vue";
-import {reactive} from "vue";
+import { reactive } from "vue";
+import { useBaseStore } from "@/stores/base.js";
+import { useToastStore } from "@/stores/toast.ts";
+import { api } from "@/api/index.ts";
 import router from "@/router/index.ts";
-import {useBaseStore} from "@/stores/base.js";
-import {useToastStore} from "@/stores/toast.ts";
-import {api} from "@/api/index.ts";
 
 const {setToken, setUser} = useBaseStore()
 const { successMessage, errorMessage } = useToastStore()

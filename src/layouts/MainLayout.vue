@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import MainHeader from "@/components/shared/MainHeader.vue";
-import {useBaseStore} from "@/stores/base.js";
-import {onMounted} from "vue";
+import { useBaseStore } from "@/stores/base.js";
+import { onMounted } from "vue";
+import { storeToRefs } from "pinia";
+import { api } from "@/api";
 import router from "@/router/index.ts";
-import {storeToRefs} from "pinia";
-import {api} from "@/api";
 
 defineProps({
 	title: String
@@ -19,32 +19,28 @@ function unAuthorize() {
 }
 
 onMounted(async () => {
-	if (!token.value) {
-		unAuthorize();
-		return;
-	}
-
 	const id = localStorage.getItem("userId");
 
-	if (!id) {
+	if (!id || !token.value) {
 		unAuthorize();
 		return;
 	}
 
-	const response = await api.getUserData(id);
+	if (!userData.value) {
+		const response = await api.getUserData(id);
 
-	if (response.data.success) {
+		if (!response.data.success) {
+			unAuthorize();
+			return;
+		}
+
 		userData.value = response.data?.user;
-	}
-	else {
-		unAuthorize();
-		return;
 	}
 })
 </script>
 
 <template>
-	<MainHeader/>
+	<MainHeader />
 	<main class="main">
 		<div class="main__header" v-if="title">
 			<h1 class="main__header-title">{{ title }}</h1>

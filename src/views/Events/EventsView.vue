@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
 import BaseSection from "@/components/shared/BaseSection.vue";
-import {api} from "@/api/index.ts";
 import NewEventModal from "@/components/modals/NewEventModal.vue";
-import {useModalsStore} from "@/stores/modals.js";
 import EventItem from "@/views/Events/EventItem.vue";
+import { onMounted, ref } from "vue";
+import { useModalsStore } from "@/stores/modals.js";
+import { api } from "@/api/index.ts";
 
 export interface Event {
 	id: number;
@@ -69,6 +69,13 @@ async function getEventsExcel() {
 			</template>
 
 			<div class="events__items">
+				<div class="events-item">
+					<div class="events-item__id">ID</div>
+					<div class="events-item__title">Наименование</div>
+					<div class="events-item__date">Дата</div>
+					<div class="events-item__level">Уровень</div>
+					<div class="events-item__place">Место</div>
+				</div>
 				<EventItem v-for="event in events" :key="event.id" :event />
 			</div>
 		</BaseSection>

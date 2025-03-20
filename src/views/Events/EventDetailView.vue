@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
-import MainLayout from "@/layouts/MainLayout.vue";
-import {api} from "@/api/index.ts";
-import {useRoute} from "vue-router";
-import BaseSection from "@/components/shared/BaseSection.vue";
 import type { Event } from "@/views/Events/EventsView.vue"
+import BaseSection from "@/components/shared/BaseSection.vue";
+import MainLayout from "@/layouts/MainLayout.vue";
+import { onMounted, ref } from "vue";
+import { api} from "@/api/index.ts";
+import { useRoute} from "vue-router";
 
 const route = useRoute()
 const eventId: number = +route.params.id

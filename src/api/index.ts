@@ -1,11 +1,11 @@
 import axios from "axios";
-import {useBaseStore} from "@/stores/base.js";
-import {storeToRefs} from "pinia";
+import { useBaseStore } from "@/stores/base.js";
+import { storeToRefs } from "pinia";
 
 const { token } = storeToRefs(useBaseStore());
 
 class BaseApi {
-	 _api = axios.create({
+	_api = axios.create({
 		baseURL: import.meta.env.VITE_API_URL,
 		headers: {
 			'Content-Type': 'application/json',
@@ -26,11 +26,19 @@ class BaseApi {
 	}
 
 	async getUserData(id: string) {
-		 return await this._api.get(`/user/${id}`, {
-			 headers: {
-				 Authorization: `Bearer ${token.value}`
-			 }
-		 });
+		return await this._api.get(`/user/${id}`, {
+			headers: {
+				Authorization: `Bearer ${token.value}`
+			}
+		});
+	}
+
+	async resetPassword() {
+		return await this._api.post('/password/reset', {}, {
+			headers: {
+				Authorization: `Bearer ${token.value}`
+			}
+		});
 	}
 
 	async getEvents() {
@@ -101,28 +109,18 @@ class BaseApi {
 	}
 
 	async getGroupDetail(id: number) {
-		const promise = await this._api.get(`/groups/${id}`, {
+		return await this._api.get(`/groups/detail/${id}`, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			}
 		});
-		return await promise.data;
 	}
 
 	async createGroups(data: object) {
-		const promise = await this._api.post("/groups", data,{
+		const promise = await this._api.post("/groups", data, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			},
-		});
-		return await promise.data;
-	}
-
-	async getStudentsByGroup(groupId: number) {
-		const promise = await this._api.get(`/students/group/${groupId}`, {
-			headers: {
-				Authorization: `Bearer ${token.value}`
-			}
 		});
 		return await promise.data;
 	}

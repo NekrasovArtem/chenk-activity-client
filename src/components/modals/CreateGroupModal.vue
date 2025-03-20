@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import BaseModal from "@/components/modals/BaseModal.vue";
 import InputText from "@/components/inputs/InputText.vue";
-import {onMounted, reactive, ref} from "vue";
-import {api} from "@/api/index.ts";
 import SpecializationSelect from "@/components/shared/SpecializationSelect.vue";
-import {useToastStore} from "@/stores/toast.ts";
-import {useModalsStore} from "@/stores/modals.js";
+import { api } from "@/api/index.ts";
+import { onMounted, reactive, ref } from "vue";
+import { useToastStore } from "@/stores/toast.ts";
+import { useModalsStore } from "@/stores/modals.js";
 
 const { closeModal } = useModalsStore();
 const { successMessage } = useToastStore();

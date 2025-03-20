@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {computed} from "vue";
-import {useModalsStore} from "@/stores/modals.js";
+import { computed } from "vue";
+import { useModalsStore } from "@/stores/modals.js";
 
 const { isModalOpened, closeModal } = useModalsStore();
 
@@ -38,4 +38,5 @@ function close() {
 	justify-content: center
 	align-items: center
 	background-color: rgba(#000000, 0.3)
+	z-index: 10
 </style>

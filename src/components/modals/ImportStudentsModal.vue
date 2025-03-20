@@ -1,19 +1,30 @@
 <script setup lang="ts">
 import BaseModal from "@/components/modals/BaseModal.vue";
-import {api} from "@/api/index.ts";
-import {useModalsStore} from "@/stores/modals.js";
-import {useToastStore} from "@/stores/toast.ts";
 import DragAndDrop from "@/components/inputs/DragAndDrop.vue";
-import {onMounted, ref} from "vue";
 import InputSelect from "@/components/inputs/InputSelect.vue";
+import { api } from "@/api/index.ts";
+import { useModalsStore } from "@/stores/modals.js";
+import { useToastStore } from "@/stores/toast.ts";
+import { computed, ref } from "vue";
+import { storeToRefs } from "pinia";
+import { useGroupsStore } from "@/stores/groups.ts";
 
 const { closeModal } = useModalsStore();
 const { successMessage, errorMessage } = useToastStore();
+const { groups } = storeToRefs(useGroupsStore());
 
 const formData = new FormData();
 const file = ref<File | null>(null)
 const error = ref<null | string>(null)
-const groups = ref()
+const filteredGroups = computed(() => {
+	return groups.value?.map((item: { id: number; name: string; }) => {
+		return {
+			...item,
+			label: item.name,
+			value: item.id,
+		}
+	})
+})
 const groupId = ref<string>('0')
 
 function fileUpload(uploadedFile: File) {
@@ -40,18 +51,6 @@ async function onSubmit() {
 
 	errorMessage('Ошибка');
 }
-
-onMounted(async () => {
-	const response = await api.getGroups();
-
-	groups.value = response.map((item: { id: number; name: string; }) => {
-		return {
-			...item,
-			label: item.name,
-			value: item.id,
-		}
-	})
-})
 </script>
 
 <template>
@@ -72,7 +71,7 @@ onMounted(async () => {
 									label="Группа:"
 									placeholder="Выберите группы"
 									:searchable="true"
-									:options="groups"
+									:options="filteredGroups"
 									v-model="groupId"
 								>
 									<template #option="{ option }">

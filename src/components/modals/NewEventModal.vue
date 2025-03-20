@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import BaseModal from "@/components/modals/BaseModal.vue";
 import InputText from "@/components/inputs/InputText.vue";
-import {reactive} from "vue";
 import InputDate from "@/components/inputs/InputDate.vue";
 import InputArea from "@/components/inputs/InputArea.vue";
+import Multiselect from "@vueform/multiselect";
+import { reactive } from "vue";
 
 const formData = reactive({
 	title: '',
@@ -52,6 +53,34 @@ const formData = reactive({
 									label="Описание"
 									v-model="formData.description"
 									:classes="'form__item form__item--full'"
+								/>
+							</div>
+							<div class="form__items">
+								<Multiselect
+									label="Корпус"
+									:options="[
+										{
+											value: 1,
+											label: 'Российская'
+										},
+										{
+											value: 2,
+											label: 'Блюхера'
+										},
+									]"
+								/>
+								<Multiselect
+									label="Уровень мероприятия"
+									:options="[
+										{
+											value: 1,
+											label: 'Всероссийский'
+										},
+										{
+											value: 2,
+											label: 'Блюхера'
+										},
+									]"
 								/>
 							</div>
 						</div>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import InputText from "@/components/inputs/InputText.vue";
-import {reactive} from "vue";
-import {api} from "@/api/index.ts";
-import {useToastStore} from "@/stores/toast.ts";
+import { reactive } from "vue";
+import { api } from "@/api/index.ts";
+import { useToastStore } from "@/stores/toast.ts";
 import router from "@/router/index.ts";
 
 const {successMessage, errorMessage} = useToastStore()

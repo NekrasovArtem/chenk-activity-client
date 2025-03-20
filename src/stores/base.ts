@@ -30,8 +30,8 @@ export const useBaseStore = defineStore("base", {
 		},
 		deleteData() {
 			localStorage.removeItem("token");
-			localStorage.removeItem("userData");
-			this.token = '';
+			localStorage.removeItem("userId");
+			this.token = null;
 			this.userData = null;
 		},
 	},
