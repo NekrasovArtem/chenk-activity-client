@@ -5,6 +5,7 @@ import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { api } from "@/api";
 import router from "@/router/index.ts";
+import MobileMenu from "@/components/shared/MobileMenu.vue";
 
 defineProps({
 	title: String
@@ -41,6 +42,7 @@ onMounted(async () => {
 
 <template>
 	<MainHeader />
+	<MobileMenu />
 	<main class="main">
 		<div class="main__header" v-if="title">
 			<h1 class="main__header-title">{{ title }}</h1>

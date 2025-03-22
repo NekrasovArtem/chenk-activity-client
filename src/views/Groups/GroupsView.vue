@@ -47,6 +47,8 @@ onMounted( async () => {
 		</BaseSection>
 	</MainLayout>
 
-	<CreateGroupModal @update-groups="updateGroups" />
-	<ImportStudentsModal />
+	<teleport to="#modals-container">
+		<CreateGroupModal @update-groups="updateGroups" />
+		<ImportStudentsModal />
+	</teleport>
 </template>

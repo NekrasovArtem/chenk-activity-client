@@ -1,3 +1,5 @@
+@use "../base/mixins" as *
+
 .modal
 	width: 100%
 	max-width: 500px
@@ -9,6 +11,10 @@
 	border-radius: 12px
 	background-color: var(--color-neutral-100)
 	position: relative
+
+	@include media('max', '756px')
+		height: 100vh
+		border-radius: 0
 
 	&__head
 		display: flex

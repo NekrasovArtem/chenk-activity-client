@@ -1,3 +1,5 @@
+@use "../base/mixins" as *
+
 .profile
 	&__wrapper
 		display: flex
@@ -29,3 +31,6 @@
 	&__actions
 		display: flex
 		gap: 12px
+
+		@include media('max', '756px')
+			flex-direction: column-reverse

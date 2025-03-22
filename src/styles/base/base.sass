@@ -1,10 +1,14 @@
 @use "mixins" as mix
 
+html
+	-webkit-tap-highlight-color: transparent
+
 body
 	min-width: var(--app-min-width)
 	max-width: var(--app-max-width)
-	color: var(--color-neutral-900)
+	min-height: 100vh
 	font-family: var(--font-family)
+	color: var(--color-neutral-900)
 
 .layout
 	min-width: var(--app-min-width)

@@ -12,12 +12,14 @@ interface UserData {
 interface BaseStore {
 	token: string | null;
 	userData: UserData | null;
+	isMenuActive: boolean;
 }
 
 export const useBaseStore = defineStore("base", {
 	state: (): BaseStore => ({
 		token: localStorage.getItem("token"),
 		userData: null,
+		isMenuActive: false,
 	}),
 	actions: {
 		setToken(value: string) {
