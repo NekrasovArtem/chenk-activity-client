@@ -3,15 +3,40 @@ import BaseModal from "@/components/modals/BaseModal.vue";
 import InputText from "@/components/inputs/InputText.vue";
 import InputDate from "@/components/inputs/InputDate.vue";
 import InputArea from "@/components/inputs/InputArea.vue";
-import Multiselect from "@vueform/multiselect";
-import { reactive } from "vue";
+import DefaultSelect from "@/components/inputs/DefaultSelect.vue";
+import {computed, reactive} from "vue";
+import {storeToRefs} from "pinia";
+import {useEventsStore} from "@/stores/events.ts";
+
+const { levels, corpuses } = storeToRefs(useEventsStore());
+
+const filteredLevels = computed(() => {
+	return levels.value?.map((level) => {
+		return {
+			value: level.id,
+			label: level.name,
+		}
+	})
+})
+const filteredCorpuses = computed(() => {
+	return corpuses.value?.map((corpus) => {
+		return {
+			value: corpus.id,
+			label: corpus.name,
+		}
+	})
+})
 
 const formData = reactive({
 	title: '',
 	dateStart: null,
 	dateEnd: null,
 	description: '',
+	level: null,
+	corpus: null,
+	responsible: '',
 });
+
 </script>
 
 <template>
@@ -56,31 +81,15 @@ const formData = reactive({
 								/>
 							</div>
 							<div class="form__items">
-								<Multiselect
+								<DefaultSelect
+									v-model="formData.corpus"
 									label="Корпус"
-									:options="[
-										{
-											value: 1,
-											label: 'Российская'
-										},
-										{
-											value: 2,
-											label: 'Блюхера'
-										},
-									]"
+									:options="filteredCorpuses"
 								/>
-								<Multiselect
+								<DefaultSelect
+									v-model="formData.level"
 									label="Уровень мероприятия"
-									:options="[
-										{
-											value: 1,
-											label: 'Всероссийский'
-										},
-										{
-											value: 2,
-											label: 'Блюхера'
-										},
-									]"
+									:options="filteredLevels"
 								/>
 							</div>
 						</div>

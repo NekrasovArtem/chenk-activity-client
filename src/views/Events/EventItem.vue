@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Event } from "@/views/Events/EventsView.vue"
+import type { Event } from "@/stores/events.ts";
 
 interface Props {
 	event: Event

@@ -41,6 +41,42 @@ class BaseApi {
 		});
 	}
 
+	async getLevels() {
+		const response = await this._api.get("/levels", {
+			headers: {
+				Authorization: `Bearer ${token.value}`
+			}
+		});
+		return response.data;
+	}
+
+	async getCorpuses() {
+		const response = await this._api.get("/corpuses", {
+			headers: {
+				Authorization: `Bearer ${token.value}`
+			}
+		});
+		return response.data;
+	}
+
+	async getDirections() {
+		const response = await this._api.get("/directions", {
+			headers: {
+				Authorization: `Bearer ${token.value}`
+			}
+		});
+		return response.data;
+	}
+
+	async getModules() {
+		const response = await this._api.get("/modules", {
+			headers: {
+				Authorization: `Bearer ${token.value}`
+			}
+		});
+		return response.data;
+	}
+
 	async getEvents() {
 		const promise = await this._api.get("/events", {
 			headers: {

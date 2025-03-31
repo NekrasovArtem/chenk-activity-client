@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Event } from "@/views/Events/EventsView.vue"
+import type { Event } from "@/stores/events.ts";
 import MainLayout from "@/layouts/MainLayout.vue";
 import BaseSection from "@/components/shared/BaseSection.vue";
 import EventItem from "@/views/Events/EventItem.vue";

@@ -68,6 +68,9 @@ const modelValue = defineModel()
 	gap: 4px
 
 	.multiselect
+		--ms-option-bg-selected: var(--color-primary-500)
+		--ms-option-bg-selected-pointed: var(--color-primary-500)
+
 		&-dropdown
 			--ms-max-height: 300px
 
