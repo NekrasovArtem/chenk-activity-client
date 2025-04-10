@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import BaseModal from "@/components/modals/BaseModal.vue";
 import DragAndDrop from "@/components/inputs/DragAndDrop.vue";
-import InputSelect from "@/components/inputs/InputSelect.vue";
 import { api } from "@/api/index.ts";
 import { useModalsStore } from "@/stores/modals.js";
 import { useToastStore } from "@/stores/toast.ts";
 import { computed, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useGroupsStore } from "@/stores/groups.ts";
+import DefaultSelect from "@/components/inputs/DefaultSelect.vue";
 
 const { closeModal } = useModalsStore();
 const { successMessage, errorMessage } = useToastStore();
@@ -65,7 +65,7 @@ async function onSubmit() {
 					<div class="modal__body">
 						<div class="form">
 							<div class="form__items">
-								<InputSelect
+								<DefaultSelect
 									id="group-name"
 									class="form__item form__item--full"
 									label="Группа:"
@@ -77,7 +77,7 @@ async function onSubmit() {
 									<template #option="{ option }">
 										<div class="option">{{ option.label }}</div>
 									</template>
-								</InputSelect>
+								</DefaultSelect>
 								<DragAndDrop
 									id="drag-n-drop"
 									class="form__item form__item--full"

@@ -27,7 +27,7 @@ export const useGroupsStore = defineStore('groups',{
 		groups: null
 	}),
 	actions: {
-		async getGroups() {
+		async requestGroups() {
 			this.groups = await api.getGroups();
 		}
 	}

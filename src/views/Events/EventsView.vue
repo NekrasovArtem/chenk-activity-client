@@ -13,12 +13,12 @@ const { openModal } = useModalsStore();
 const { requestEvents, requestCorpuses, requestLevels, requestDirections, requestModules } = useEventsStore();
 const { events } = storeToRefs(useEventsStore());
 
-onMounted( () => {
-	requestEvents();
-	requestCorpuses();
-	requestLevels();
-	requestDirections();
-	requestModules();
+onMounted( async () => {
+	await requestEvents();
+	await requestCorpuses();
+	await requestLevels();
+	await requestDirections();
+	await requestModules();
 })
 
 async function getEventsExcel() {

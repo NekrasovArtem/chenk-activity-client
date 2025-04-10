@@ -62,7 +62,7 @@ interface EventsStore {
 	modules: Module[] | null;
 }
 
-export const useEventsStore = defineStore('groups',{
+export const useEventsStore = defineStore('events',{
 	state: (): EventsStore => ({
 		events: null,
 		levels: null,

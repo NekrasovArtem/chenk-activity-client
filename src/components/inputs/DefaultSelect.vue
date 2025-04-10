@@ -7,10 +7,12 @@ interface Props {
 	label?: string;
 	placeholder?: string;
 	name?: string;
+	mode?: 'single' | 'multiple';
 	classes?: string;
 	required?: boolean;
 	readonly?: boolean;
 	disabled?: boolean;
+	closeOnSelect?: boolean;
 	autocomplete?: string;
 	searchable?: boolean;
 	options?: string[] | {
@@ -19,28 +21,37 @@ interface Props {
 	}[];
 }
 
-defineProps<Props>();
+const {
+	closeOnSelect = true,
+} = defineProps<Props>();
 
 const modelValue = defineModel()
 </script>
 
 <template>
 	<div class="default-select" :class="classes">
-		<label :for="id">{{ label }}</label>
+		<label class="default-select__label" :for="id">{{ label }}</label>
 
 		<Multiselect
 			:id
 			:title
 			:placeholder
 			:name
+			:mode
 			:required
 			:readonly
 			:disabled
 			:autocomplete
 			:searchable
 			:options
+			:close-on-select
 			v-model="modelValue"
 		>
+			<template #clear="{ clear }">
+				<span @click="clear" tabindex="0" role="button" data-clear="" aria-roledescription="❎" class="multiselect-clear"><span class="multiselect-clear-icon"></span></span>
+			</template>
+
+			<slot />
 		</Multiselect>
 	</div>
 </template>

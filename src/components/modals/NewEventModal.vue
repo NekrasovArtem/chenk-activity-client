@@ -8,7 +8,7 @@ import {computed, reactive} from "vue";
 import {storeToRefs} from "pinia";
 import {useEventsStore} from "@/stores/events.ts";
 
-const { levels, corpuses } = storeToRefs(useEventsStore());
+const { levels, corpuses, directions, modules } = storeToRefs(useEventsStore());
 
 const filteredLevels = computed(() => {
 	return levels.value?.map((level) => {
@@ -26,6 +26,22 @@ const filteredCorpuses = computed(() => {
 		}
 	})
 })
+const filteredDirections = computed(() => {
+	return directions.value?.map((direction) => {
+		return {
+			value: direction.id,
+			label: direction.name,
+		}
+	})
+})
+const filteredModules = computed(() => {
+	return modules.value?.map((module) => {
+		return {
+			value: module.id,
+			label: module.name,
+		}
+	})
+})
 
 const formData = reactive({
 	title: '',
@@ -35,6 +51,8 @@ const formData = reactive({
 	level: null,
 	corpus: null,
 	responsible: '',
+	directions: null,
+	modules: null,
 });
 
 </script>
@@ -56,7 +74,7 @@ const formData = reactive({
 									placeholder="Введите название"
 									v-model="formData.title"
 									required
-									:classes="'form__item form__item--full'"
+									classes="form__item form__item--full"
 								/>
 							</div>
 							<div class="form__items">
@@ -64,20 +82,20 @@ const formData = reactive({
 									label="Дата начала"
 									v-model="formData.dateStart"
 									required
-									:classes="'form__item'"
+									classes="form__item"
 								/>
 								<InputDate
 									label="Дата конца"
 									v-model="formData.dateEnd"
 									required
-									:classes="'form__item'"
+									classes="form__item"
 								/>
 							</div>
 							<div class="form__items">
 								<InputArea
 									label="Описание"
 									v-model="formData.description"
-									:classes="'form__item form__item--full'"
+									classes="form__item form__item--full"
 								/>
 							</div>
 							<div class="form__items">
@@ -85,11 +103,29 @@ const formData = reactive({
 									v-model="formData.corpus"
 									label="Корпус"
 									:options="filteredCorpuses"
+									classes="form__item"
 								/>
 								<DefaultSelect
 									v-model="formData.level"
 									label="Уровень мероприятия"
 									:options="filteredLevels"
+									classes="form__item"
+								/>
+							</div>
+							<div class="form__items">
+								<DefaultSelect
+									v-model="formData.directions"
+									label="Нарпавления"
+									mode="multiple"
+									:options="filteredDirections"
+									classes="form__item"
+								/>
+								<DefaultSelect
+									v-model="formData.modules"
+									label="Модули"
+									mode="multiple"
+									:options="filteredModules"
+									classes="form__item"
 								/>
 							</div>
 						</div>

@@ -9,15 +9,15 @@ import { useGroupsStore } from "@/stores/groups.js";
 import { storeToRefs } from "pinia";
 
 const { groups } = storeToRefs(useGroupsStore());
-const { getGroups } = useGroupsStore();
+const { requestGroups } = useGroupsStore();
 const { openModal } = useModalsStore();
 
 async function updateGroups() {
-	await getGroups();
+	await requestGroups();
 }
 
 onMounted( async () => {
-	await getGroups();
+	await requestGroups();
 })
 </script>
 
