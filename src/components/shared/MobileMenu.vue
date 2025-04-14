@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { useBaseStore } from "@/stores/base.ts";
+import IconSVG from "@/components/shared/IconSVG.vue";
 
 const { isMenuActive } = storeToRefs(useBaseStore());
 
@@ -11,7 +12,7 @@ function close() {
 
 <template>
 	<div class="mobile-menu" :class="{ active: isMenuActive }">
-		<img @click="close" class="mobile-menu__close" src="/img/close.svg" alt="Закрыть" />
+		<IconSVG class="mobile-menu__close" name="close" @click="close" />
 		<nav class="mobile-menu__nav">
 			<router-link @click="close" :to="{ name: 'Home' }" class="mobile-menu__nav-item link">Главная</router-link>
 			<router-link @click="close" :to="{ name: 'Events' }" class="mobile-menu__nav-item link">Мероприятия</router-link>

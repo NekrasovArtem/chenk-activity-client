@@ -116,6 +116,15 @@ class BaseApi {
 		return await promise.data;
 	}
 
+	async createEvent(data: object) {
+		const promise = await this._api.post("/events/create", data, {
+			headers: {
+				Authorization: `Bearer ${token.value}`
+			},
+		});
+		return await promise.data;
+	}
+
 	async exportEvents() {
 		const promise = await this._api.post("/events/export", {
 			headers: {

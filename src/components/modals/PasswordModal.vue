@@ -6,6 +6,7 @@ import { useBaseStore } from "@/stores/base.ts";
 import { useToastStore } from "@/stores/toast.ts";
 import { useModalsStore } from "@/stores/modals.ts";
 import router from "@/router";
+import IconSVG from "@/components/shared/IconSVG.vue";
 
 const { token, userData } = storeToRefs(useBaseStore());
 const { infoMessage, warningMessage } = useToastStore();
@@ -34,7 +35,7 @@ async function onSubmit() {
 				<div class="modal">
 					<div class="modal__head">
 						<h2 class="modal__title">Создать группу</h2>
-						<img class="modal__close" src="/img/close.svg" alt="close" @click="close" />
+						<IconSVG class="modal__close" name="close" @click="close" />
 					</div>
 					<div class="modal__body">
 						<div class="modal__content">

@@ -3,6 +3,7 @@ import BaseModal from "@/components/modals/BaseModal.vue";
 import InputText from "@/components/inputs/InputText.vue";
 import { reactive } from "vue";
 import { api } from "@/api";
+import IconSVG from "@/components/shared/IconSVG.vue";
 
 const formData = reactive({
 	email: '',
@@ -23,7 +24,7 @@ async function onSubmit() {
 				<div class="modal">
 					<div class="modal__head">
 						<h2 class="modal__title">Создать группу</h2>
-						<img class="modal__close" src="/img/close.svg" alt="close" @click="close" />
+						<IconSVG class="modal__close" name="close" @click="close" />
 					</div>
 					<div class="modal__body">
 						<form class="form" @submit.prevent="onSubmit">
