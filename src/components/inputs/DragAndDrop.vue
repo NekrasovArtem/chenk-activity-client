@@ -7,7 +7,6 @@ defineProps({
 	label: String,
 	placeholder: String,
 	name: String,
-	classes: String,
 	required: Boolean,
 	readonly: Boolean,
 	disabled: Boolean,
@@ -42,7 +41,7 @@ function fileHandler(e: Event) {
 </script>
 
 <template>
-	<div class="drag-n-drop" :class="classes">
+	<div class="drag-n-drop">
 		<input
 			class="drag-n-drop__input"
 			type="file"

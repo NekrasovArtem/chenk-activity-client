@@ -10,11 +10,14 @@ import IconSVG from "@/components/shared/IconSVG.vue";
 import {api} from "@/api";
 import {useToastStore} from "@/stores/toast.ts";
 import {useModalsStore} from "@/stores/modals.ts";
+import {helpers, required} from "@vuelidate/validators";
+import useVuelidate from "@vuelidate/core";
 
 const { levels, corpuses, directions, modules } = storeToRefs(useEventsStore());
 const { requestEvents } = useEventsStore();
 const { successMessage, errorMessage } = useToastStore();
 const { closeModal } = useModalsStore();
+const { withMessage } = helpers;
 
 const filteredLevels = computed(() => {
 	return levels.value?.map((level) => {
@@ -75,6 +78,40 @@ const formData = reactive<EventForm>({
 	modules: [],
 });
 
+const rules = computed(() => ({
+	formData: {
+		title: {
+			required: withMessage('Впишите название мероприятия', required)
+		},
+		place: {
+			required: withMessage('Выберите место проведения', required)
+		},
+		dateStart: {
+			required: withMessage('Выберите дату начала', required)
+		},
+		dateEnd: {
+			required: withMessage('Выберите дату окончания', required)
+		},
+		level: {
+			required: withMessage('Выберите уровень', required)
+		},
+		corpus: {
+			required: withMessage('Выберите корпус', required)
+		},
+		directions: {
+			required: withMessage('Выберите направления', required)
+		},
+		modules: {
+			required: withMessage('Выберите модули', required)
+		},
+		responsible: {
+			required: withMessage('Впишите ответственных', required)
+		},
+	}
+}))
+
+const v$ = useVuelidate(rules, { formData })
+
 const selectedDirections = computed(() => {
 	return directions.value?.filter((direction: Direction) => formData.directions.includes(direction.id)) || [];
 })
@@ -91,6 +128,11 @@ function deleteModule(id: number) {
 	formData.modules.splice(index, 1);
 }
 async function onSubmit() {
+	const validation = await v$.value.formData.$validate();
+
+	if (!validation)
+		return;
+
 	const response = await api.createEvent(formData);
 
 	if (response.success) {
@@ -112,7 +154,8 @@ async function onSubmit() {
 				placeholder="Введите название"
 				v-model="formData.title"
 				required
-				classes="form__item form__item--full"
+				class="form__item form__item--full"
+				:error="v$.formData.title.$errors"
 			/>
 		</div>
 		<div class="form__items">
@@ -120,7 +163,8 @@ async function onSubmit() {
 				label="Ответсвенный"
 				v-model="formData.responsible"
 				required
-				classes="form__item"
+				class="form__item"
+				:error="v$.formData.responsible.$errors"
 			/>
 			<DefaultSelect
 				v-model="formData.place"
@@ -131,7 +175,8 @@ async function onSubmit() {
 						label: 'Колледж',
 					},
 				]"
-				classes="form__item"
+				class="form__item"
+				:error="v$.formData.place.$errors"
 			/>
 		</div>
 		<div class="form__items">
@@ -139,20 +184,22 @@ async function onSubmit() {
 				label="Дата начала"
 				v-model="formData.dateStart"
 				required
-				classes="form__item"
+				class="form__item"
+				:error="v$.formData.dateStart.$errors"
 			/>
 			<InputDate
 				label="Дата конца"
 				v-model="formData.dateEnd"
 				required
-				classes="form__item"
+				class="form__item"
+				:error="v$.formData.dateEnd.$errors"
 			/>
 		</div>
 		<div class="form__items">
 			<InputArea
 				label="Описание"
 				v-model="formData.description"
-				classes="form__item form__item--full"
+				class="form__item form__item--full"
 			/>
 		</div>
 		<div class="form__items">
@@ -160,13 +207,15 @@ async function onSubmit() {
 				v-model="formData.corpus"
 				label="Корпус"
 				:options="filteredCorpuses"
-				classes="form__item"
+				class="form__item"
+				:error="v$.formData.corpus.$errors"
 			/>
 			<DefaultSelect
 				v-model="formData.level"
 				label="Уровень мероприятия"
 				:options="filteredLevels"
-				classes="form__item"
+				class="form__item"
+				:error="v$.formData.level.$errors"
 			/>
 		</div>
 		<div class="form__items">
@@ -176,6 +225,7 @@ async function onSubmit() {
 					label="Нарпавления"
 					mode="multiple"
 					:options="filteredDirections"
+					:error="v$.formData.directions.$errors"
 				/>
 				<div v-if="selectedDirections.length > 0" class="directions-list">
 					<span v-for="(item, i) in selectedDirections" :key="i" class="directions-list__item">
@@ -190,6 +240,7 @@ async function onSubmit() {
 					label="Модули"
 					mode="multiple"
 					:options="filteredModules"
+					:error="v$.formData.modules.$errors"
 				/>
 				<div v-if="selectedModules.length > 0" class="directions-list">
 					<span v-for="(item, i) in selectedModules" :key="i" class="directions-list__item">

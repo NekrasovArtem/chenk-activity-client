@@ -1,17 +1,20 @@
 <script setup lang="ts">
+import type {ErrorObject} from "@vuelidate/core";
 
-defineProps({
-	id: String,
-	title: String,
-	label: String,
-	placeholder: String,
-	name: String,
-	classes: String,
-	required: Boolean,
-	readonly: Boolean,
-	disabled: Boolean,
-	autocomplete: String,
-})
+interface Props {
+	id?: string;
+	title?: string;
+	label?: string;
+	placeholder?: string;
+	name?: string;
+	error?: ErrorObject[];
+	required?: boolean;
+	readonly?: boolean;
+	disabled?: boolean;
+	autocomplete?: string;
+}
+
+defineProps<Props>();
 
 const emits = defineEmits(['file-upload'])
 
@@ -24,7 +27,7 @@ function fileHandler(e: Event) {
 </script>
 
 <template>
-	<div class="default-input" :class="classes">
+	<div class="default-input">
 		<label class="default-input__label">
 			{{ label }}
 			<span v-if="required" class="default-input__label-required"> *</span>
@@ -41,5 +44,6 @@ function fileHandler(e: Event) {
 			:autocomplete
 			@change="fileHandler"
 		/>
+		<div v-if="error?.length" class="default-input__error">{{ error[0].$message }}</div>
 	</div>
 </template>

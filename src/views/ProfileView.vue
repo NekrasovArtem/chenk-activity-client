@@ -16,7 +16,7 @@ const { userData } = storeToRefs(useBaseStore());
 async function logout() {
 	deleteData();
 	successMessage('Выход из аккаунта');
-	await router.push({ name: 'Home' });
+	await router.push({ name: 'Auth' });
 	return;
 }
 </script>

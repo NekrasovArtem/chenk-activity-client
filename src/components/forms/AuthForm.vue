@@ -1,21 +1,42 @@
 <script setup lang="ts">
 import InputText from "@/components/inputs/InputText.vue";
 import InputPassword from "@/components/inputs/InputPassword.vue";
-import { reactive } from "vue";
+import {computed, reactive} from "vue";
 import { useBaseStore } from "@/stores/base.js";
 import { useToastStore } from "@/stores/toast.ts";
 import { api } from "@/api/index.ts";
 import router from "@/router/index.ts";
+import useVuelidate from "@vuelidate/core";
+import {helpers, required} from "@vuelidate/validators";
 
-const {setToken, setUser} = useBaseStore()
-const { successMessage, errorMessage } = useToastStore()
+const { setToken, setUser } = useBaseStore()
+const { successMessage, errorMessage } = useToastStore();
+const { withMessage } = helpers;
 
 const formData = reactive({
 	email: '',
 	password: '',
 })
 
+const rules = computed(() => ({
+	formData: {
+		email: {
+			required: withMessage('Впишите email', required)
+		},
+		password: {
+			required: withMessage('Впишите пароль', required)
+		}
+	}
+}))
+
+const v$ = useVuelidate(rules, { formData })
+
 async function onSubmit() {
+	const validation = await v$.value.formData.$validate();
+
+	if (!validation)
+		return;
+
 	const promise = await api.authorization(formData)
 
 	if (promise.status === 200) {
@@ -43,13 +64,15 @@ async function onSubmit() {
 				placeholder="Введите почту"
 				v-model="formData.email"
 				autocomplete="email"
-				:classes="'form__item form__item--full'"
+				class="form__item form__item--full"
+				:error="v$.formData.email.$errors"
 			/>
 			<InputPassword
 				label="Пароль"
 				placeholder="Введите пароль"
 				v-model="formData.password"
-				:classes="'form__item form__item--full'"
+				class="form__item form__item--full"
+				:error="v$.formData.password.$errors"
 			/>
 		</div>
 		<div class="form__bottom">

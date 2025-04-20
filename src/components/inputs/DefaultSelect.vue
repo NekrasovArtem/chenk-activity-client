@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Multiselect from "@vueform/multiselect";
+import type {ErrorObject} from "@vuelidate/core";
 
 interface Props {
 	id?: string;
@@ -8,7 +9,7 @@ interface Props {
 	placeholder?: string;
 	name?: string;
 	mode?: 'single' | 'multiple';
-	classes?: string;
+	error?: ErrorObject[];
 	required?: boolean;
 	readonly?: boolean;
 	disabled?: boolean;
@@ -29,7 +30,7 @@ const modelValue = defineModel()
 </script>
 
 <template>
-	<div class="default-select" :class="classes">
+	<div class="default-select">
 		<label class="default-select__label" :for="id">{{ label }}</label>
 
 		<Multiselect
@@ -53,6 +54,7 @@ const modelValue = defineModel()
 
 			<slot />
 		</Multiselect>
+		<div v-if="error?.length" class="default-input__error">{{ error[0].$message }}</div>
 	</div>
 </template>
 

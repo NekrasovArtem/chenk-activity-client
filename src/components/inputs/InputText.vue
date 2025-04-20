@@ -1,22 +1,26 @@
 <script setup lang="ts">
-defineProps({
-	id: String,
-	title: String,
-	label: String,
-	placeholder: String,
-	name: String,
-	classes: String,
-	required: Boolean,
-	readonly: Boolean,
-	disabled: Boolean,
-	autocomplete: String,
-})
+import type {ErrorObject} from "@vuelidate/core";
+
+interface Props {
+	id?: string,
+	title?: string;
+	label?: string;
+	placeholder?: string;
+	name?: string;
+	error?: ErrorObject[];
+	required?: boolean;
+	readonly?: boolean;
+	disabled?: boolean;
+	autocomplete?: string;
+}
+
+defineProps<Props>();
 
 const modelValue = defineModel()
 </script>
 
 <template>
-	<div class="default-input" :class="classes">
+	<div class="default-input">
 		<label class="default-input__label">
 			{{ label }}
 			<span v-if="required" class="default-input__label-required"> *</span>
@@ -33,5 +37,6 @@ const modelValue = defineModel()
 			:disabled
 			:autocomplete
 		/>
+		<div v-if="error?.length" class="default-input__error">{{ error[0].$message }}</div>
 	</div>
 </template>
