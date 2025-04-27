@@ -9,7 +9,7 @@
 	background-color: var(--color-neutral-100)
 	z-index: 1
 
-	@include media('max', '756px')
+	@include media('max', 'tablet')
 		height: 60px
 
 
@@ -21,12 +21,16 @@
 		gap: 32px
 		padding: 20px
 
-		@include media('max', '756px')
+		@include media('max', 'tablet')
 			gap: 12px
 			padding: 10px
 
 	&__logo
 		height: 100%
+		transition: opacity .3s
+
+		@include hover()
+			opacity: .7
 
 		&-image
 			height: 100%
@@ -40,7 +44,7 @@
 		justify-content: space-between
 		padding: 4px
 
-		@include media('min', '756px')
+		@include media('min', 'tablet')
 			display: none
 
 		&-item
@@ -53,16 +57,22 @@
 		align-items: center
 		gap: 8px
 
-		@include media('max', '756px')
+		@include media('max', 'tablet')
 			margin-left: auto
+
+		@include hover()
+			& .header__user
+				&-img
+					opacity: .7
 
 		&-img
 			width: 32px
 			height: 32px
 			padding: 4px
+			transition: opacity .3s
 
 		&-name
-			@include media('max', '756px')
+			@include media('max', 'tablet')
 				display: none
 
 	&__nav
@@ -71,7 +81,7 @@
 		gap: 16px
 		margin-left: auto
 
-		@include media('max', '756px')
+		@include media('max', 'tablet')
 			display: none
 
 		&-item

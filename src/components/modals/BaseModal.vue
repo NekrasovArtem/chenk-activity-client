@@ -20,7 +20,7 @@ function close() {
 <template>
 	<teleport to="#modals-container">
 		<Transition name="slide-fade">
-			<div v-if="showModal" class="modal-window" :id="id" :class="{opened: showModal}">
+			<div v-if="showModal" class="modal-window" @mousedown.self="closeModal(id)" :id="id" :class="{opened: showModal}">
 				<slot name="default" :close="close" />
 			</div>
 		</Transition>

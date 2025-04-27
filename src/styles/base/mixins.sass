@@ -1,11 +1,15 @@
+$breakpoints: ("mobile": 480px, "tablet": 768px, "laptop": 1024px)
+
+@mixin media($type, $screen)
+	@each $size, $resolution in $breakpoints
+		@if $screen == $size
+			@if $type == 'max'
+				@media (max-width: $resolution)
+					@content
+			@else
+				@media (min-width: $resolution)
+					@content
+
 @mixin hover
 	&:hover
 		@content
-
-@mixin media($type, $pixels)
-	@if $type == 'max'
-		@media (max-width: $pixels)
-			@content
-	@else
-		@media (min-width: $pixels)
-			@content
