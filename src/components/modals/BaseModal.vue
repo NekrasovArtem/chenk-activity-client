@@ -18,9 +18,9 @@ function close() {
 </script>
 
 <template>
-	<teleport to="#modals-container">
+	<teleport to="#modals-container" defer>
 		<Transition name="slide-fade">
-			<div v-if="showModal" class="modal-window" @mousedown.self="closeModal(id)" :id="id" :class="{opened: showModal}">
+			<div v-if="showModal" class="modal-window" @keydown.esc="close" @mousedown.self="close" :id="id" :class="{opened: showModal}">
 				<slot name="default" :close="close" />
 			</div>
 		</Transition>

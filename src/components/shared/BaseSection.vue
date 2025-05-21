@@ -6,7 +6,7 @@ defineProps({
 
 <template>
 	<section class="section">
-		<div class="section__header">
+		<div v-if="title || $slots.actions" class="section__header">
 			<h2 v-if="title" class="section__title">{{ title }}</h2>
 			<div v-if="$slots.actions" class="section__actions">
 				<slot name="actions"></slot>
