@@ -2,10 +2,17 @@
 import Multiselect from "@vueform/multiselect";
 import type {ErrorObject} from "@vuelidate/core";
 
+interface Option {
+	label: string;
+	value: string;
+}
+
 interface Props {
 	id?: string;
 	title?: string;
 	label?: string;
+	labelProp?: string;
+	valueProp?: string;
 	placeholder?: string;
 	name?: string;
 	mode?: 'single' | 'multiple';
@@ -16,10 +23,7 @@ interface Props {
 	closeOnSelect?: boolean;
 	autocomplete?: string;
 	searchable?: boolean;
-	options?: string[] | {
-		value: number;
-		label: string;
-	}[];
+	options?: string[] | Option[];
 }
 
 const {
@@ -46,6 +50,8 @@ const modelValue = defineModel()
 			:searchable
 			:options
 			:close-on-select
+			:label="labelProp"
+			:value-prop
 			v-model="modelValue"
 		>
 			<template #clear="{ clear }">
