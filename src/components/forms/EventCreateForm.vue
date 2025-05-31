@@ -5,52 +5,20 @@ import InputArea from "@/components/inputs/InputArea.vue";
 import DefaultSelect from "@/components/inputs/DefaultSelect.vue";
 import {computed, reactive} from "vue";
 import {storeToRefs} from "pinia";
-import {type Direction, type Module, useEventsStore} from "@/stores/events.ts";
-import IconSVG from "@/components/shared/IconSVG.vue";
+import { useEventsStore} from "@/stores/events.ts";
+
 import {api} from "@/api";
 import {useToastStore} from "@/stores/toast.ts";
 import {useModalsStore} from "@/stores/modals.ts";
 import {helpers, required} from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 
-const { levels, corpuses, directions, modules } = storeToRefs(useEventsStore());
+const { places, levels, corpuses, directions, modules } = storeToRefs(useEventsStore());
 const { requestEvents } = useEventsStore();
 const { successMessage, errorMessage } = useToastStore();
 const { closeModal } = useModalsStore();
 const { withMessage } = helpers;
 
-const filteredLevels = computed(() => {
-	return levels.value?.map((level) => {
-		return {
-			value: level.id,
-			label: level.name,
-		}
-	})
-})
-const filteredCorpuses = computed(() => {
-	return corpuses.value?.map((corpus) => {
-		return {
-			value: corpus.id,
-			label: corpus.name,
-		}
-	})
-})
-const filteredDirections = computed(() => {
-	return directions.value?.map((direction) => {
-		return {
-			value: direction.id,
-			label: direction.name,
-		}
-	})
-})
-const filteredModules = computed(() => {
-	return modules.value?.map((module) => {
-		return {
-			value: module.id,
-			label: module.name,
-		}
-	})
-})
 
 interface EventForm {
 	title: string;
@@ -112,21 +80,6 @@ const rules = computed(() => ({
 
 const v$ = useVuelidate(rules, { formData })
 
-const selectedDirections = computed(() => {
-	return directions.value?.filter((direction: Direction) => formData.directions.includes(direction.id)) || [];
-})
-const selectedModules = computed(() => {
-	return modules.value?.filter((module: Module) => formData.modules.includes(module.id)) || [];
-})
-
-function deleteDirection(id: number) {
-	const index = formData.directions.indexOf(id);
-	formData.directions.splice(index, 1);
-}
-function deleteModule(id: number) {
-	const index = formData.modules.indexOf(id);
-	formData.modules.splice(index, 1);
-}
 async function onSubmit() {
 	const validation = await v$.value.formData.$validate();
 
@@ -206,14 +159,18 @@ async function onSubmit() {
 			<DefaultSelect
 				v-model="formData.corpus"
 				label="Корпус"
-				:options="filteredCorpuses"
+				:options="corpuses"
+				value-prop="id"
+				label-prop="name"
 				class="form__item"
 				:error="v$.formData.corpus.$errors"
 			/>
 			<DefaultSelect
 				v-model="formData.level"
 				label="Уровень мероприятия"
-				:options="filteredLevels"
+				:options="levels"
+				value-prop="id"
+				label-prop="name"
 				class="form__item"
 				:error="v$.formData.level.$errors"
 			/>
@@ -224,7 +181,9 @@ async function onSubmit() {
 					v-model="formData.directions"
 					label="Нарпавления"
 					mode="tags"
-					:options="filteredDirections"
+					:options="directions"
+					value-prop="id"
+					label-prop="name"
 					:error="v$.formData.directions.$errors"
 				/>
 			</div>
@@ -233,7 +192,9 @@ async function onSubmit() {
 					v-model="formData.modules"
 					label="Модули"
 					mode="tags"
-					:options="filteredModules"
+					:options="modules"
+					value-prop="id"
+					label-prop="name"
 					:error="v$.formData.modules.$errors"
 				/>
 			</div>

@@ -7,7 +7,7 @@ import { api} from "@/api/index.ts";
 import { useRoute} from "vue-router";
 import {useEventsStore} from "@/stores/events.ts";
 
-const { requestCorpuses, requestLevels, requestDirections, requestModules } = useEventsStore();
+const { requestCorpuses, requestPlaces, requestLevels, requestDirections, requestModules } = useEventsStore();
 
 const route = useRoute();
 const eventId: number = +route.params.id;
@@ -15,6 +15,7 @@ const event = ref();
 
 onMounted( async () => {
 	await requestCorpuses();
+	await requestPlaces();
 	await requestLevels();
 	await requestDirections();
 	await requestModules();

@@ -40,46 +40,33 @@ export interface EventPayload {
 	date_start: string;
 	date_end: string;
 	description: string;
-	level: number;
-	corpus: number;
+	level_id: number;
+	corpus_id: number;
 	directions: number[];
 	modules: number[];
-	place: number;
+	place_id: number;
 	responsible: string;
 	responsibles: number[];
 }
 
-export interface Level {
-	id: number;
-	name: string;
-}
-
-export interface Corpus {
-	id: number;
-	name: string;
-}
-
-export interface Direction {
-	id: number;
-	name: string;
-}
-
-export interface Module {
+export interface ReferenceItem {
 	id: number;
 	name: string;
 }
 
 interface EventsStore {
 	events: Event[];
-	levels: Level[];
-	corpuses: Corpus[];
-	directions: Direction[];
-	modules: Module[];
+	places: ReferenceItem[];
+	levels: ReferenceItem[];
+	corpuses: ReferenceItem[];
+	directions: ReferenceItem[];
+	modules: ReferenceItem[];
 }
 
 export const useEventsStore = defineStore('events',{
 	state: (): EventsStore => ({
 		events: [],
+		places: [],
 		levels: [],
 		corpuses: [],
 		directions: [],
@@ -88,6 +75,11 @@ export const useEventsStore = defineStore('events',{
 	actions: {
 		async requestEvents() {
 			this.events = await api.getEvents();
+		},
+		async requestPlaces() {
+			const response = await api.getPlaces();
+			this.places = response.places;
+			return response.places;
 		},
 		async requestLevels() {
 			const response = await api.getLevels();

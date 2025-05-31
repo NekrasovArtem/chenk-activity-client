@@ -15,7 +15,7 @@ interface Props {
 }
 
 const { event } = defineProps<Props>();
-const { levels, corpuses, directions, modules } = storeToRefs(useEventsStore());
+const { places, levels, corpuses, directions, modules } = storeToRefs(useEventsStore());
 const { errorMessage } = useToastStore();
 const { openModal } = useModalsStore();
 
@@ -23,12 +23,12 @@ const initialData = {
 	id: event.id,
 	name: event.name,
 	responsible: event.responsible,
-	place: event.place.id,
+	place_id: event.place.id,
 	date_start: event.date_start,
 	date_end: event.date_end,
 	description: event.description,
-	level: event.level.id,
-	corpus: event.corpus.id,
+	level_id: event.level.id,
+	corpus_id: event.corpus.id,
 	directions: event.directions.map(obj => obj.id),
 	modules: event.modules.map(obj => obj.id),
 	responsibles: event.responsibles.map(obj => obj.id),
@@ -74,9 +74,11 @@ async function onSubmit() {
 					class="form__item"
 				/>
 				<DefaultSelect
-					v-model="formData.place"
+					v-model="formData.place_id"
 					label="Место"
-					:options="[]"
+					:options="places"
+					value-prop="id"
+					label-prop="name"
 					class="form__item"
 					:disabled="!isEdit"
 				/>
@@ -99,7 +101,7 @@ async function onSubmit() {
 					:disabled="!isEdit"
 				/>
 				<DefaultSelect
-					v-model="formData.corpus"
+					v-model="formData.corpus_id"
 					label="Корпус"
 					value-prop="id"
 					label-prop="name"
@@ -108,7 +110,7 @@ async function onSubmit() {
 					:disabled="!isEdit"
 				/>
 				<DefaultSelect
-					v-model="formData.level"
+					v-model="formData.level_id"
 					label="Уровень"
 					value-prop="id"
 					label-prop="name"

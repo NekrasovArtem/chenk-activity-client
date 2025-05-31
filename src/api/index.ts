@@ -47,6 +47,15 @@ class BaseApi {
 		});
 	}
 
+	async getPlaces() {
+		const response = await this._api.get("/places", {
+			headers: {
+				Authorization: `Bearer ${token.value}`
+			}
+		});
+		return response.data;
+	}
+
 	async getLevels() {
 		const response = await this._api.get("/levels", {
 			headers: {

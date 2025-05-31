@@ -10,12 +10,13 @@ import { api } from "@/api/index.ts";
 import { storeToRefs } from "pinia";
 
 const { openModal } = useModalsStore();
-const { requestEvents, requestCorpuses, requestLevels, requestDirections, requestModules } = useEventsStore();
+const { requestEvents, requestCorpuses, requestPlaces, requestLevels, requestDirections, requestModules } = useEventsStore();
 const { events } = storeToRefs(useEventsStore());
 
 onMounted( async () => {
 	await requestEvents();
 	await requestCorpuses();
+	await requestPlaces();
 	await requestLevels();
 	await requestDirections();
 	await requestModules();
