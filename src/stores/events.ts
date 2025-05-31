@@ -34,6 +34,21 @@ export interface Event {
 	}[];
 }
 
+export interface EventPayload {
+	id: number;
+	name: string;
+	date_start: string;
+	date_end: string;
+	description: string;
+	level: number;
+	corpus: number;
+	directions: number[];
+	modules: number[];
+	place: number;
+	responsible: string;
+	responsibles: number[];
+}
+
 export interface Level {
 	id: number;
 	name: string;
@@ -55,20 +70,20 @@ export interface Module {
 }
 
 interface EventsStore {
-	events: Event[] | null;
-	levels: Level[] | null;
-	corpuses: Corpus[] | null;
-	directions: Direction[] | null;
-	modules: Module[] | null;
+	events: Event[];
+	levels: Level[];
+	corpuses: Corpus[];
+	directions: Direction[];
+	modules: Module[];
 }
 
 export const useEventsStore = defineStore('events',{
 	state: (): EventsStore => ({
-		events: null,
-		levels: null,
-		corpuses: null,
-		directions: null,
-		modules: null,
+		events: [],
+		levels: [],
+		corpuses: [],
+		directions: [],
+		modules: [],
 	}),
 	actions: {
 		async requestEvents() {

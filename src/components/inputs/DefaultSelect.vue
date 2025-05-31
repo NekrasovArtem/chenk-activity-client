@@ -2,10 +2,7 @@
 import Multiselect from "@vueform/multiselect";
 import type {ErrorObject} from "@vuelidate/core";
 
-interface Option {
-	label: string;
-	value: string;
-}
+type MultiselectProps = InstanceType<typeof Multiselect>['$props'];
 
 interface Props {
 	id?: string;
@@ -15,7 +12,7 @@ interface Props {
 	valueProp?: string;
 	placeholder?: string;
 	name?: string;
-	mode?: 'single' | 'multiple';
+	mode?: MultiselectProps['mode'];
 	error?: ErrorObject[];
 	required?: boolean;
 	readonly?: boolean;
@@ -23,7 +20,7 @@ interface Props {
 	closeOnSelect?: boolean;
 	autocomplete?: string;
 	searchable?: boolean;
-	options?: string[] | Option[];
+	options?: MultiselectProps['options'];
 }
 
 const {

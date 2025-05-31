@@ -223,31 +223,19 @@ async function onSubmit() {
 				<DefaultSelect
 					v-model="formData.directions"
 					label="Нарпавления"
-					mode="multiple"
+					mode="tags"
 					:options="filteredDirections"
 					:error="v$.formData.directions.$errors"
 				/>
-				<div v-if="selectedDirections.length > 0" class="directions-list">
-					<span v-for="(item, i) in selectedDirections" :key="i" class="directions-list__item">
-						{{ item.name }}
-						<IconSVG @click="deleteDirection(item.id)" class="directions-list__item-icon" name="close" />
-					</span>
-				</div>
 			</div>
 			<div class="form__item">
 				<DefaultSelect
 					v-model="formData.modules"
 					label="Модули"
-					mode="multiple"
+					mode="tags"
 					:options="filteredModules"
 					:error="v$.formData.modules.$errors"
 				/>
-				<div v-if="selectedModules.length > 0" class="directions-list">
-					<span v-for="(item, i) in selectedModules" :key="i" class="directions-list__item">
-						{{ item.name }}
-						<IconSVG @click="deleteModule(item.id)" class="directions-list__item-icon" name="close" />
-					</span>
-				</div>
 			</div>
 		</div>
 		<div class="form__buttons">
