@@ -19,11 +19,12 @@ class BaseApi {
 	})
 
 	async registration(formData: object) {
-		return await this._api.post('/registration', formData, {
+		const response = await this._api.post('/registration', formData, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			}
 		});
+		return response.data;
 	}
 
 	async authorization(formData: object) {

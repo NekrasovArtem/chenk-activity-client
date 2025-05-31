@@ -8,18 +8,18 @@ interface Props {
 	id?: string;
 	title?: string;
 	label?: string;
-	labelProp?: string;
-	valueProp?: string;
-	placeholder?: string;
+	labelProp?: MultiselectProps['label'];
+	valueProp?: MultiselectProps['valueProp'];
+	placeholder?: MultiselectProps['placeholder'];
 	name?: string;
 	mode?: MultiselectProps['mode'];
 	error?: ErrorObject[];
-	required?: boolean;
-	readonly?: boolean;
-	disabled?: boolean;
-	closeOnSelect?: boolean;
-	autocomplete?: string;
-	searchable?: boolean;
+	required?: MultiselectProps['required'];
+	disabled?: MultiselectProps['disabled'];
+	closeOnSelect?: MultiselectProps['closeOnSelect'];
+	canClear?: MultiselectProps['canClear'];
+	canDeselect?: MultiselectProps['canDeselect'];
+	searchable?: MultiselectProps['searchable'];
 	options?: MultiselectProps['options'];
 }
 
@@ -41,12 +41,12 @@ const modelValue = defineModel()
 			:name
 			:mode
 			:required
-			:readonly
 			:disabled
-			:autocomplete
 			:searchable
 			:options
 			:close-on-select
+			:can-clear
+			:can-deselect
 			:label="labelProp"
 			:value-prop
 			v-model="modelValue"

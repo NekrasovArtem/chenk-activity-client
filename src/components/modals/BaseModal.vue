@@ -39,4 +39,5 @@ function close() {
 	align-items: center
 	background-color: rgba(#000000, 0.3)
 	z-index: 10
+	overflow-y: auto
 </style>
