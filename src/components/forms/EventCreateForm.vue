@@ -122,12 +122,9 @@ async function onSubmit() {
 			<DefaultSelect
 				v-model="formData.place"
 				label="Место"
-				:options="[
-					{
-						value: 1,
-						label: 'Колледж',
-					},
-				]"
+				:options="places"
+				value-prop="id"
+				label-prop="name"
 				class="form__item"
 				:error="v$.formData.place.$errors"
 			/>

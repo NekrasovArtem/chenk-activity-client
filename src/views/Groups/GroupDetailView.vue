@@ -14,14 +14,14 @@ const group = ref<Group | null>(null)
 onMounted(async () => {
 	const response = await api.getGroupDetail(groupId);
 
-	if (response.data.success) {
-		group.value = response.data.group;
+	if (response.success) {
+		group.value = response.group;
 	}
 })
 </script>
 
 <template>
-	<MainLayout :title="`Группа ${group?.name}`">
+	<MainLayout :title="`Группа ${group?.name || ''}`">
 		<BaseSection title="Список студентов" class="students">
 			<template #default>
 				<div class="students__list" v-if="group?.students?.length">

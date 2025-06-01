@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { api } from "@/api/index.ts";
+import type {Student} from "@/stores/groups.ts";
 
 export interface Event {
 	id: number;
@@ -7,31 +8,14 @@ export interface Event {
 	date_start: string;
 	date_end: string;
 	description: string;
-	level: {
-		id: number;
-		name: string;
-	};
-	corpus: {
-		id: number;
-		name: string;
-	};
-	directions: {
-		id: number;
-		name: string;
-	}[];
-	modules: {
-		id: number;
-		name: string;
-	}[];
-	place: {
-		id: number;
-		name: string;
-	};
+	level: ReferenceItem;
+	corpus: ReferenceItem;
+	directions: ReferenceItem[];
+	modules: ReferenceItem[];
+	place: ReferenceItem;
 	responsible: string;
-	responsibles: {
-		id: number;
-		name: string;
-	}[];
+	responsibles: ReferenceItem[];
+	participants: Student[];
 }
 
 export interface EventPayload {

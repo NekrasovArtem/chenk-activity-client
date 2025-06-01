@@ -28,6 +28,8 @@ const {
 } = defineProps<Props>();
 
 const modelValue = defineModel()
+
+const emit = defineEmits(['change'])
 </script>
 
 <template>
@@ -50,6 +52,8 @@ const modelValue = defineModel()
 			:label="labelProp"
 			:value-prop
 			v-model="modelValue"
+			@select="emit('change')"
+			@deselect="emit('change')"
 		>
 			<template #clear="{ clear }">
 				<span @click="clear" tabindex="0" role="button" data-clear="" aria-roledescription="❎" class="multiselect-clear"><span class="multiselect-clear-icon"></span></span>

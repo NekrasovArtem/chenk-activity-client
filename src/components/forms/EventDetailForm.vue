@@ -9,6 +9,7 @@ import { api } from "@/api";
 import { useToastStore } from "@/stores/toast.ts";
 import { storeToRefs } from "pinia";
 import {useModalsStore} from "@/stores/modals.ts";
+import ParticipantsModal from "@/components/modals/ParticipantsModal.vue";
 
 interface Props {
 	event: Event;
@@ -32,6 +33,7 @@ const initialData = {
 	directions: event.directions.map(obj => obj.id),
 	modules: event.modules.map(obj => obj.id),
 	responsibles: event.responsibles.map(obj => obj.id),
+	participants: event.participants,
 }
 const formData = reactive({ ...initialData });
 const isEdit = ref<boolean>(false)
@@ -63,6 +65,7 @@ async function onSubmit() {
 		<div class="event__form form">
 			<div class="form__items">
 				<InputText
+					label="Название"
 					v-model="formData.name"
 					:disabled="!isEdit"
 					class="form__item form__item--full"
@@ -139,14 +142,26 @@ async function onSubmit() {
 					:disabled="!isEdit"
 				/>
 			</div>
+			<div v-if="formData.participants.length" class="form__items">
+				<span v-for="student in formData.participants" :key="student.id" class="form__item form__item--full">
+					{{ student.surname }} {{ student.name }} {{ student.patronymic }}
+				</span>
+			</div>
+			<div v-else class="form__items">
+				<span class="form__item form__item--full">
+					К данному мероприятию не прикреплены участники
+				</span>
+			</div>
 		</div>
 		<div class="event__actions">
-			<button v-if="!isEdit" @click="openModal('')" class="btn">Добавить ответственных</button>
+			<button v-if="!isEdit" @click="openModal('participants-modal')" class="btn">Добавить ответственных</button>
 			<button v-if="!isEdit" @click="isEdit = true" class="btn">Редактировать</button>
 			<button v-if="isEdit" @click="onReset" class="btn btn--secondary">Отмена</button>
 			<button v-if="isEdit" @click="onSubmit" class="btn">Сохранить</button>
 		</div>
 	</div>
+
+	<ParticipantsModal :participants="event.participants" />
 </template>
 
 <style scoped lang="sass">

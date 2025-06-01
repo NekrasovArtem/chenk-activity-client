@@ -1,6 +1,14 @@
 import {defineStore} from "pinia";
 import {api} from "@/api/index.ts";
 
+export interface Student {
+	id: number;
+	name: string;
+	surname: string;
+	patronymic: string;
+	initials: string;
+}
+
 export interface Group {
 	id: number;
 	name: string;
@@ -9,22 +17,16 @@ export interface Group {
 		name: string;
 		qualification: string;
 	};
-	students?: {
-		id: number;
-		name: string;
-		surname: string;
-		patronymic: string;
-		initials: string;
-	}[];
+	students?: Student[];
 }
 
 interface GroupStore {
-	groups: Group[] | null;
+	groups: Group[];
 }
 
 export const useGroupsStore = defineStore('groups',{
 	state: (): GroupStore => ({
-		groups: null
+		groups: []
 	}),
 	actions: {
 		async requestGroups() {

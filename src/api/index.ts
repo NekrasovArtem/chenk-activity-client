@@ -178,20 +178,22 @@ class BaseApi {
 	}
 
 	async getGroupDetail(id: number) {
-		return await this._api.get(`/groups/detail/${id}`, {
+		const response = await this._api.get(`/groups/${id}`, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			}
 		});
+
+		return response.data;
 	}
 
 	async createGroups(data: object) {
-		const promise = await this._api.post("/groups", data, {
+		const response = await this._api.post("/groups", data, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			},
 		});
-		return await promise.data;
+		return await response.data;
 	}
 
 	async importStudents(formData: object) {
@@ -201,6 +203,16 @@ class BaseApi {
 				Authorization: `Bearer ${token.value}`
 			},
 		});
+	}
+
+	async getStudentsByGroup(id: number) {
+		const response = await this._api.get(`/students/group/${id}`, {
+			headers: {
+				Authorization: `Bearer ${token.value}`
+			},
+		})
+
+		return response.data;
 	}
 }
 
