@@ -58,6 +58,9 @@ async function onSubmit() {
 	isEdit.value = false
 	Object.assign(initialData, formData);
 }
+async function onParticipantsUpdate() {
+
+}
 </script>
 
 <template>
@@ -161,7 +164,7 @@ async function onSubmit() {
 		</div>
 	</div>
 
-	<ParticipantsModal :participants="event.participants" />
+	<ParticipantsModal :event_id="formData.id" :participants="event.participants" @on-submit="onParticipantsUpdate" />
 </template>
 
 <style scoped lang="sass">

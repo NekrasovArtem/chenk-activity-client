@@ -33,6 +33,11 @@ export interface EventPayload {
 	responsibles: number[];
 }
 
+export interface EventParticipantsPayload {
+	event_id: number;
+	participants: number[];
+}
+
 export interface ReferenceItem {
 	id: number;
 	name: string;

@@ -5,12 +5,12 @@ import ParticipantsForm from "@/components/forms/ParticipantsForm.vue";
 import type {Student} from "@/stores/groups.ts";
 
 interface Props {
+	event_id: number;
 	participants: Student[];
 }
 
-const props = defineProps<Props>();
-
-const participantsId = props.participants.map(obj => obj.id)
+defineProps<Props>();
+const emit = defineEmits(['onSubmit']);
 </script>
 
 <template>
@@ -23,7 +23,7 @@ const participantsId = props.participants.map(obj => obj.id)
 						<IconSVG class="modal__close" name="close" @click="close" />
 					</div>
 					<div class="modal__body">
-						<ParticipantsForm :participants="participantsId" />
+						<ParticipantsForm :event_id :participants @on-submit="emit('onSubmit')" />
 					</div>
 				</div>
 			</template>

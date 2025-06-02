@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useBaseStore } from "@/stores/base.js";
 import { storeToRefs } from "pinia"
-import type {EventPayload} from "@/stores/events.ts";
+import type {EventParticipantsPayload, EventPayload} from "@/stores/events.ts";
 
 const { token } = storeToRefs(useBaseStore());
 
@@ -142,6 +142,15 @@ class BaseApi {
 
 	async editEvent(id: number, data: EventPayload) {
 		const promise = await this._api.put(`/events/${id}/edit`, data, {
+			headers: {
+				Authorization: `Bearer ${token.value}`
+			},
+		});
+		return await promise.data;
+	}
+
+	async eventParticipantsAdd(data: EventParticipantsPayload) {
+		const promise = await this._api.post(`/events/participants`, data, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			},
