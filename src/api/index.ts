@@ -40,11 +40,12 @@ class BaseApi {
 	}
 
 	async resetPassword() {
-		return await this._api.post('/password/reset', {}, {
+		const response = await this._api.post('/password/reset', {}, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			}
 		});
+		return response.data;
 	}
 
 	async getPlaces() {
@@ -140,8 +141,8 @@ class BaseApi {
 		return await promise.data;
 	}
 
-	async editEvent(id: number, data: EventPayload) {
-		const promise = await this._api.put(`/events/${id}/edit`, data, {
+	async deleteEvent(id: number) {
+		const promise = await this._api.delete(`/events/${id}`,{
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			},
@@ -149,8 +150,8 @@ class BaseApi {
 		return await promise.data;
 	}
 
-	async eventParticipantsAdd(data: EventParticipantsPayload) {
-		const promise = await this._api.post(`/events/participants`, data, {
+	async editEvent(id: number, data: EventPayload | { participants: number[] }) {
+		const promise = await this._api.put(`/events/${id}`, data, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			},
@@ -159,7 +160,7 @@ class BaseApi {
 	}
 
 	async exportEvents() {
-		const promise = await this._api.post("/events/export", {
+		const promise = await this._api.post("/events/export",  {},{
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			},

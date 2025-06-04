@@ -31,6 +31,7 @@ export interface EventPayload {
 	place_id: number;
 	responsible: string;
 	responsibles: number[];
+	participants: number[];
 }
 
 export interface EventParticipantsPayload {

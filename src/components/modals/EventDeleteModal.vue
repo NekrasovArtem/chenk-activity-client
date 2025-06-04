@@ -8,38 +8,43 @@ import { useModalsStore } from "@/stores/modals.ts";
 import router from "@/router";
 import IconSVG from "@/components/shared/IconSVG.vue";
 
-const { token, userData } = storeToRefs(useBaseStore());
-const { infoMessage, warningMessage } = useToastStore();
+interface Props {
+	eventId: number;
+}
+
+const props = defineProps<Props>();
+
+const { successMessage, errorMessage } = useToastStore();
 const { closeModal } = useModalsStore();
 
 async function onSubmit() {
-	const response = await api.resetPassword();
+	const response = await api.deleteEvent(props.eventId);
 
-	if (response.success) {
-		token.value = null;
-		userData.value = null;
-		infoMessage('Пароль сброшен, ожидайте новый пароль на почте');
-		closeModal('password-modal');
-		await router.push({ name: "Auth" });
-	} else {
-		warningMessage('Ошибка');
+	if (!response.success) {
+		errorMessage('Ошибка');
+		return;
+
 	}
+
+	successMessage('Мероприятие удалено');
+	closeModal('event-delete-modal');
+	await router.push({ name: "Events" });
 }
 
 </script>
 
 <template>
 	<teleport to="#modals-container">
-		<BaseModal id="password-modal">
+		<BaseModal id="event-delete-modal">
 			<template #default="{ close }">
 				<div class="modal">
 					<div class="modal__head">
-						<h2 class="modal__title">Создать группу</h2>
+						<h2 class="modal__title">Удаление мероприятия</h2>
 						<IconSVG class="modal__close" name="close" @click="close" />
 					</div>
 					<div class="modal__body">
 						<div class="modal__content">
-							<span>Вы уверены, что хотите сбросить пароль?</span>
+							<span>Вы уверены, что хотите удалить мероприятие?</span>
 						</div>
 						<div class="modal__actions">
 							<button class="btn btn--secondary" @click="close">Отмена</button>

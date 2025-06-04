@@ -3,19 +3,22 @@ import InputText from "@/components/inputs/InputText.vue";
 import DefaultSelect from "@/components/inputs/DefaultSelect.vue";
 import InputDate from "@/components/inputs/InputDate.vue";
 import InputArea from "@/components/inputs/InputArea.vue";
-import { reactive, ref } from "vue";
+import {computed, reactive, ref} from "vue";
 import { type Event, useEventsStore } from "@/stores/events.ts";
 import { api } from "@/api";
 import { useToastStore } from "@/stores/toast.ts";
 import { storeToRefs } from "pinia";
 import {useModalsStore} from "@/stores/modals.ts";
 import ParticipantsModal from "@/components/modals/ParticipantsModal.vue";
+import {useBaseStore} from "@/stores/base.ts";
+import EventDeleteModal from "@/components/modals/EventDeleteModal.vue";
 
 interface Props {
 	event: Event;
 }
 
 const { event } = defineProps<Props>();
+const { userData } = storeToRefs(useBaseStore());
 const { places, levels, corpuses, directions, modules } = storeToRefs(useEventsStore());
 const { errorMessage } = useToastStore();
 const { openModal } = useModalsStore();
@@ -33,10 +36,12 @@ const initialData = {
 	directions: event.directions.map(obj => obj.id),
 	modules: event.modules.map(obj => obj.id),
 	responsibles: event.responsibles.map(obj => obj.id),
-	participants: event.participants,
+	participants: event.participants.map(obj => obj.id),
 }
 const formData = reactive({ ...initialData });
 const isEdit = ref<boolean>(false)
+
+const participants = event.participants;
 
 function onReset() {
 	isEdit.value = false
@@ -146,7 +151,7 @@ async function onParticipantsUpdate() {
 				/>
 			</div>
 			<div v-if="formData.participants.length" class="form__items">
-				<span v-for="student in formData.participants" :key="student.id" class="form__item form__item--full">
+				<span v-for="student in participants" :key="student.id" class="form__item form__item--full">
 					{{ student.surname }} {{ student.name }} {{ student.patronymic }}
 				</span>
 			</div>
@@ -161,10 +166,18 @@ async function onParticipantsUpdate() {
 			<button v-if="!isEdit" @click="isEdit = true" class="btn">Редактировать</button>
 			<button v-if="isEdit" @click="onReset" class="btn btn--secondary">Отмена</button>
 			<button v-if="isEdit" @click="onSubmit" class="btn">Сохранить</button>
+			<button
+				v-if="!isEdit && userData?.role === 'admin'"
+				@click="openModal('event-delete-modal')"
+				class="btn btn--secondary"
+			>
+				Удалить
+			</button>
 		</div>
 	</div>
 
 	<ParticipantsModal :event_id="formData.id" :participants="event.participants" @on-submit="onParticipantsUpdate" />
+	<EventDeleteModal :event-id="formData.id" />
 </template>
 
 <style scoped lang="sass">

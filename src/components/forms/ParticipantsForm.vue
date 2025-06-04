@@ -66,8 +66,7 @@ async function changeGroup() {
 }
 
 async function onSubmit() {
-	const response = await api.eventParticipantsAdd({
-		event_id: props.event_id,
+	const response = await api.editEvent(props.event_id, {
 		participants: participantsIds.value
 	});
 
