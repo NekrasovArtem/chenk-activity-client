@@ -51,6 +51,7 @@ interface EventsStore {
 	corpuses: ReferenceItem[];
 	directions: ReferenceItem[];
 	modules: ReferenceItem[];
+	pages: number;
 }
 
 export const useEventsStore = defineStore('events',{
@@ -61,10 +62,13 @@ export const useEventsStore = defineStore('events',{
 		corpuses: [],
 		directions: [],
 		modules: [],
+		pages: 0,
 	}),
 	actions: {
-		async requestEvents() {
-			this.events = await api.getEvents();
+		async requestEvents(page: number = 1) {
+			const response = await api.getEvents(page);
+			this.events = await response.data;
+			this.pages = await response.meta.last_page;
 		},
 		async requestPlaces() {
 			const response = await api.getPlaces();

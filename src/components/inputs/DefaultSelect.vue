@@ -70,4 +70,10 @@ const emit = defineEmits(['change'])
 	.multiselect
 		--ms-option-bg-selected: var(--color-primary-500)
 		--ms-option-bg-selected-pointed: var(--color-primary-500)
+
+		&.is-disabled
+
+			& .multiselect
+				&-wrapper
+					cursor: default
 </style>

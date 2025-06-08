@@ -53,19 +53,32 @@ const router = createRouter({
 		},
 		{
 			path: '/events',
-			name: 'Events',
-			meta: {
-				title: 'Мероприятия'
-			},
-			component: () => import('@/views/Events/EventsView.vue'),
-		},
-		{
-			path: '/events/:id',
-			name: 'EventDetail',
-			meta: {
-				title: 'Детальная мероприятия'
-			},
-			component: () => import('@/views/Events/EventDetailView.vue'),
+			children: [
+				{
+					path: '',
+					name: 'Events',
+					meta: {
+						title: 'Мероприятия'
+					},
+					component: () => import('@/views/Events/EventsView.vue'),
+				},
+				{
+					path: ':id',
+					name: 'EventDetail',
+					meta: {
+						title: 'Детальная мероприятия'
+					},
+					component: () => import('@/views/Events/EventDetailView.vue'),
+				},
+				{
+					path: 'page/:page',
+					name: 'EventsPagination',
+					meta: {
+						title: 'Мероприятия'
+					},
+					component: () => import('@/views/Events/EventsView.vue'),
+				},
+			]
 		},
 	],
 })

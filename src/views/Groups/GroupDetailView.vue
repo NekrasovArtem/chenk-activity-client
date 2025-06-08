@@ -21,7 +21,7 @@ onMounted(async () => {
 </script>
 
 <template>
-	<MainLayout :title="`Группа ${group?.name || ''}`">
+	<MainLayout back :title="`Группа ${group?.name || ''}`">
 		<BaseSection title="Список студентов" class="students">
 			<template #default>
 				<div class="students__list" v-if="group?.students?.length">

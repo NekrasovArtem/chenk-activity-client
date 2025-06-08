@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, ref, useTemplateRef} from "vue";
 import DefaultSelect from "@/components/inputs/DefaultSelect.vue";
 import {type Student, useGroupsStore} from "@/stores/groups.ts";
 import {storeToRefs} from "pinia";
@@ -7,6 +7,8 @@ import {api} from "@/api";
 import InputText from "@/components/inputs/InputText.vue";
 import {useModalsStore} from "@/stores/modals.ts";
 import {useToastStore} from "@/stores/toast.ts";
+import {onClickOutside} from "@vueuse/core";
+import IconSVG from "@/components/shared/IconSVG.vue";
 
 interface Props {
 	event_id: number;
@@ -22,8 +24,9 @@ const { groups } = storeToRefs(useGroupsStore());
 
 const search = ref('');
 const isFocus = ref(false);
+const dropdown = useTemplateRef('participantsDropdown');
 
-const participantsList = ref<Student[]>(props.participants);
+const participantsList = ref<Student[]>([ ...props.participants ]);
 const participantsIds = ref<number[]>(props.participants.map(obj => obj.id));
 
 const currentGroup = ref<number>(groups.value[1].id);
@@ -37,17 +40,19 @@ const filteredStudents = computed(() => {
 })
 
 function participantAdd(student: Student) {
+	isFocus.value = false;
+	search.value = '';
+
 	if (participantsIds.value.includes(student.id))
 		return;
 
 	participantsIds.value.push(student.id);
 	participantsList.value.push(student);
-
 }
+
 function participantDelete(id: number) {
 	const index = participantsList.value.findIndex(participant => participant.id === id);
 
-	console.log(index);
 	if (index >= 0 && index < participantsIds.value.length) {
 		participantsIds.value.splice(index, 1);
 		participantsList.value.splice(index, 1);
@@ -80,6 +85,8 @@ async function onSubmit() {
 	successMessage('Участники обновлены');
 }
 
+onClickOutside(dropdown, () => isFocus.value = false);
+
 onMounted(async () => {
 	await changeGroup();
 })
@@ -98,14 +105,16 @@ onMounted(async () => {
 				class="form__item form__item--full"
 				@change="changeGroup"
 			/>
-			<div class="participants-select form__item form__item--full" @focusin="isFocus = true">
+			<div class="participants-select form__item form__item--full">
 				<InputText
 					v-model="search"
 					label="Участники"
 					placeholder="Введите имя студента"
+					@focusin="isFocus = true"
+					@click="isFocus = true"
 				/>
 
-				<div v-if="isFocus" class="participants-select__dropdown">
+				<div v-if="isFocus" ref="participantsDropdown" class="participants-select__dropdown">
 					<div class="participants-select__list">
 						<div v-for="student in filteredStudents" :key="student.id" class="participants-select__item" @click="participantAdd(student)">
 							{{ student.surname }} {{ student.name }} {{ student.patronymic }}
@@ -117,8 +126,9 @@ onMounted(async () => {
 				</div>
 			</div>
 			<div class="participants-list form__item form__item--full">
-				<div v-for="participant in participants" :key="participant.id" class="participants-list__item" @click="participantDelete(participant.id)">
-					{{ participant.surname }} {{ participant.name }}
+				<div v-for="participant in participantsList" :key="participant.id" class="participants-list__item" @click="participantDelete(participant.id)">
+					<span class="participants-list__item-title">{{ participant.surname }} {{ participant.name }}</span>
+					<IconSVG class="participants-list__item-delete" name="close" />
 				</div>
 			</div>
 		</div>
@@ -146,12 +156,13 @@ onMounted(async () => {
 		position: absolute
 		top: calc(100% + 4px)
 		width: 100%
-		max-height: 160px
+		max-height: 240px
+		display: flex
+		flex-direction: column
 		padding: 8px
 		border-radius: 8px
 		box-shadow: 0 0 10px #d4d4d480
 		background-color: #fff
-		overflow: hidden
 
 	&__list
 		display: flex
@@ -168,4 +179,26 @@ onMounted(async () => {
 		@include hover
 			background-color: var(--color-neutral-200)
 
+.participants-list
+	display: flex
+	flex-direction: row
+	flex-wrap: wrap
+	gap: 8px
+
+	&__item
+		display: flex
+		align-items: center
+		gap: 4px
+		padding: 8px 12px
+		background-color: var(--color-neutral-200)
+		border-radius: 25px
+		cursor: pointer
+		transition: background-color .3s
+
+		@include hover
+			background-color: var(--color-neutral-300)
+
+		&-delete
+			width: 16px
+			height: 16px
 </style>

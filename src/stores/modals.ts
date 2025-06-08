@@ -14,6 +14,7 @@ export const useModalsStore = defineStore("modals", {
 			}
 
 			this.openedModals.add(modalId);
+			this.lockBody();
 		},
 		closeModal(modalId: string) {
 			if (!this.isModalOpened(modalId)) {
@@ -21,6 +22,13 @@ export const useModalsStore = defineStore("modals", {
 			}
 
 			this.openedModals.delete(modalId);
-		}
+			this.unlockBody();
+		},
+		lockBody() {
+			document.body.classList.add('modal-lock');
+		},
+		unlockBody() {
+			document.body.classList.remove('modal-lock');
+		},
 	}
 })

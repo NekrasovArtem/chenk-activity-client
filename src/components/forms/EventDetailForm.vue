@@ -1,23 +1,24 @@
 <script setup lang="ts">
+import { type Event, useEventsStore } from "@/stores/events.ts";
 import InputText from "@/components/inputs/InputText.vue";
 import DefaultSelect from "@/components/inputs/DefaultSelect.vue";
 import InputDate from "@/components/inputs/InputDate.vue";
 import InputArea from "@/components/inputs/InputArea.vue";
-import {computed, reactive, ref} from "vue";
-import { type Event, useEventsStore } from "@/stores/events.ts";
-import { api } from "@/api";
+import ParticipantsModal from "@/components/modals/ParticipantsModal.vue";
+import EventDeleteModal from "@/components/modals/EventDeleteModal.vue";
+import { reactive, ref } from "vue";
 import { useToastStore } from "@/stores/toast.ts";
 import { storeToRefs } from "pinia";
-import {useModalsStore} from "@/stores/modals.ts";
-import ParticipantsModal from "@/components/modals/ParticipantsModal.vue";
-import {useBaseStore} from "@/stores/base.ts";
-import EventDeleteModal from "@/components/modals/EventDeleteModal.vue";
+import { useModalsStore } from "@/stores/modals.ts";
+import { useBaseStore } from "@/stores/base.ts";
+import { api } from "@/api";
 
 interface Props {
 	event: Event;
 }
 
-const { event } = defineProps<Props>();
+const props = defineProps<Props>();
+const event = { ...props.event };
 const { userData } = storeToRefs(useBaseStore());
 const { places, levels, corpuses, directions, modules } = storeToRefs(useEventsStore());
 const { errorMessage } = useToastStore();
@@ -41,7 +42,7 @@ const initialData = {
 const formData = reactive({ ...initialData });
 const isEdit = ref<boolean>(false)
 
-const participants = event.participants;
+const participants = ref(event.participants);
 
 function onReset() {
 	isEdit.value = false
@@ -64,7 +65,17 @@ async function onSubmit() {
 	Object.assign(initialData, formData);
 }
 async function onParticipantsUpdate() {
+	const response = await api.getEventDetail(event.id);
 
+	if (!response.success) {
+		errorMessage('Ошибка');
+		return;
+	}
+
+	isEdit.value = false
+	Object.assign(event, response.event);
+	Object.assign(formData, initialData);
+	participants.value = response.event.participants;
 }
 </script>
 

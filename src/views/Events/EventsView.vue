@@ -8,18 +8,21 @@ import { useModalsStore } from "@/stores/modals.js";
 import { useEventsStore } from "@/stores/events.ts";
 import { api } from "@/api/index.ts";
 import { storeToRefs } from "pinia";
+import BasePagination from "@/components/shared/BasePagination.vue";
+import {useRoute, useRouter} from "vue-router";
 
 const { openModal } = useModalsStore();
 const { requestEvents, requestCorpuses, requestPlaces, requestLevels, requestDirections, requestModules } = useEventsStore();
-const { events } = storeToRefs(useEventsStore());
+const { events, pages } = storeToRefs(useEventsStore());
+const route = useRoute()
 
 onMounted( async () => {
+	requestCorpuses();
+	requestPlaces();
+	requestLevels();
+	requestDirections();
+	requestModules();
 	await requestEvents();
-	await requestCorpuses();
-	await requestPlaces();
-	await requestLevels();
-	await requestDirections();
-	await requestModules();
 })
 
 async function getEventsExcel() {
@@ -52,6 +55,8 @@ async function getEventsExcel() {
 				</div>
 				<EventItem v-for="event in events" :key="event.id" :event />
 			</div>
+
+			<BasePagination v-if="pages > 1" :current-page="+route.params.page || 1" :pages />
 		</BaseSection>
 	</MainLayout>
 

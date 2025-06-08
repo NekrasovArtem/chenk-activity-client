@@ -93,13 +93,12 @@ class BaseApi {
 		return response.data;
 	}
 
-	async getEvents() {
-		const promise = await this._api.get("/events", {
+	async getEvents(page: number = 1) {
+		const response = await this._api.get(`/events?page=${page}`, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			}
 		});
-		const response = await promise.data;
 		return await response.data;
 	}
 

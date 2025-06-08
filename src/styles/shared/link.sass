@@ -1,8 +1,11 @@
 @use "../base/mixins" as *
 
 .link
-	font-size: var(--font-size-text-l)
+	display: flex
+	align-items: center
+	gap: 4px
 	color: var(--color-neutral-900)
+	font-size: var(--font-size-text-l)
 	text-decoration: none
 	text-align: center
 	transition: color .3s
@@ -14,3 +17,10 @@
 
 	&:focus
 		outline: none
+
+	&__icon
+		width: 20px
+		height: 20px
+
+	&__text
+		line-height: 1.4

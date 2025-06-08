@@ -16,12 +16,12 @@ const eventId: number = +route.params.id;
 const event = ref();
 
 onMounted( async () => {
-	await requestCorpuses();
-	await requestPlaces();
-	await requestLevels();
-	await requestDirections();
-	await requestModules();
-	await requestGroups();
+	requestCorpuses();
+	requestPlaces();
+	requestLevels();
+	requestDirections();
+	requestModules();
+	requestGroups();
 
 	const response = await api.getEventDetail(eventId);
 
@@ -30,7 +30,7 @@ onMounted( async () => {
 </script>
 
 <template>
-	<MainLayout :title="`${event?.name || ''}`">
+	<MainLayout back :title="`${event?.name || ''}`">
 		<BaseSection>
 			<div v-if="event" class="event">
 				<EventDetailForm :event />
