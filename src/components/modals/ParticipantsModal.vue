@@ -23,7 +23,7 @@ const emit = defineEmits(['onSubmit']);
 						<IconSVG class="modal__close" name="close" @click="close" />
 					</div>
 					<div class="modal__body">
-						<ParticipantsForm :event_id :participants @on-submit="emit('onSubmit')" />
+						<ParticipantsForm :event_id :participants @on-submit="emit('onSubmit')" @on-cancel="close" />
 					</div>
 				</div>
 			</template>

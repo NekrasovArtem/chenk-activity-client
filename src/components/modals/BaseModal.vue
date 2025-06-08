@@ -29,12 +29,13 @@ function close() {
 
 <style lang="sass">
 .modal-window
-	position: absolute
+	position: fixed
 	top: 0
 	left: 0
 	width: 100%
 	height: 100vh
 	display: flex
+	flex-direction: column
 	justify-content: center
 	align-items: center
 	background-color: rgba(#000000, 0.3)

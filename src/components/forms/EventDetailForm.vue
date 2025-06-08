@@ -175,8 +175,8 @@ async function onParticipantsUpdate() {
 		<div class="event__actions">
 			<button v-if="!isEdit" @click="openModal('participants-modal')" class="btn">Добавить ответственных</button>
 			<button v-if="!isEdit" @click="isEdit = true" class="btn">Редактировать</button>
-			<button v-if="isEdit" @click="onReset" class="btn btn--secondary">Отмена</button>
 			<button v-if="isEdit" @click="onSubmit" class="btn">Сохранить</button>
+			<button v-if="isEdit" @click="onReset" class="btn btn--secondary">Отмена</button>
 			<button
 				v-if="!isEdit && userData?.role === 'admin'"
 				@click="openModal('event-delete-modal')"

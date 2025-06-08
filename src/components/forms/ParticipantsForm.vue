@@ -16,7 +16,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits(['onSubmit']);
+const emit = defineEmits(['onSubmit', 'onCancel']);
 
 const { closeModal } = useModalsStore();
 const { successMessage, errorMessage } = useToastStore();
@@ -133,7 +133,7 @@ onMounted(async () => {
 			</div>
 		</div>
 		<div class="form__buttons">
-			<button class="btn btn--secondary">
+			<button @click="emit('onCancel')" type="button" class="btn btn--secondary">
 				<span class="btn__text">Отмена</span>
 			</button>
 			<button type="submit" class="btn">
