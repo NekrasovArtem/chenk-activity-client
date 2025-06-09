@@ -34,7 +34,7 @@ async function onSubmit() {
 			<template #default="{ close }">
 				<div class="modal">
 					<div class="modal__head">
-						<h2 class="modal__title">Создать группу</h2>
+						<h2 class="modal__title">Сбросить пароль</h2>
 						<IconSVG class="modal__close" name="close" @click="close" />
 					</div>
 					<div class="modal__body">
