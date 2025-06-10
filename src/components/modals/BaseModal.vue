@@ -28,6 +28,8 @@ function close() {
 </template>
 
 <style lang="sass">
+@use '@/styles/base/mixins' as *
+
 .modal-window
 	position: fixed
 	top: 0
@@ -41,4 +43,7 @@ function close() {
 	background-color: rgba(#000000, 0.3)
 	z-index: 10
 	overflow-y: auto
+
+	@include media('max', 'tablet')
+		justify-content: flex-start
 </style>

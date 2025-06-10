@@ -13,6 +13,7 @@ import IconSVG from "@/components/shared/IconSVG.vue";
 const { closeModal } = useModalsStore();
 const { successMessage, errorMessage } = useToastStore();
 const { groups } = storeToRefs(useGroupsStore());
+const { VITE_SERVER_URL } = import.meta.env;
 
 const formData = new FormData();
 const file = ref<File | null>(null)
@@ -94,6 +95,7 @@ async function onSubmit() {
 							</div>
 							<div class="form__buttons">
 								<button class="btn" @click="onSubmit">Отправить</button>
+								<a :href="`${VITE_SERVER_URL}public/upload/StudentsExample.xlsx`" class="link">Скачать пример</a>
 							</div>
 						</div>
 					</div>
