@@ -64,16 +64,3 @@ const emit = defineEmits(['change'])
 		<div v-if="error?.length" class="default-input__error">{{ error[0].$message }}</div>
 	</div>
 </template>
-
-<style lang="sass">
-.default-select
-	.multiselect
-		--ms-option-bg-selected: var(--color-primary-500)
-		--ms-option-bg-selected-pointed: var(--color-primary-500)
-
-		&.is-disabled
-
-			& .multiselect
-				&-wrapper
-					cursor: default
-</style>

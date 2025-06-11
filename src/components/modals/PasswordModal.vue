@@ -52,6 +52,3 @@ async function onSubmit() {
 	</teleport>
 </template>
 
-<style lang="sass">
-
-</style>

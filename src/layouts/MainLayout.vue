@@ -39,7 +39,7 @@ onMounted(async () => {
 			return;
 		}
 
-		userData.value = response.data?.user;
+		userData.value = response.data?.data;
 	}
 })
 </script>

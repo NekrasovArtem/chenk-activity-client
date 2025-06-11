@@ -72,28 +72,28 @@ export const useEventsStore = defineStore('events',{
 		},
 		async requestPlaces() {
 			const response = await api.getPlaces();
-			this.places = response.places;
-			return response.places;
+			this.places = response.data;
+			return response.data;
 		},
 		async requestLevels() {
 			const response = await api.getLevels();
-			this.levels = response.levels;
-			return response.levels;
+			this.levels = response.data;
+			return response.data;
 		},
 		async requestCorpuses() {
 			const response = await api.getCorpuses();
-			this.corpuses = response.corpuses;
-			return response.corpuses;
+			this.corpuses = response.data;
+			return response.data;
 		},
 		async requestDirections() {
 			const response = await api.getDirections();
-			this.directions = response.directions;
-			return response.directions;
+			this.directions = response.data;
+			return response.data;
 		},
 		async requestModules() {
 			const response = await api.getModules();
-			this.modules = response.modules;
-			return response.modules;
+			this.modules = response.data;
+			return response.data;
 		},
 	}
 })

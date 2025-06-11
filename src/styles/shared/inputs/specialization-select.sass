@@ -1,0 +1,31 @@
+.specialization-select
+	display: flex
+	flex-direction: column
+	gap: 4px
+
+	.multiselect
+		--ms-option-bg-selected: var(--color-primary-500)
+		--ms-option-bg-selected-pointed: var(--color-primary-500)
+
+		&-dropdown
+			--ms-max-height: 300px
+
+		&-option
+			--ms-option-py: 20px
+
+		.option
+			width: 100%
+			display: flex
+			flex-direction: column
+			gap: 12px
+
+			&__top
+				display: flex
+				justify-content: space-between
+				align-items: flex-start
+
+			&__qualification
+				font-size: 12px
+
+			&__name
+				font-size: 14px

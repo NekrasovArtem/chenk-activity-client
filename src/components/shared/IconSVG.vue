@@ -11,7 +11,3 @@ defineProps<Props>();
 		<use :xlink:href="`/__spritemap#icon-${name}`"></use>
 	</svg>
 </template>
-
-<style scoped lang="sass">
-
-</style>

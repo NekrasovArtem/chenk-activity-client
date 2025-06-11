@@ -26,31 +26,3 @@ function openPage(page: number) {
 		</div>
 	</div>
 </template>
-
-<style scoped lang="sass">
-@use '@/styles/base/mixins' as *
-
-.pagination
-	&__list
-		display: flex
-		align-items: center
-		gap: 8px
-
-	&__item
-		width: 32px
-		height: 32px
-		display: flex
-		align-items: center
-		justify-content: center
-		border-radius: 8px
-		box-shadow: 0 0 5px 0 #0000001A
-		transition: color .3s, background-color .3s
-		cursor: pointer
-
-		@include hover
-			background-color: var(--color-neutral-200)
-
-		&.is-active
-			color: var(--color-neutral-100)
-			background-color: var(--color-primary-500)
-</style>

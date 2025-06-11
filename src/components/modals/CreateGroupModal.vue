@@ -82,7 +82,3 @@ onMounted(async () => {
 		</BaseModal>
 	</teleport>
 </template>
-
-<style lang="sass">
-
-</style>

@@ -21,7 +21,7 @@ const props = defineProps<Props>();
 const event = { ...props.event };
 const { userData } = storeToRefs(useBaseStore());
 const { places, levels, corpuses, directions, modules } = storeToRefs(useEventsStore());
-const { errorMessage } = useToastStore();
+const { successMessage, errorMessage } = useToastStore();
 const { openModal } = useModalsStore();
 
 const initialData = {
@@ -63,6 +63,7 @@ async function onSubmit() {
 
 	isEdit.value = false
 	Object.assign(initialData, formData);
+	successMessage('Сохранено');
 }
 async function onParticipantsUpdate() {
 	const response = await api.getEventDetail(event.id);
@@ -161,7 +162,7 @@ async function onParticipantsUpdate() {
 					:disabled="!isEdit"
 				/>
 			</div>
-			<div v-if="formData.participants.length" class="form__items">
+			<div v-if="participants.length" class="form__items">
 				<span v-for="student in participants" :key="student.id" class="form__item form__item--full">
 					{{ student.surname }} {{ student.name }} {{ student.patronymic }}
 				</span>
@@ -190,7 +191,3 @@ async function onParticipantsUpdate() {
 	<ParticipantsModal :event_id="formData.id" :participants="event.participants" @on-submit="onParticipantsUpdate" />
 	<EventDeleteModal :event-id="formData.id" />
 </template>
-
-<style scoped lang="sass">
-
-</style>

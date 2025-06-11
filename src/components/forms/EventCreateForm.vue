@@ -203,7 +203,3 @@ async function onSubmit() {
 		</div>
 	</form>
 </template>
-
-<style scoped lang="sass">
-
-</style>
