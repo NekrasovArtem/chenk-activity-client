@@ -28,7 +28,7 @@ async function logout() {
 				<div class="profile__user">
 					<img class="profile__img" src="/img/profile.webp" alt="Аватарка" />
 					<div class="profile__info">
-						<h2 class="profile__title">{{ `${userData.surname} ${userData.name} ${userData.patronymic}` }}</h2>
+						<h2 class="profile__title">{{ `${userData.surname} ${userData.name} ${userData.patronymic || ''}` }}</h2>
 						<span class="profile__email">{{ userData.email }}</span>
 					</div>
 				</div>
