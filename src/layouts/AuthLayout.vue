@@ -15,7 +15,6 @@ onMounted(async () => {
 </script>
 
 <template>
-	<AuthHeader/>
 	<main class="main main--auth">
 		<slot></slot>
 	</main>

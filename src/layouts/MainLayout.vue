@@ -45,8 +45,6 @@ onMounted(async () => {
 </script>
 
 <template>
-	<MainHeader />
-	<MobileMenu />
 	<main class="main">
 		<div v-if="back" class="main__back">
 			<a @click="router.back()" class="link">
