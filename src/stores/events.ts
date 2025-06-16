@@ -65,8 +65,8 @@ export const useEventsStore = defineStore('events',{
 		pages: 0,
 	}),
 	actions: {
-		async requestEvents(page: number = 1) {
-			const response = await api.getEvents(page);
+		async requestEvents(page: number = 1, search: string = '') {
+			const response = await api.getEvents(page, search);
 			this.events = await response.data;
 			this.pages = await response.meta.last_page;
 		},

@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import router from "@/router";
-import {useEventsStore} from "@/stores/events.ts";
+import {ref} from "vue";
 
 interface Props {
 	currentPage: number;
 	pages: number;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+const emit = defineEmits(['onChange'])
 
-const { requestEvents } = useEventsStore();
+const currentPage = ref(props.currentPage);
 
 function openPage(page: number) {
-	router.push({ name: 'EventsPagination', params: { page } });
-	requestEvents(page);
+	currentPage.value = page;
+	emit("onChange", page);
 }
 </script>
 

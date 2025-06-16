@@ -63,7 +63,6 @@ async function onSubmit() {
 				label="Почта"
 				placeholder="Введите почту"
 				v-model="formData.email"
-				autocomplete="email"
 				class="form__item form__item--full"
 				:error="v$.formData.email.$errors"
 			/>

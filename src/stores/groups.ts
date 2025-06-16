@@ -14,23 +14,28 @@ export interface Group {
 	name: string;
 	specialty: {
 		id: number;
+		code: string;
 		name: string;
 		qualification: string;
 	};
-	students?: Student[];
+	students: Student[];
 }
 
 interface GroupStore {
 	groups: Group[];
+	pages: number;
 }
 
 export const useGroupsStore = defineStore('groups',{
 	state: (): GroupStore => ({
-		groups: []
+		groups: [],
+		pages: 0
 	}),
 	actions: {
-		async requestGroups() {
-			this.groups = await api.getGroups();
+		async requestGroups(page: number = 1, search: string = '') {
+			const response  = await api.getGroups(page, search)
+			this.groups = response.data;
+			this.pages = await response.meta.last_page;
 		}
 	}
 })

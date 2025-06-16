@@ -176,7 +176,7 @@ async function onSubmit() {
 			<div class="form__item">
 				<DefaultSelect
 					v-model="formData.directions"
-					label="Нарпавления"
+					label="Направления"
 					mode="tags"
 					:options="directions"
 					value-prop="id"

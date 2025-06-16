@@ -37,19 +37,32 @@ const router = createRouter({
 		},
 		{
 			path: '/groups',
-			name: 'Groups',
-			meta: {
-				title: 'Группы'
-			},
-			component: () => import('@/views/Groups/GroupsView.vue'),
-		},
-		{
-			path: '/groups/:id',
-			name: 'GroupDetail',
-			meta: {
-				title: 'Детальная группы'
-			},
-			component: () => import('@/views/Groups/GroupDetailView.vue'),
+			children: [
+				{
+					path: '',
+					name: 'Groups',
+					meta: {
+						title: 'Группы'
+					},
+					component: () => import('@/views/Groups/GroupsView.vue'),
+				},
+				{
+					path: '/:id',
+					name: 'GroupDetail',
+					meta: {
+						title: 'Детальная группы'
+					},
+					component: () => import('@/views/Groups/GroupDetailView.vue'),
+				},
+				{
+					path: 'page/:page',
+					name: 'GroupsPagination',
+					meta: {
+						title: 'Группы'
+					},
+					component: () => import('@/views/Groups/GroupsView.vue'),
+				},
+			]
 		},
 		{
 			path: '/events',

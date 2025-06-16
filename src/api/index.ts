@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useBaseStore } from "@/stores/base.js";
 import { storeToRefs } from "pinia"
-import type {EventParticipantsPayload, EventPayload} from "@/stores/events.ts";
+import type { EventPayload } from "@/stores/events.ts";
 
 const { token } = storeToRefs(useBaseStore());
 
@@ -93,8 +93,8 @@ class BaseApi {
 		return response.data;
 	}
 
-	async getEvents(page: number = 1) {
-		const response = await this._api.get(`/events?page=${page}`, {
+	async getEvents(page: number = 1, search: string = '') {
+		const response = await this._api.get(`/events?page=${page}&search=${search}`, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			}
@@ -123,67 +123,67 @@ class BaseApi {
 	}
 
 	async getEventDetail(id: number) {
-		const promise = await this._api.get(`/events/${id}`, {
+		const response = await this._api.get(`/events/${id}`, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			}
 		});
-		return await promise.data;
+		return await response.data;
 	}
 
 	async createEvent(data: object) {
-		const promise = await this._api.post("/events/create", data, {
+		const response = await this._api.post("/events/create", data, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			},
 		});
-		return await promise.data;
+		return await response.data;
 	}
 
 	async deleteEvent(id: number) {
-		const promise = await this._api.delete(`/events/${id}`,{
+		const response = await this._api.delete(`/events/${id}`,{
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			},
 		});
-		return await promise.data;
+		return await response.data;
 	}
 
 	async editEvent(id: number, data: EventPayload | { participants: number[] }) {
-		const promise = await this._api.put(`/events/${id}`, data, {
+		const response = await this._api.put(`/events/${id}`, data, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			},
 		});
-		return await promise.data;
+		return await response.data;
 	}
 
 	async exportEvents() {
-		const promise = await this._api.post("/events/export",  {},{
+		const response = await this._api.post("/events/export",  {},{
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			},
 			responseType: "blob"
 		});
-		return await promise.data;
+		return await response.data;
 	}
 
 	async getSpecializations() {
-		const promise = await this._api.get("/specialties", {
+		const response = await this._api.get("/specialties", {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			}
 		});
-		return await promise.data.data;
+		return await response.data.data;
 	}
 
-	async getGroups() {
-		const promise = await this._api.get("/groups", {
+	async getGroups(page: number = 1, search: string = '') {
+		const response = await this._api.get(`/groups?page=${page}&search=${search}`, {
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			}
 		});
-		return await promise.data.data;
+		return await response.data;
 	}
 
 	async getGroupDetail(id: number) {
