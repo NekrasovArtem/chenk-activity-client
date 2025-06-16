@@ -158,8 +158,12 @@ class BaseApi {
 		return await response.data;
 	}
 
-	async exportEvents() {
-		const response = await this._api.post("/events/export",  {},{
+	async exportEvents(year: number) {
+		const response = await this._api.post("/events/export",
+		{
+			year,
+		},
+		{
 			headers: {
 				Authorization: `Bearer ${token.value}`
 			},

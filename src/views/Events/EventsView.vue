@@ -12,6 +12,7 @@ import BasePagination from "@/components/shared/BasePagination.vue";
 import { useRoute } from "vue-router";
 import router from "@/router";
 import InputText from "@/components/inputs/InputText.vue";
+import EventsExportModal from "@/components/modals/EventsExportModal.vue";
 
 const { openModal } = useModalsStore();
 const { requestEvents, requestCorpuses, requestPlaces, requestLevels, requestDirections, requestModules } = useEventsStore();
@@ -29,13 +30,13 @@ onMounted( async () => {
 	await requestEvents(+route.params.page || 1);
 })
 
-async function getEventsExcel() {
-	const response = await api.exportEvents();
+async function getEventsExcel(year: number) {
+	const response = await api.exportEvents(year);
 
 	const href = URL.createObjectURL(response)
 	const link = document.createElement('a');
 	link.href = href;
-	link.setAttribute('download', 'events.xlsx');
+	link.setAttribute('download', `мероприятия_${year}-${year+1}.xlsx`);
 	document.body.appendChild(link);
 	link.click();
 }
@@ -62,7 +63,7 @@ function onSearch() {
 					<button class="btn">Поиск</button>
 				</form>
 				<button class="btn" @click="openModal('new-event-modal')">Создать новое</button>
-				<button class="btn" @click="getEventsExcel">Экспорт</button>
+				<button class="btn" @click="openModal('events-export-modal')">Экспорт</button>
 			</template>
 
 			<div v-if="events.length" class="events__items">
@@ -83,4 +84,5 @@ function onSearch() {
 	</MainLayout>
 
 	<NewEventModal />
+	<EventsExportModal @on-submit="getEventsExcel" />
 </template>

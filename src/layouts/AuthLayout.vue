@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import AuthHeader from "@/components/shared/AuthHeader.vue";
 import { useBaseStore } from "@/stores/base.js";
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";

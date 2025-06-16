@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import BaseModal from "@/components/modals/BaseModal.vue";
 import { api } from "@/api";
-import { storeToRefs } from "pinia";
-import { useBaseStore } from "@/stores/base.ts";
 import { useToastStore } from "@/stores/toast.ts";
 import { useModalsStore } from "@/stores/modals.ts";
 import router from "@/router";

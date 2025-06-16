@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import MainHeader from "@/components/shared/MainHeader.vue";
 import { useBaseStore } from "@/stores/base.js";
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { api } from "@/api";
 import router from "@/router/index.ts";
-import MobileMenu from "@/components/shared/MobileMenu.vue";
 import IconSVG from "@/components/shared/IconSVG.vue";
 
 interface Props {
